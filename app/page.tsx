@@ -4,15 +4,14 @@ import Services from "@/app/_components/Services";
 import FAQ from "@/app/_components/FAQ";
 import Footer from "@/src/components/layout/Footer";
 
-
 export default function HomePage() {
   return (
     <>
       <Hero />
-        <About/>
-        <Services/>
-        <FAQ/>
-      <Footer/>
-     </> 
+      <About />
+      <Services />
+      <FAQ />
+      <Footer />
+    </>
   );
 }

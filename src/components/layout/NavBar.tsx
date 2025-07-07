@@ -35,7 +35,6 @@ const Navbar=()=> {
           <button className="text-white text-lg">Barber</button>
         </div>
 </div>
-     
       <div className="flex items-center gap-4">
         <button className="text-white text-lg">Log in</button>
         <button style={{ backgroundColor: '#AC8D5F' }} className="text-white px-4 py-2 rounded hover:bg-yellow-500 transition">
