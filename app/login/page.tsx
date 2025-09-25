@@ -175,7 +175,7 @@ export default function Login() {
                   color: "#AC8D5F",
                 }}
               />
-              <span className=" px-2">Sign up with your Google account</span>
+              <span className=" px-2 ">Sign up with your Google account</span>
             </Link>
             <Link
               href="#"
