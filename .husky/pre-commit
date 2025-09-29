@@ -1,1 +1,15 @@
+#!/bin/bash
+
+# Get the current branch name
+branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+echo "Current branch: $branch_name"
+
+# Validate branch name format and extract ticket number
+if [[ ! $branch_name =~ ^(feature|bugfix|hotfix)/([A-Z]+-[0-9]+) ]]; then
+  echo "Invalid branch name format. Please use 'type/TICKET-123' format."
+  exit 1
+fi
+
+ticket_number=${BASH_REMATCH[2]}
+echo "Extracted ticket number: $ticket_number"
 
