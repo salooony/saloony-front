@@ -1,3 +1,4 @@
+"use client"
 import { useTheme } from '@mui/material/styles';
 import Image from 'next/image';
 import { ThemeMode } from 'config';

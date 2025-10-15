@@ -23,21 +23,7 @@ export default function Register() {
 
   return (
     <AuthWrapper>
-      <Grid container spacing={3}>
-        <Grid size={12}>
-          <Stack direction="row" sx={{ alignItems: 'baseline', justifyContent: 'space-between', mb: { xs: -0.5, sm: 0.5 } }}>
-            <Typography variant="h3">Sign up</Typography>
-            <NextLink href={session ? '/pages/login' : '/login'}>
-              <Link variant="body1" color="primary">
-                Already have an account?
-              </Link>
-            </NextLink>
-          </Stack>
-        </Grid>
-        <Grid size={12}>
-          <AuthRegister providers={providers} csrfToken={csrfToken} />
-        </Grid>
-      </Grid>
+      <AuthRegister providers={providers} csrfToken={csrfToken} />
     </AuthWrapper>
   );
 }

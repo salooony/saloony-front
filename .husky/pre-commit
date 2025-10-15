@@ -12,4 +12,3 @@ fi
 
 ticket_number=${BASH_REMATCH[2]}
 echo "Extracted ticket number: $ticket_number"
-
