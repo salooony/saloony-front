@@ -12,7 +12,7 @@ export default function Tab(theme: Theme) {
           color: theme.palette.text.primary,
           borderRadius: 4,
           '&:hover': {
-            backgroundColor: alpha(theme.palette.primary.lighter, 0.6),
+            backgroundColor: alpha(theme.palette.primary.light, 0.6),
             color: theme.palette.primary.main
           },
           '&:focus-visible': {

@@ -3,6 +3,7 @@
 import { lazy, ReactNode, Suspense } from 'react';
 
 import Loader from 'components/Loader';
+import { ScrollProvider } from 'contexts/scrollProvider';
 
 const Header = lazy(() => import('./header'));
 const FooterBlock = lazy(() => import('./footer'));
@@ -13,10 +14,12 @@ interface Props {
 
 export default function MainLayout({ children }: Props) {
   return (
-    <Suspense fallback={<Loader />}>
-      <Header />
-      {children}
-      <FooterBlock />
-    </Suspense>
+    <ScrollProvider>
+      <Suspense fallback={<Loader />}>
+        <Header />
+        {children}
+        <FooterBlock />
+      </Suspense>
+    </ScrollProvider>
   );
 }
