@@ -1,169 +1,188 @@
-import NextLink from 'next/link';
-
+'use client';
+import { useScroll } from 'contexts/scrollProvider';
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
-import Drawer from '@mui/material/Drawer';
-import Link from '@mui/material/Link';
+import Toolbar from '@mui/material/Toolbar';
+import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
+import { ListItem } from '@mui/material';
 
 import Logo from 'components/logo';
 import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
-
+import AnimatedLink from 'components/@extended/AnimatedLink';
+import useHeader from './useHeader.hook';
+import useConfig from 'hooks/useConfig';
 import { APP_DEFAULT_PATH } from 'config';
 
 import MenuOutlined from '@ant-design/icons/MenuOutlined';
-import LineOutlined from '@ant-design/icons/LineOutlined';
-import { ElevationScroll } from './elevationScroll';
-import useHeader from './useHeader.hook';
+import LoginOutlined from '@ant-design/icons/LoginOutlined';
+import LanguageDropdown from 'components/LanguageDropdown';
 
 export default function Header() {
+  const { container } = useConfig();
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
 
+  const { scrolled } = useScroll();
+
   return (
-    <ElevationScroll>
-      <AppBar sx={{ bgcolor: 'transparent', color: 'text.primary', boxShadow: 'none' }}>
-        <Container disableGutters={downMD}>
-          <Toolbar sx={{ px: { xs: 1.5, md: 0, lg: 0 }, py: 2 }}>
-            <Stack direction="row" spacing={3} sx={{ alignItems: 'center', flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
-              <Logo to="/" />
-              <Link className="header-link" color="white" component={NextLink} href="/components-overview/buttons" underline="none">
-                Coiffeur
-              </Link>
-              <Link className="header-link" color="white" href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
-                Barbier
-              </Link>
-            </Stack>
-            <Box sx={{ '& .header-link': { px: 2, '&:hover': { color: 'primary.main' } }, display: { xs: 'none', md: 'block' } }}>
-              <Link
-                className="header-link"
-                color="white"
-                component={NextLink}
+    <AppBar
+      sx={{
+        boxShadow: scrolled ? 1 : 'none',
+        bgcolor: scrolled ? '#877754' : { xs: '#877754', md: 'transparent' },
+        transition: 'all 0.3s ease-in-out'
+      }}
+    >
+      <Container disableGutters={downMD} maxWidth={container ? 'xl' : false}>
+        <Toolbar
+          sx={{
+            px: { xs: 1.5, md: 0 },
+            display: 'flex',
+            justifyContent: 'space-between',
+            maxHeight: 60
+          }}
+        >
+          <IconButton
+            color="secondary"
+            onClick={drawerToggler(true)}
+            sx={{
+              color: '#fff',
+              display: { xs: 'block', md: 'none' },
+              '&:hover': { color: '#f5f5f5' }
+            }}
+          >
+            <MenuOutlined />
+          </IconButton>
+
+          <Box sx={{ mr: 2, display: 'flex', alignItems: 'center', gap: { xs: 0, md: 3 } }}>
+            <Logo isHeader to="/" />
+            <List sx={{ display: { xs: 'none', md: 'flex' }, gap: 4 }}>
+              <AnimatedLink href="/components-overview/buttons" target="_blank" color="white">
+                Hairdresser
+              </AnimatedLink>
+              <AnimatedLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" color="white">
+                Barber
+              </AnimatedLink>
+            </List>
+          </Box>
+
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              gap: 1.5,
+              '& .header-link': {
+                px: 2,
+                '&:hover': {
+                  color: 'primary.main'
+                }
+              }
+            }}
+          >
+            <Link
+              className="header-link"
+              component={Link}
+              href={user ? APP_DEFAULT_PATH : '/login'}
+              target="_blank"
+              underline="none"
+              sx={{ color: '#fff' }}
+            >
+              <AnimateButton>
+                <Button
+                  variant="contained"
+                  sx={{
+                    backgroundColor: '#fff',
+                    color: '#877754',
+                    '&:hover': { backgroundColor: '#f5f5f5' }
+                  }}
+                >
+                  {user ? 'Mon compte' : 'Login'}
+                </Button>
+              </AnimateButton>
+            </Link>
+
+            <Box sx={{ display: 'inline-block' }}>
+              <AnimateButton>
+                <Button
+                  component={Link}
+                  href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
+                  target="_blank"
+                  disableElevation
+                  variant="contained"
+                  sx={{
+                    backgroundColor: '#fff',
+                    color: '#877754',
+                    '&:hover': { backgroundColor: '#f5f5f5' }
+                  }}
+                >
+                  I am a beauty professional
+                </Button>
+              </AnimateButton>
+            </Box>
+
+            <LanguageDropdown
+              color={scrolled ? 'white' : '#877754'}
+              bgColor={scrolled ? 'white' : '#877754'}
+              listItemColor={scrolled ? '#877754' : 'white'}
+            />
+
+          </Box>
+
+          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+            <AnimateButton>
+              <IconButton
+                color="secondary"
                 href={user ? APP_DEFAULT_PATH : '/login'}
                 target="_blank"
-                underline="none"
+                sx={{
+                  bgcolor: '#fff',
+                  '&:hover': { bgcolor: '#f5f5f5' }
+                }}
               >
-                {user ? 'Mon compte' : 'Login'}
-              </Link>
-              <Box sx={{ display: 'inline-block', ml: 1 }}>
-                <AnimateButton>
-                  <Button
-                    component={Link}
-                    href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
-                    target="_blank"
-                    disableElevation
-                    color="primary"
-                    variant="contained"
-                  >
-                    Je suis un professionnel de beauté
-                  </Button>
-                </AnimateButton>
-              </Box>
-            </Box>
-            <Box sx={{ width: '100%', alignItems: 'center', justifyContent: 'space-between', display: { xs: 'flex', md: 'none' } }}>
-              <Typography sx={{ textAlign: 'left', display: 'inline-block' }}>
-                <Logo to="/" />
-              </Typography>
-              <Stack direction="row" sx={{ gap: 2, alignItems: 'center' }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  color="warning"
-                  component={NextLink}
-                  href="/components-overview/buttons"
-                  sx={{ height: 28 }}
-                >
-                  All Components
-                </Button>
+                {user ? 'Mon compte' : <LoginOutlined />}
+              </IconButton>
+            </AnimateButton>
+          </Box>
+        </Toolbar>
 
-                <IconButton
-                  color="secondary"
-                  onClick={drawerToggler(true)}
-                  sx={(theme) => ({
-                    color: 'grey.100',
-                    '&:hover': { bgcolor: 'secondary.dark', color: 'grey.100' },
-                    ...theme.applyStyles('dark', { color: 'inherit', '&:hover': { bgcolor: 'secondary.lighter' } })
-                  })}
-                >
-                  <MenuOutlined />
-                </IconButton>
-              </Stack>
-              <Drawer anchor="top" open={drawerToggle} onClose={drawerToggler(false)}>
-                <Box
-                  sx={{ width: 'auto', '& .MuiListItemIcon-root': { fontSize: '1rem', minWidth: 28 } }}
-                  role="presentation"
-                  onClick={drawerToggler(false)}
-                  onKeyDown={drawerToggler(false)}
-                >
-                  <List>
-                    <Link underline="none" href={user ? APP_DEFAULT_PATH : '/login'} target="_blank">
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LineOutlined />
-                        </ListItemIcon>
-                        <ListItemText
-                          primary={user ? 'Dashboard' : 'Login'}
-                          slotProps={{ primary: { variant: 'h6', color: 'text.primary' } }}
-                        />
-                      </ListItemButton>
-                    </Link>
-                    <Link underline="none" href="/components-overview/buttons" target="_blank">
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LineOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary="All Components" slotProps={{ primary: { variant: 'h6', color: 'text.primary' } }} />
-                      </ListItemButton>
-                    </Link>
-                    <Link underline="none" href="https://github.com/codedthemes/mantis-free-react-admin-template" target="_blank">
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LineOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary="Free Version" slotProps={{ primary: { variant: 'h6', color: 'text.primary' } }} />
-                      </ListItemButton>
-                    </Link>
-                    <Link underline="none" href="https://codedthemes.gitbook.io/mantis/" target="_blank">
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LineOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary="Documentation" slotProps={{ primary: { variant: 'h6', color: 'text.primary' } }} />
-                      </ListItemButton>
-                    </Link>
-                    <Link underline="none" href="https://codedthemes.support-hub.io/" target="_blank">
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LineOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary="Support" slotProps={{ primary: { variant: 'h6', color: 'text.primary' } }} />
-                      </ListItemButton>
-                    </Link>
-                    <Link underline="none" href="https://mui.com/store/items/mantis-react-admin-dashboard-template/" target="_blank">
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <LineOutlined />
-                        </ListItemIcon>
-                        <ListItemText primary="Purchase Now" slotProps={{ primary: { variant: 'h6', color: 'text.primary' } }} />
-                        <Chip color="primary" label={process.env.NEXT_PUBLIC_VERSION} size="small" />
-                      </ListItemButton>
-                    </Link>
-                  </List>
-                </Box>
-              </Drawer>
-            </Box>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </ElevationScroll>
+        <Drawer
+          anchor="left"
+          open={drawerToggle}
+          onClose={drawerToggler(false)}
+          sx={{
+            '& .MuiDrawer-paper': {
+              bgcolor: '#877754',
+              color: '#fff',
+              width: 240
+            }
+          }}
+        >
+          <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <Logo isIcon to="/" />
+            <List>
+              <ListItem sx={{ display: 'flex', justifyContent: 'center' }}>
+                <LanguageDropdown color="white" bgColor="white" listItemColor="#877754" ml={1} />
+              </ListItem>
+              <ListItemButton component={Link} href="/components-overview/buttons">
+                <ListItemText primary="Hairdresser" />
+              </ListItemButton>
+              <ListItemButton component={Link} href="https://codedthemes.gitbook.io/mantis/" target="_blank">
+                <ListItemText primary="Barber" />
+              </ListItemButton>
+              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : '/login'}>
+                <ListItemText primary={user ? 'Mon compte' : 'Login'} />
+              </ListItemButton>
+              <ListItemButton component={Link} href="https://mui.com/store/items/mantis-react-admin-dashboard-template/" target="_blank">
+                <ListItemText primary="I am a beauty professional" />
+              </ListItemButton>
+            </List>
+          </Box>
+        </Drawer>
+      </Container>
+    </AppBar>
   );
 }

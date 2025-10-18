@@ -1,122 +1,155 @@
 'use client';
 
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import { Box, Grid, Link, Stack, List, ListItem, Typography } from '@mui/material';
 
 import { motion } from 'framer-motion';
 
-import FacebookFilled from '@ant-design/icons/FacebookFilled';
-import InstagramFilled from '@ant-design/icons/InstagramFilled';
+import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 
 import Logo from '@components/logo';
 import { FooterLink, linkSX } from './styles';
-import { frameworks } from './content';
 
 export default function FooterBlock() {
   return (
-    <Box sx={{ pt: 10, pb: 10, bgcolor: 'grey.A700' }}>
-      <Container>
-        <Grid container spacing={2}>
-          <Grid size={{ xs: 12, md: 4 }}>
-            <motion.div
-              initial={{ opacity: 0, translateY: 550 }}
-              animate={{ opacity: 1, translateY: 0 }}
-              transition={{
-                type: 'spring',
-                stiffness: 150,
-                damping: 30
+    <Box
+      sx={{
+        bgcolor: '#877754',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        p: { xs: 2, sm: 2, md: 0 },
+        alignItems: 'center'
+      }}
+    >
+      <Grid
+        container
+        spacing={4}
+        sx={{
+          width: { xs: '100%', sm: '100%', md: '90%' },
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'column', md: 'row' },
+          gap: 4,
+          alignItems: { xs: 'center', sm: 'center', md: 'stretch' },
+          justifyContent: 'center',
+          borderBottom: '1px solid #ccc',
+          pb: 4
+        }}
+      >
+        <Grid>
+          <motion.div
+            initial={{ opacity: 0, translateY: 550 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{
+              type: 'spring',
+              stiffness: 150,
+              damping: 30
+            }}
+          >
+            <Box
+              sx={{
+                position: 'relative',
+                display: 'flex',
+                justifyContent: 'center'
               }}
             >
-              <Grid container display={'flex'} justifyContent={'center'}>
-                <Grid size={7} display={'flex'} justifyContent={'center'}>
-                  <Logo sx={{ width: 'auto' }} to="/" />
-                </Grid>
-                <Grid size={7} display={'flex'} justifyContent={'center'}>
-                  <Link href="https://www.facebook.com/codedthemes/" underline="none" target="_blank" sx={linkSX}>
-                    <FacebookFilled />
-                  </Link>
-                  <Link href="https://www.instagram.com/codedthemes" underline="none" target="_blank" sx={linkSX}>
-                    <InstagramFilled />
-                  </Link>
-                </Grid>
-              </Grid>
-            </motion.div>
+              <Logo sx={{ width: 'auto' }} to="/" />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: { md: '20px' },
+                  display: 'flex',
+                  gap: 1
+                }}
+              >
+                <Link href="https://www.facebook.com/codedthemes/" underline="none" target="_blank" sx={linkSX}>
+                  <FacebookOutlined />
+                </Link>
+                <Link href="https://www.instagram.com/codedthemes" underline="none" target="_blank" sx={linkSX}>
+                  <InstagramOutlined />
+                </Link>
+              </Box>
+            </Box>
+          </motion.div>
+        </Grid>
+
+        <Grid
+          container
+          justifyContent="space-evenly"
+          width={{
+            xs: '100%',
+            sm: '100%',
+            md: '70%'
+          }}
+        >
+          <Grid
+            container
+            justifyContent="center"
+            sx={{
+              my: { xs: 0, sm: 0, md: 7 }
+            }}
+          >
+            <Stack spacing={2}>
+              <Typography variant="h3"> About Saloony</Typography>
+              <List sx={{ p: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <ListItem disablePadding>
+                  <FooterLink href="#">Join us</FooterLink>
+                </ListItem>
+                <ListItem disablePadding>
+                  <FooterLink href="#">Add your establishment</FooterLink>
+                </ListItem>
+                <ListItem disablePadding>
+                  <FooterLink href="#">Terms and Conditions</FooterLink>
+                </ListItem>
+                <ListItem disablePadding>
+                  <FooterLink href="#">Privacy Policy</FooterLink>
+                </ListItem>
+              </List>
+            </Stack>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }}>
-            <Grid container spacing={{ xs: 5, md: 2 }}>
-              <Grid size={{ xs: 6, sm: 3 }}>
-                <Stack sx={{ gap: { xs: 3, md: 5 } }}>
-                  <Typography
-                    variant="h5"
-                    sx={(theme) => ({
-                      fontWeight: 500,
-                      color: 'background.paper',
-                      ...theme.applyStyles('dark', { color: 'text.primary' })
-                    })}
-                  >
-                    À propos de Saloony
-                  </Typography>
-                  <Stack sx={{ gap: { xs: 1.5, md: 2.5 } }}>
-                    <FooterLink href="https://blog.codedthemes.com/" target="_blank" underline="none">
-                      Je suis un professionnel de beauté
-                    </FooterLink>
-                    <FooterLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
-                      Rejoignez-nous
-                    </FooterLink>
-                  </Stack>
-                </Stack>
-              </Grid>
-              <Grid size={{ xs: 6, sm: 3 }}>
-                <Stack sx={{ gap: { xs: 3, md: 5 } }}>
-                  <Typography
-                    variant="h5"
-                    sx={(theme) => ({
-                      fontWeight: 500,
-                      color: 'background.paper',
-                      ...theme.applyStyles('dark', { color: 'text.primary' })
-                    })}
-                  >
-                    Trouvez votre prestation
-                  </Typography>
-                  <Stack sx={{ gap: { xs: 1.5, md: 2.5 } }}>
-                    <FooterLink href="https://mui.com/store/license/" target="_blank" underline="none">
-                      Coiffeur
-                    </FooterLink>
-                    <FooterLink href="https://mui.com/store/customer-refund-policy/" target="_blank" underline="none">
-                      Barbier
-                    </FooterLink>
-                  </Stack>
-                </Stack>
-              </Grid>
-              <Grid size={{ xs: 6, sm: 3 }}>
-                <Stack sx={{ gap: { xs: 3, md: 5 } }}>
-                  <Typography
-                    variant="h5"
-                    sx={(theme) => ({
-                      fontWeight: 500,
-                      color: 'background.paper',
-                      ...theme.applyStyles('dark', { color: 'text.primary' })
-                    })}
-                  >
-                    Recherches fréquentes
-                  </Typography>
-                  <Stack sx={{ gap: { xs: 1.5, md: 2.5 } }}>
-                    {frameworks.map((item) => (
-                      <FooterLink href={item.link} target="_blank" underline="none" key={item.link}>
-                        {item.title}
-                      </FooterLink>
-                    ))}
-                  </Stack>
-                </Stack>
-              </Grid>
-            </Grid>
+
+          <Grid
+            container
+            justifyContent="center"
+            sx={{
+              my: { xs: 0, sm: 0, md: 7 }
+            }}
+          >
+            <Stack spacing={2}>
+              <Typography variant="h3">Find your Service</Typography>
+              <List sx={{ p: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
+                <ListItem disablePadding>
+                  <FooterLink href="https://mui.com/store/license/" target="_blank">
+                    Hairdresser
+                  </FooterLink>
+                </ListItem>
+                <ListItem disablePadding>
+                  <FooterLink href="https://mui.com/store/customer-refund-policy/" target="_blank">
+                    Barber
+                  </FooterLink>
+                </ListItem>
+                <ListItem disablePadding>
+                  <FooterLink href="#">Manicure</FooterLink>
+                </ListItem>
+                <ListItem disablePadding>
+                  <FooterLink href="#">Massage</FooterLink>
+                </ListItem>
+              </List>
+            </Stack>
           </Grid>
         </Grid>
-      </Container>
+      </Grid>
+      <Box
+        sx={{
+          width: '100%',
+          textAlign: 'center',
+          py: 2,
+          fontSize: 18,
+          color: '#fff'
+        }}
+      >
+        &copy; {new Date().getFullYear()} Saloony. All rights reserved.
+      </Box>
     </Box>
   );
 }
