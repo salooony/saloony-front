@@ -8,23 +8,22 @@ export default function SearchBar() {
   const { query, setQuery, focusedInput, setFocusedInput, location, setLocation } = useSearchBar();
 
   return (
-    <Box sx={{ p: '20px 0 0 20px' }}>
+    <Box sx={{ width: '100%', maxWidth: 800 }}>
       <Paper
         elevation={3}
         sx={{
-          width: 800,
-          minHeight: 80,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
           borderRadius: '18px',
           px: 3,
-          py: 2
+          py: 2,
+          gap: 2
         }}
       >
-        <Box sx={{ flex: 1, mr: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: { xs: 'column', sm: 'row', md: 'row' }, width: '90%' }}>
           <Box
             sx={{
+              width: { xs: '100%', md: '50%' },
               borderRadius: '12px',
               px: 2,
               py: 1,
@@ -48,38 +47,40 @@ export default function SearchBar() {
               }}
             />
           </Box>
-        </Box>
-        <Box
-          sx={{
-            borderRadius: '12px',
-            px: 2,
-            py: 1,
-            transition: 'all 0.2s ease',
-            bgcolor: focusedInput === 'location' ? 'grey.100' : 'transparent',
-            border: focusedInput === 'location' ? '1px solid black' : 'none',
-            minWidth: 250
-          }}
-        >
-          <InputLabel shrink sx={{ fontSize: '0.875rem', color: 'grey.500' }}>
-            Or
-          </InputLabel>
-          <TextField
-            variant="standard"
-            fullWidth
-            value={location}
-            onFocus={() => setFocusedInput('location')}
-            onBlur={() => setFocusedInput(null)}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder={focusedInput === 'location' || location ? '' : 'Address, city...'}
-            InputProps={{
-              disableUnderline: true,
-              sx: { color: 'black', fontSize: '1rem' }
+          <Box
+            sx={{
+              width: { xs: '100%', md: '50%' },
+              borderRadius: '12px',
+              px: 2,
+              py: 1,
+              transition: 'all 0.2s ease',
+              bgcolor: focusedInput === 'location' ? 'grey.100' : 'transparent',
+              border: focusedInput === 'location' ? '1px solid black' : 'none',
             }}
-          />
+          >
+            <InputLabel shrink sx={{ fontSize: '0.875rem', color: 'grey.500' }}>
+              Or
+            </InputLabel>
+            <TextField
+              variant="standard"
+              fullWidth
+              value={location}
+              onFocus={() => setFocusedInput('location')}
+              onBlur={() => setFocusedInput(null)}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder={focusedInput === 'location' || location ? '' : 'Address, city...'}
+              InputProps={{
+                disableUnderline: true,
+                sx: { color: 'black', fontSize: '1rem' }
+              }}
+            />
+          </Box>
         </Box>
-        <IconButton sx={{ ml: 2, color: 'black', '&:hover': { color: 'grey.700' } }}>
-          <FiSearch size={22} />
-        </IconButton>
+        <Box sx={{ width: '10%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <IconButton sx={{ color: 'black', '&:hover': { color: 'grey.700' }, width: 48, height: 48 }}>
+            <FiSearch size={28}/>
+          </IconButton>
+        </Box>
       </Paper>
     </Box>
   );

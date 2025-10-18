@@ -32,7 +32,7 @@ function ElevationScroll({ children, window }: ElevationScrollProps) {
   theme.shadows[4] = theme.customShadows.z1;
 
   return cloneElement(children as ReactElement<{ elevation?: number }>, {
-    elevation: trigger ? 4 : 0
+    elevation: trigger ? 4 : 0,
   });
 }
 
@@ -55,7 +55,8 @@ export default function CustomAppBar() {
           borderBottom: '1px solid',
           borderBottomColor: 'divider',
           zIndex: 1098,
-          color: 'grey.500'
+          color: 'grey.500',
+          boxShadow: 'none'
         }}
       >
         <Container maxWidth={container ? 'xl' : false}>
@@ -66,4 +67,4 @@ export default function CustomAppBar() {
       </AppBar>
     </ElevationScroll>
   );
-}
+} 
