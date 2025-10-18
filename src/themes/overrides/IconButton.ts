@@ -9,6 +9,9 @@ export default function IconButton(theme: Theme) {
       styleOverrides: {
         root: {
           borderRadius: 4,
+          '&:hover': {
+            backgroundColor: '#f5f5f5',
+          },
           '&.MuiIconButton-loading': {
             pointerEvents: 'none !important',
             '& svg': {
