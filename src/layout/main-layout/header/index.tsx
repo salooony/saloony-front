@@ -25,10 +25,11 @@ import MenuOutlined from '@ant-design/icons/MenuOutlined';
 import LineOutlined from '@ant-design/icons/LineOutlined';
 import { ElevationScroll } from './elevationScroll';
 import useHeader from './useHeader.hook';
+import { usePathname } from 'next/navigation';
 
 export default function Header() {
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
-
+  const pathName = usePathname();
   return (
     <ElevationScroll>
       <AppBar sx={{ bgcolor: 'transparent', color: 'text.primary', boxShadow: 'none' }}>
@@ -36,24 +37,38 @@ export default function Header() {
           <Toolbar sx={{ px: { xs: 1.5, md: 0, lg: 0 }, py: 2 }}>
             <Stack direction="row" spacing={3} sx={{ alignItems: 'center', flexGrow: 1, display: { xs: 'none', md: 'block' } }}>
               <Logo to="/" />
-              <Link className="header-link" color="white" component={NextLink} href="/components-overview/buttons" underline="none">
+              <Link
+                className="header-link"
+                color={`${pathName === '/login' ? 'black' : 'white'}`}
+                component={NextLink}
+                href="/components-overview/buttons"
+                underline="none"
+              >
                 Coiffeur
               </Link>
-              <Link className="header-link" color="white" href="https://codedthemes.gitbook.io/mantis/" target="_blank" underline="none">
+              <Link
+                className="header-link"
+                color={`${pathName === '/login' ? 'black' : 'white'}`}
+                href="https://codedthemes.gitbook.io/mantis/"
+                target="_blank"
+                underline="none"
+              >
                 Barbier
               </Link>
             </Stack>
             <Box sx={{ '& .header-link': { px: 2, '&:hover': { color: 'primary.main' } }, display: { xs: 'none', md: 'block' } }}>
-              <Link
-                className="header-link"
-                color="white"
-                component={NextLink}
-                href={user ? APP_DEFAULT_PATH : '/login'}
-                target="_blank"
-                underline="none"
-              >
-                {user ? 'Mon compte' : 'Login'}
-              </Link>
+              {pathName !== '/login' && (
+                <Link
+                  className="header-link"
+                  color={`${pathName === '/login' ? 'black' : 'white'}`}
+                  component={NextLink}
+                  href={user ? APP_DEFAULT_PATH : '/login'}
+                  target="_blank"
+                  underline="none"
+                >
+                  {user ? 'Mon compte' : 'Login'}
+                </Link>
+              )}
               <Box sx={{ display: 'inline-block', ml: 1 }}>
                 <AnimateButton>
                   <Button
