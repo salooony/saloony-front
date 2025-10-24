@@ -45,9 +45,9 @@ export const menuIconStyle = (theme: Theme) => ({
   display: { xs: 'block', md: 'none' },
   '&:hover': { color: theme.palette.primary.lighter }
 });
-
-export const headerButtonStyle = (theme: Theme) => ({
-  backgroundColor: theme.palette.common.white,
-  color: theme.palette.primary.main,
-  '&:hover': { backgroundColor: theme.palette.primary.lighter }
-})
+export const headerButtonStyle = (theme: Theme, mainColor?: string, textColor?: string) => ({
+  backgroundColor: mainColor ?? theme.palette.primary.main,
+  color: textColor ?? theme.palette.common.white,
+  '&:hover': { backgroundColor: textColor ?? theme.palette.common.white, color: mainColor ?? theme.palette.primary.main},
+  width: '100%',
+});

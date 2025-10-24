@@ -28,8 +28,12 @@ import {
   menuIconStyle,
   headerButtonStyle
 } from './style';
+import ProfessionalButton from '@src/components/professionalButton';
 
-export default function Header() {
+interface HeaderProps {
+  variant?: 'home' | 'search';
+} 
+export default function Header({ variant = 'home' }: HeaderProps) {
   const { container } = useConfig();
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
   const { scrolled } = useScroll();
@@ -65,26 +69,16 @@ export default function Header() {
               sx={{ color: theme.palette.common.white }}
             >
               <AnimateButton>
-                <Button variant="contained" sx={headerButtonStyle(theme)}>
+                <Button variant="text" sx={headerButtonStyle(theme, theme.palette.common.white, theme.palette.primary.main)}>
                   {user ? 'Mon compte' : 'Login'}
                 </Button>
               </AnimateButton>
             </Link>
 
-            <Box sx={{ display: 'inline-block' }}>
-              <AnimateButton>
-                <Button
-                  component={Link}
-                  href="https://mui.com/store/items/mantis-react-admin-dashboard-template/"
-                  target="_blank"
-                  disableElevation
-                  variant="contained"
-                  sx={headerButtonStyle(theme)}
-                >
-                  I am a beauty professional
-                </Button>
-              </AnimateButton>
-            </Box>
+            <ProfessionalButton
+              mainColor={scrolled ? theme.palette.common.white : theme.palette.primary.main}
+              textColor={scrolled ? theme.palette.primary.main : theme.palette.common.white}
+            />
 
             <LanguageDropdown
               color={scrolled ? theme.palette.common.white : theme.palette.primary.main}
@@ -100,7 +94,12 @@ export default function Header() {
                 color="secondary"
                 href={user ? APP_DEFAULT_PATH : '/login'}
                 target="_blank"
-                sx={{ bgcolor: theme.palette.common.white }}
+                sx={{
+                  bgcolor: theme.palette.common.white,
+                  '&:hover': {
+                    bgcolor: theme.palette.primary.lighter
+                  }
+                }}
               >
                 {user ? 'Mon compte' : <LoginOutlined />}
               </IconButton>

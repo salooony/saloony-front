@@ -10,13 +10,14 @@ const FooterBlock = lazy(() => import('./footer'));
 
 interface Props {
   readonly children: ReactNode;
+  variant?: 'home' | 'search';
 }
 
-export default function MainLayout({ children }: Props) {
+export default function MainLayout({ children, variant = 'home' }: Props) {
   return (
     <ScrollProvider>
       <Suspense fallback={<Loader />}>
-        <Header />
+        <Header variant={variant} />
         {children}
         <FooterBlock />
       </Suspense>

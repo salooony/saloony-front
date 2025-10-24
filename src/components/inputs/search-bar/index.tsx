@@ -1,61 +1,97 @@
-'use client';
-
-import { Box, Paper, TextField, IconButton, InputLabel } from '@mui/material';
-import { FiSearch } from 'react-icons/fi';
-import { useTheme } from '@mui/material/styles';
+import { Box, Paper } from '@mui/material';
 import useSearchBar from './useSearchBar';
-import { searchContainerStyle, paperStyle, inputGroupStyle, searchBoxStyle, iconContainerStyle, iconButtonStyle } from './style';
+import { searchContainerStyle, paperStyle, inputGroupStyle } from './style';
+import QueryField from './QueryField';
+import LocationField from './LocationField';
+import SearchButton from './SearchButton';
+import SearchOverlayModal from './SearchOverlayModal';
+import { useIsSmallScreen } from '@src/constants/breakpoints';
+import ProfessionalButton from '@src/components/professionalButton';
 
 export default function SearchBar() {
-  const { query, setQuery, focusedInput, setFocusedInput, location, setLocation } = useSearchBar();
-  const theme = useTheme();
+  const isSmallScreen = useIsSmallScreen();
+
+  const {
+    query,
+    setQuery,
+    location,
+    setLocation,
+    focusedInput,
+    setFocusedInput,
+    suggestions,
+    isLoading,
+    isSearchDisabled,
+    handleSearch,
+    highlightedIndex,
+    handleKeyDown,
+    isOverlayOpen,
+    openOverlay,
+    closeOverlay,
+  } = useSearchBar(isSmallScreen);
+
+  const largeScreenFields = () => (
+    <>
+      <Box sx={inputGroupStyle}>
+        <QueryField
+          query={query}
+          setQuery={setQuery}
+          focusedInput={focusedInput}
+          setFocusedInput={setFocusedInput}
+          suggestions={suggestions}
+          isLoading={isLoading}
+          highlightedIndex={highlightedIndex}
+          handleKeyDown={handleKeyDown}
+          readOnly={false}
+        />
+        <LocationField
+          location={location}
+          setLocation={setLocation}
+          focusedInput={focusedInput}
+          setFocusedInput={setFocusedInput}
+          suggestions={suggestions}
+          isLoading={isLoading}
+          highlightedIndex={highlightedIndex}
+          handleKeyDown={handleKeyDown}
+        />
+      </Box>
+      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />
+    </>
+  );
+
+  const smallScreenFields = () => (
+    <>
+      <Box sx={inputGroupStyle}>
+        <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
+      </Box>
+      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />
+    </>
+  );
 
   return (
     <Box sx={searchContainerStyle}>
-      <Paper elevation={3} sx={paperStyle}>
-        <Box sx={inputGroupStyle}>
+      <Paper sx={paperStyle}>{isSmallScreen ? smallScreenFields() : largeScreenFields()}</Paper>
 
-          <Box sx={searchBoxStyle(theme, focusedInput, 'query')}>
-            <InputLabel shrink>What are you looking for?</InputLabel>
-            <TextField
-              variant="standard"
-              fullWidth
-              value={query}
-              onFocus={() => setFocusedInput('query')}
-              onBlur={() => setFocusedInput(null)}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={focusedInput === 'query' || query ? '' : 'Name of the salon, services (cut, etc.)'}
-              InputProps={{
-                disableUnderline: true,
-                sx: { fontSize: theme.typography.h6.fontSize }
-              }}
-            />
-          </Box>
-
-          <Box sx={searchBoxStyle(theme, focusedInput, 'location')}>
-            <InputLabel shrink>Or</InputLabel>
-            <TextField
-              variant="standard"
-              fullWidth
-              value={location}
-              onFocus={() => setFocusedInput('location')}
-              onBlur={() => setFocusedInput(null)}
-              onChange={(e) => setLocation(e.target.value)}
-              placeholder={focusedInput === 'location' || location ? '' : 'Address, city...'}
-              InputProps={{
-                disableUnderline: true,
-                sx: { fontSize: theme.typography.h6.fontSize }
-              }}
-            />
-          </Box>
+      {isSmallScreen && (
+        <Box>
+          <SearchOverlayModal
+            open={isOverlayOpen}
+            onClose={closeOverlay}
+            query={query}
+            setQuery={setQuery}
+            location={location}
+            setLocation={setLocation}
+            focusedInput={focusedInput}
+            setFocusedInput={setFocusedInput}
+            suggestions={suggestions}
+            isLoading={isLoading}
+            highlightedIndex={highlightedIndex}
+            handleKeyDown={handleKeyDown}
+            handleSearch={handleSearch}
+            isSearchDisabled={Boolean(isSearchDisabled)}
+          />
+          <ProfessionalButton />
         </Box>
-
-        <Box sx={iconContainerStyle}>
-          <IconButton sx={iconButtonStyle}>
-            <FiSearch size={28} />
-          </IconButton>
-        </Box>
-      </Paper>
+      )}
     </Box>
   );
 }
