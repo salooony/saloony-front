@@ -6,7 +6,6 @@ import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 import AnimatedLink from '@src/components/@extended/animated-link';
 import LanguageDropdown from '@src/components/languageDropdown';
-
 import useHeader from './useHeader.hook';
 import useConfig from 'hooks/useConfig';
 import { APP_DEFAULT_PATH } from 'config';
