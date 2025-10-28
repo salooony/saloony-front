@@ -40,6 +40,7 @@ function ElevationScroll({ children, window }: ElevationScrollProps) {
 
 export default function CustomAppBar() {
   const { container } = useConfig();
+  const theme = useTheme();
 
   return (
     <ElevationScroll>
@@ -55,7 +56,7 @@ export default function CustomAppBar() {
           borderBottom: '1px solid',
           borderBottomColor: 'divider',
           zIndex: 1098,
-          color: 'grey.500',
+          color: theme.palette.grey[500],
           boxShadow: 'none'
         }}
       >

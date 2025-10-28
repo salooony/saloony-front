@@ -5,7 +5,7 @@ interface ScrollContextType {
   scrolled: boolean;
 }
 
-const ScrollContext = createContext<ScrollContextType>({ scrolled: false });
+const ScrollContext = createContext<ScrollContextType | undefined>(undefined);
 
 export const ScrollProvider = ({ children }: { children: ReactNode }) => {
   const [scrolled, setScrolled] = useState(false);
@@ -15,11 +15,16 @@ export const ScrollProvider = ({ children }: { children: ReactNode }) => {
       setScrolled(window.scrollY > 10);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return <ScrollContext.Provider value={{ scrolled }}>{children}</ScrollContext.Provider>;
 };
 
-export const useScroll = () => useContext(ScrollContext);
+export const useScroll = () => {
+  const context = useContext(ScrollContext);
+  if (!context) throw new Error('useScroll must be used within a ScrollProvider');
+  return context;
+};
