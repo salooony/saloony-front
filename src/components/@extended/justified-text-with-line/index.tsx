@@ -13,8 +13,8 @@ interface JustifiedTextWithLineProps {
 const JustifiedTextWithLine: FC<JustifiedTextWithLineProps> = ({ children }) => {
   const theme = useTheme();
   return (
-    <Box sx={{ position: 'relative' }} >
-      <Typography variant="body1" align="justify" sx={{ fontSize: 40, fontWeight: 900 }}>
+    <Box sx={{ position: 'relative' }}>
+      <Typography variant="h1" align="justify" sx={{ fontWeight: 900 }}>
         {children}
       </Typography>
       <Box sx={justifiedTextWithLineStyle(theme)} />

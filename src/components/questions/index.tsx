@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import questionsImage from '@public/assets/images/home/question.png';
 import Image from 'next/image';
 import JustifiedTextWithLine from '../@extended/justified-text-with-line';
-import QuestionsList from '../QuestionsList/QuestionsList';
+import QuestionsList from '../QuestionsList';
 import { sectionBoxStyle } from '@src/styled/commonStyles';
 
 
