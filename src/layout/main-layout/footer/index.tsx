@@ -32,14 +32,14 @@ export default function FooterBlock() {
           >
             <Box sx={centerBoxStyle}>
               <Logo sx={{ width: 'auto' }} to="/" />
-              <Box sx={socialIconStyle}>
+              <Grid sx={socialIconStyle}>
                 <Link href="https://www.facebook.com/codedthemes/" underline="none" target="_blank" sx={linkSX(theme)}>
                   <FacebookOutlined />
                 </Link>
                 <Link href="https://www.instagram.com/codedthemes" underline="none" target="_blank" sx={linkSX(theme)}>
                   <InstagramOutlined />
                 </Link>
-              </Box>
+              </Grid>
             </Box>
           </motion.div>
         </Grid>
