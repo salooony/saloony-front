@@ -1,7 +1,8 @@
+import MainLayout from '@src/layout/main-layout';
 import SignIn from 'views/auth/login';
 
 // ==============================|| PAGE ||============================== //
 
 export default function SignInPage() {
-  return <SignIn />;
+  return <MainLayout><SignIn /></MainLayout>;
 }

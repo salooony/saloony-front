@@ -1,41 +1,27 @@
-#!/usr/bin/env shnpx --no-install commitlint --edit "$1" || {
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+npx --no-install commitlint --edit "$1" || {
+  echo "ⓘ   Conventional Commits are required for this repository
 
-. "$(dirname -- "$0")/_/husky.sh"  echo "ⓘ   Conventional Commits are required for this repository
-
-
-
-# Get the commit message from the fileThe type must be one of the following:
-
-message=$(cat "$1") - build
-
-branch_name=$(git rev-parse --abbrev-ref HEAD) - chore
-
+The type must be one of the following:
+ - build
+ - chore
  - ci
-
-# Extract ticket number from branch name (e.g., feature/SALOONY-123) - docs
-
-ticket=$(echo "$branch_name" | grep -oE 'SALOONY-[0-9]+') - feat
-
+ - docs
+ - feat
  - fix
+ - perf
+ - refactor
+ - revert
+ - style
+ - test
 
-# If ticket number found in branch name, check if it's in commit message - perf
-
-if [ ! -z "$ticket" ]; then - refactor
-
-  if ! echo "$message" | grep -q "$ticket"; then - revert
-
-    echo "Error: Commit message must contain ticket number ($ticket)" - style
-
-    exit 1 - test
-
-  fi
-
-fiExamples:
- - feat(parser): PROJ-123 add ability to parse arrays
+Examples:
+ - feat(parser): proj-123 add ability to parse arrays
  - fix: correct minor typos in code
- - docs: PROJ-123 update API documentation
+ - docs: proj-123 update API documentation
 
 See https://www.conventionalcommits.org for more details.
   "
   exit 1
-}npx --no -- commitlint --edit $1
+}

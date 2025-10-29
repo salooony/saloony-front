@@ -6,6 +6,6 @@ import { GuardProps } from 'types/auth';
 
 // ==============================|| DASHBOARD LAYOUT ||============================== //
 
-export default function Layout({ children }: GuardProps) {
+export default function Layout({ children }: Readonly<GuardProps>) {
   return <GuestGuard>{children}</GuestGuard>;
 }

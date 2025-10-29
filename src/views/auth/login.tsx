@@ -4,11 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import {
   Box,
+  Container,
   IconButton,
   InputAdornment,
   TextField,
   Typography,
   Button,
+  Grid,
 } from "@mui/material";
 import { Facebook, Google, Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -23,21 +25,22 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-[#FCF7F3] grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      {/* الهيدر */}
-      <header className="w-full">
-        <Image
-          src="/assets/images/icons/logo-dark.png"
-          alt="alt"
-          width={157}
-          height={111}
-        />
-      </header>
+    <Container
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyItems: 'center',
+        border: '1px solid black',
+        height: '100vh',
+        bgcolor: '#FCF7F3',
+        p: { xs: 4, sm: 10 }, // xs:32px, sm:80px (Tailwind p-8 / p-20)
+        pb: 10, // 80px (Tailwind pb-20)
+        gap: 8, // 64px (Tailwind gap-16)
+      }}
+    >
+      <Grid container sx={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%', flexDirection: { xs: 'column', md: 'row' } }}>
 
-      <main className="flex items-center w-full h-full md:flex-row ">
-        {/* الفورم */}
-
-        <div className="flex-1">
+        <Grid sx={{ flex: 1 }}>
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -189,18 +192,17 @@ export default function Login() {
               <span className="px-2 ">Sign up with your Facebook account</span>
             </Link>
           </div>
-        </div>
+        </Grid>
 
-        {/* الصورة */}
-        <div className="relative flex-1 hidden w-full h-full md:block ">
+        <Grid sx={{ position: 'relative', flex: 1, display: { xs: 'none', md: 'block' }, width: '100%', height: '100%' }}>
           <Image
             src="/assets/images/auth/283236feb227c4e600d857182cf653d4cabce2c3 (2).png"
             alt="alt"
             fill
             className="object-contain"
           />
-        </div>
-      </main>
-    </div>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }

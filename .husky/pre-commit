@@ -3,8 +3,7 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Get the current branch name
-
-npx lint-stagedbranch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+branch_name=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 echo "Current branch: $branch_name"
 
 # Validate branch name format and extract ticket number
