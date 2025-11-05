@@ -35,6 +35,7 @@
     "react-timer-hook": "4.0.5",
     "simplebar-react": "3.3.2",
     "stylis-plugin-rtl": "2.1.1",
+    "swiper": "^12.0.2",
     "swr": "2.3.4",
     "yup": "1.6.1"
   },
@@ -59,5 +60,5 @@
     "prettier": "3.6.2",
     "typescript": "5.8.3"
   },
-  "packageManager": "yarn@4.9.1"
+  "packageManager": "pnpm@8.6.3"
 }

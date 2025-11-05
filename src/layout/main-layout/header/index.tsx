@@ -5,8 +5,7 @@ import Logo from 'components/logo';
 import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 import AnimatedLink from '@src/components/@extended/animated-link';
-import LanguageDropdown from '@src/components/languageDropdown';
-
+import LanguageDropdown from '@src/components/LanguageDropdown';
 import useHeader from './useHeader.hook';
 import useConfig from 'hooks/useConfig';
 import { APP_DEFAULT_PATH } from 'config';
@@ -101,7 +100,9 @@ export default function Header({ variant = 'home' }: HeaderProps) {
                   }
                 }}
               >
-                {user ? 'Mon compte' : <LoginOutlined />}
+                <Link href={user ? APP_DEFAULT_PATH : '/login'} target="_blank">
+                  {user ? 'Mon compte' : <LoginOutlined />}
+                </Link>
               </IconButton>
             </AnimateButton>
           </Box>

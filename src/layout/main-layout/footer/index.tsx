@@ -30,17 +30,17 @@ export default function FooterBlock() {
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ type: 'spring', stiffness: 150, damping: 30 }}
           >
-            <Box sx={centerBoxStyle}>
+            <Grid container sx={centerBoxStyle}>
               <Logo sx={{ width: 'auto' }} to="/" />
-              <Box sx={socialIconStyle}>
+              <Grid sx={socialIconStyle}>
                 <Link href="https://www.facebook.com/codedthemes/" underline="none" target="_blank" sx={linkSX(theme)}>
                   <FacebookOutlined />
                 </Link>
                 <Link href="https://www.instagram.com/codedthemes" underline="none" target="_blank" sx={linkSX(theme)}>
                   <InstagramOutlined />
                 </Link>
-              </Box>
-            </Box>
+              </Grid>
+            </Grid>
           </motion.div>
         </Grid>
 
