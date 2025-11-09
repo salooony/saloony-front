@@ -4,16 +4,17 @@ import { lazy, ReactNode, Suspense } from 'react';
 
 import Loader from 'components/Loader';
 import { ScrollProvider } from 'contexts/scrollProvider';
+import { MainLayoutType } from '@src/config';
 
 const Header = lazy(() => import('./header'));
 const FooterBlock = lazy(() => import('./footer'));
 
 interface Props {
   readonly children: ReactNode;
-  variant?: 'home' | 'search';
+  variant?: MainLayoutType.HOME | MainLayoutType.SEARCH;
 }
 
-export default function MainLayout({ children, variant = 'home' }: Props) {
+export default function MainLayout({ children, variant = MainLayoutType.HOME }: Props) {
   return (
     <ScrollProvider>
       <Suspense fallback={<Loader />}>
