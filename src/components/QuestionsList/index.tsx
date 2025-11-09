@@ -6,11 +6,22 @@ import { faqData } from '@src/constants/faqData';
 import { useTheme } from '@mui/material/styles';
 import useQuestionsList from './useQuestionsList';
 import { arrowsStyle } from '@src/styled/commonStyles';
-import { faqTitleStyle, accordionStyle, accordionSummaryStyle } from './style';
+import { faqTitleStyle, accordionStyle, accordionSummaryStyle, questionTextStyle, answerTextStyle } from './style';
 
-export default function QuestionsList() {
+const QuestionsList: React.FC = () => {
   const { expanded, handleChange } = useQuestionsList();
   const theme = useTheme();
+
+  if (!faqData || faqData.length === 0) {
+    return (
+      <Box>
+        <Typography variant="h3" sx={faqTitleStyle}>
+          Frequently Asked Questions
+        </Typography>
+        <Typography variant="body2">No FAQs available.</Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box>
@@ -26,11 +37,13 @@ export default function QuestionsList() {
             id={`panel${item.id}bh-header`}
             sx={accordionSummaryStyle(theme)}
           >
-            <Typography variant="h5">{item.question}</Typography>
+            <Typography variant="subtitle1" sx={questionTextStyle(theme)}>
+              {item.question}
+            </Typography>
           </AccordionSummary>
 
           <AccordionDetails>
-            <Typography variant="h6" color={'primary.main'}>
+            <Typography variant="body2" sx={answerTextStyle(theme)}>
               {item.answer}
             </Typography>
           </AccordionDetails>
@@ -38,4 +51,6 @@ export default function QuestionsList() {
       ))}
     </Box>
   );
-}
+};
+
+export default React.memo(QuestionsList);

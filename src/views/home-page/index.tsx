@@ -3,7 +3,7 @@ import MainLayout from '@src/layout/main-layout';
 
 const HomePage = () => {
   return (
-    <MainLayout>
+    <MainLayout variant="home">
       <Hero />
     </MainLayout>
   );

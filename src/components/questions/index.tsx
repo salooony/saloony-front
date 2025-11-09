@@ -11,7 +11,7 @@ export default function Questions() {
     <Box>
       <Box sx={sectionBoxStyle}>
         <JustifiedTextWithLine>Q&A</JustifiedTextWithLine>
-        <Image src={questionsImage} alt="service" height={40} width={40}/>
+        <Image src={questionsImage} alt="service" height={40} width={40} />
       </Box>
       <QuestionsList />
     </Box>
