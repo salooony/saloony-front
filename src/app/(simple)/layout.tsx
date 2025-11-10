@@ -1,8 +1,8 @@
 // project imports
-import SimpleLayout from 'layout/SimpleLayout';
+import MainLayout from 'layout/main-layout';
 
 // ================================|| SIMPLE LAYOUT ||================================ //
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <SimpleLayout>{children}</SimpleLayout>;
+  return <MainLayout>{children}</MainLayout>;
 }
