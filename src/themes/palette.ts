@@ -42,6 +42,13 @@ export default function Palette(mode: ThemeMode, presetColor: PresetColor) {
 
   const paletteColor: PaletteThemeProps = ThemeOption(colors, presetColor, mode);
 
+  paletteColor.primary = {
+    main: '#877754',
+    light: '#FCF7F3',
+    lighter: '#f5f5f5',
+    dark: '#8D5FAC'
+  };
+
   return createTheme({
     palette: {
       mode,

@@ -26,7 +26,7 @@ export default function AnimateButton({
   direction = 'right',
   offset = 10,
   scale = {
-    hover: 1.05,
+    hover: 1.02,
     tap: 0.95
   }
 }: Props) {

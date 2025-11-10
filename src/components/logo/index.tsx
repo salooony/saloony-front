@@ -14,14 +14,17 @@ import { APP_DEFAULT_PATH } from 'config';
 
 interface Props {
   readonly isIcon?: boolean;
+  readonly isHeader?: boolean;
   readonly sx?: SxProps;
   readonly to?: string;
 }
 
-export default function LogoSection({ isIcon, sx, to }: Props) {
+export default function LogoSection({ isIcon, isHeader, sx, to }: Props) {
+  const logoHeight = isHeader ? 100 : 150;
+  const logoWidth = isHeader ? 140 : 214;
   return (
     <ButtonBase disableRipple component={NextLink} href={to || APP_DEFAULT_PATH} sx={sx}>
-      {isIcon ? <LogoIcon /> : <LogoMain />}
+      {isIcon ? <LogoIcon /> : <LogoMain width={logoWidth} height={logoHeight} />}
     </ButtonBase>
   );
 }

@@ -13,9 +13,9 @@ export const MINI_DRAWER_WIDTH = 60;
 
 const publicSans = Public_Sans({ subsets: ['latin'], weight: ['400', '500', '300', '600', '700'] });
 
-export enum SimpleLayoutType {
-  SIMPLE = 'simple',
-  LANDING = 'landing'
+export enum MainLayoutType {
+  HOME = 'home',
+  SEARCH = 'search'
 }
 
 export enum ThemeMode {
