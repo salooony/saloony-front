@@ -16,7 +16,7 @@ const SearchResultsPage = () => {
   const hasLocation = location.trim() !== '';
 
   return (
-    <MainLayout variant="search">
+    <MainLayout variant={hasLocation ? 'search' : 'without-location'}>
       <Suspense fallback={<Loader />}>
         {hasLocation ? <SearchResults query={query} location={location} /> : <SearchResultsWithoutLocation query={query} />}
       </Suspense>

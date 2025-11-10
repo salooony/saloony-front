@@ -1,10 +1,10 @@
 import { Theme } from '@mui/material/styles';
 
-export const animatedLinkStyle = (theme: Theme) => ({
+export const animatedLinkStyle = (theme: Theme, color?: string) => ({
   position: 'relative',
   fontWeight: 500,
   overflow: 'hidden',
-  color: theme.palette.common.white,
+  color: color ?? theme.palette.common.white,
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -12,7 +12,7 @@ export const animatedLinkStyle = (theme: Theme) => ({
     bottom: 0,
     width: 0,
     height: '2px',
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: color ?? theme.palette.common.white,
     transform: 'translateX(-50%)',
     transition: 'width 0.3s ease',
   },

@@ -5,14 +5,13 @@ import { useTheme } from '@mui/material/styles';
 import { searchBoxStyle, SmallSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
 import CircularLoader from 'components/CircularLoader';
 import { LocationFieldProps } from '@src/types/locationField';
-import { useIsSmallScreen } from '@src/constants/breakpoints';
+import { useIsMdScreen } from '@src/constants/breakpoints';
 import { JSX } from 'react';
 
 export default function LocationField(props: LocationFieldProps): JSX.Element {
   const theme = useTheme();
-  const isSmallScreen = useIsSmallScreen();
-  const SuggestionStyle = isSmallScreen ? SmallSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
-
+  const isMdScreen = useIsMdScreen();
+  const SuggestionStyle = isMdScreen ? SmallSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
   const {
     location,
     setLocation,
@@ -23,10 +22,10 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
     highlightedIndex,
     handleKeyDown,
     disableFocusStyle,
+    variant
   } = props;
-
   const suggestionListId = 'location-suggestion-list';
-
+  const isHome = variant === 'home';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setLocation({ id: 0, name: e.target.value });
   };
@@ -35,8 +34,13 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
 
   return (
     <Box sx={searchBoxStyle(theme, !disableFocusStyle && focusedInput === 'location' ? 'location' : null, 'location')}>
-      {!isSmallScreen && (
-        <Typography variant="h5" component="label" htmlFor="location-input">
+      {!isMdScreen && (
+        <Typography
+          variant="h5"
+          component="label"
+          htmlFor="location-input"
+          color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
+        >
           Or
         </Typography>
       )}
@@ -55,7 +59,15 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         aria-expanded={open}
         aria-controls={suggestionListId}
         aria-label="Search for location"
-        InputProps={{ disableUnderline: true }}
+        InputProps={{
+          disableUnderline: true,
+          sx: {
+            '& .MuiInputBase-input::placeholder': {
+              color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
+              opacity: 1,
+            },
+          }
+        }}
       />
 
       {open && (

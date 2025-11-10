@@ -1,19 +1,15 @@
 'use client';
 
-import { lazy, ReactNode, Suspense } from 'react';
+import { JSX, lazy, Suspense } from 'react';
 
 import Loader from 'components/Loader';
 import { ScrollProvider } from 'contexts/scrollProvider';
-
+import { mainLayoutProps } from '@src/types/main-layout';
 const Header = lazy(() => import('./header'));
 const FooterBlock = lazy(() => import('./footer'));
 
-interface Props {
-  readonly children: ReactNode;
-  variant?: 'home' | 'search';
-}
 
-export default function MainLayout({ children, variant = 'home' }: Props) {
+export default function MainLayout({ children, variant = 'home' }: mainLayoutProps): JSX.Element {
   return (
     <ScrollProvider>
       <Suspense fallback={<Loader />}>

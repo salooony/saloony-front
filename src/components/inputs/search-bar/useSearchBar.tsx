@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { SERVICES, ADDRESSES, Item } from './constants';
 
-export default function useSearchBar(isSmallScreen: boolean) {
-  const [query, setQuery] = useState<string>('');
-  const [location, setLocation] = useState<Item | null>(null);
+export default function useSearchBar(isMdScreen: boolean, initialQuery = '', initialLocation: Item | null = null) {
+  const [query, setQuery] = useState<string>(initialQuery);
+  const [location, setLocation] = useState<Item | null>(initialLocation);
   const [focusedInput, setFocusedInput] = useState<'query' | 'location' | null>(null);
   const [suggestions, setSuggestions] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -16,7 +16,7 @@ export default function useSearchBar(isSmallScreen: boolean) {
   const isSearchDisabled = !query.trim() || (location && !ADDRESSES.some((item) => item.name === location.name));
 
   const openOverlay = () => {
-    if (isSmallScreen) setIsOverlayOpen(true);
+    if (isMdScreen) setIsOverlayOpen(true);
   };
   const closeOverlay = () => setIsOverlayOpen(false);
 
@@ -63,7 +63,7 @@ export default function useSearchBar(isSmallScreen: boolean) {
     if (loc && !ADDRESSES.some((item) => item.name === loc)) return alert('Please select a valid address');
 
     router.push(`/search?query=${encodeURIComponent(q)}${loc ? `&location=${encodeURIComponent(loc)}` : ''}`);
-    if (isSmallScreen) closeOverlay();
+    if (isMdScreen) closeOverlay();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

@@ -6,6 +6,7 @@ interface QueryFieldPropsBase {
   onOuterMouseDown?: () => void;
   disableFocusStyle?: boolean;
   onSelectQuery?: () => void
+  variant?: string;
 }
 
 interface QueryFieldEditableProps extends QueryFieldPropsBase {

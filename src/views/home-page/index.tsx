@@ -4,7 +4,7 @@ import MainLayout from '@src/layout/main-layout';
 const HomePage = () => {
   return (
     <MainLayout variant="home">
-      <Hero />
+      <Hero variant="home" />
     </MainLayout>
   );
 };

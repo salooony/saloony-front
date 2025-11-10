@@ -10,4 +10,5 @@ export interface LocationFieldProps {
   highlightedIndex: number;
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   disableFocusStyle?: boolean;
+  variant?: string;
 }

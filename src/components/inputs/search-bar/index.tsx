@@ -5,11 +5,13 @@ import QueryField from './QueryField';
 import LocationField from './LocationField';
 import SearchButton from './SearchButton';
 import SearchOverlayModal from './SearchOverlayModal';
-import { useIsSmallScreen } from '@src/constants/breakpoints';
+import { useIsMdScreen } from '@src/constants/breakpoints';
 import ProfessionalButton from '@src/components/professionalButton';
+import { searchBarProps } from '@src/types/searchBar';
 
-export default function SearchBar() {
-  const isSmallScreen = useIsSmallScreen();
+export default function SearchBar({ variant, initialQuery = '', initialLocation = null }: searchBarProps) {
+  const isMdScreen = useIsMdScreen();
+  const isHome = variant === 'home';
 
   const {
     query,
@@ -27,7 +29,7 @@ export default function SearchBar() {
     isOverlayOpen,
     openOverlay,
     closeOverlay,
-  } = useSearchBar(isSmallScreen);
+  } = useSearchBar(isMdScreen, initialQuery, initialLocation);
 
   const largeScreenFields = () => (
     <>
@@ -42,6 +44,7 @@ export default function SearchBar() {
           highlightedIndex={highlightedIndex}
           handleKeyDown={handleKeyDown}
           readOnly={false}
+          variant={variant}
         />
         <LocationField
           location={location}
@@ -52,6 +55,7 @@ export default function SearchBar() {
           isLoading={isLoading}
           highlightedIndex={highlightedIndex}
           handleKeyDown={handleKeyDown}
+          variant={variant}
         />
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />
@@ -61,7 +65,7 @@ export default function SearchBar() {
   const smallScreenFields = () => (
     <>
       <Box sx={inputGroupStyle}>
-        <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
+        <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay}/>
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />
     </>
@@ -69,9 +73,9 @@ export default function SearchBar() {
 
   return (
     <Box sx={searchContainerStyle}>
-      <Paper sx={paperStyle}>{isSmallScreen ? smallScreenFields() : largeScreenFields()}</Paper>
+      <Paper sx={paperStyle}>{isMdScreen ? smallScreenFields() : largeScreenFields()}</Paper>
 
-      {isSmallScreen && (
+      {isMdScreen && (
         <Box>
           <SearchOverlayModal
             open={isOverlayOpen}
@@ -89,7 +93,7 @@ export default function SearchBar() {
             handleSearch={handleSearch}
             isSearchDisabled={Boolean(isSearchDisabled)}
           />
-          <ProfessionalButton />
+          {isHome ? <ProfessionalButton /> : null}
         </Box>
       )}
     </Box>

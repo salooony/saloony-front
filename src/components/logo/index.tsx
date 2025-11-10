@@ -17,14 +17,18 @@ interface Props {
   readonly isHeader?: boolean;
   readonly sx?: SxProps;
   readonly to?: string;
+  readonly color?: 'dark' | 'light';
 }
 
-export default function LogoSection({ isIcon, isHeader, sx, to }: Props) {
+
+export default function LogoSection({ isIcon, isHeader, sx, to, color = 'light' }: Props) {
   const logoHeight = isHeader ? 100 : 150;
   const logoWidth = isHeader ? 140 : 214;
+
   return (
     <ButtonBase disableRipple component={NextLink} href={to || APP_DEFAULT_PATH} sx={sx}>
-      {isIcon ? <LogoIcon /> : <LogoMain width={logoWidth} height={logoHeight} />}
+      {isIcon ? <LogoIcon /> : <LogoMain width={logoWidth} height={logoHeight} color={color} />}
     </ButtonBase>
   );
 }
+
