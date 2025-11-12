@@ -17,9 +17,7 @@ export const AUTH_REGISTER_VALIDATION_SCHEMA = Yup.object().shape({
 
   password: Yup.string()
     .required('Password is required')
-    .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) =>
-      value ? value === value.trim() : true
-    )
+    .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) => (value ? value === value.trim() : true))
     .min(10, 'Password must be at least 10 characters')
     .max(128, 'Password must not exceed 128 characters'),
 
@@ -37,11 +35,7 @@ export const AUTH_REGISTER_VALIDATION_SCHEMA = Yup.object().shape({
       const parsedDate = new Date(year, month - 1, day);
 
       // Check valid calendar date
-      if (
-        parsedDate.getFullYear() !== year ||
-        parsedDate.getMonth() !== month - 1 ||
-        parsedDate.getDate() !== day
-      ) {
+      if (parsedDate.getFullYear() !== year || parsedDate.getMonth() !== month - 1 || parsedDate.getDate() !== day) {
         return false;
       }
 

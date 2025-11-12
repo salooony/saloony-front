@@ -1,18 +1,19 @@
 import { SxProps, Theme } from '@mui/material/styles';
-export const buttonStyle = (theme: Theme, mainColor?: string): SxProps<Theme> => ({
-  color: mainColor,
+
+export const buttonStyle = (theme: Theme, color?: string): SxProps<Theme> => ({
+  color,
   textTransform: 'none',
   fontWeight: 500,
   '&:hover': { color: theme.palette.primary.main }
 });
 
-export const langListStyle = (theme: Theme, backColor?: string, textColor?: string): SxProps<Theme> => ({
+export const langListStyle = (theme: Theme, bgColor?: string, listItemColor?: string): SxProps<Theme> => ({
   display: 'flex',
   flexDirection: 'column',
   '& .MuiPaper-root': {
-    backgroundColor: backColor ?? theme.palette.common.white,
+    backgroundColor: bgColor ?? theme.palette.common.white
   },
   '& .MuiMenuItem-root': {
-    color: textColor ?? theme.palette.primary.main,
+    color: listItemColor ?? theme.palette.primary.main
   }
 });

@@ -29,7 +29,7 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
     handleKeyDown,
     isOverlayOpen,
     openOverlay,
-    closeOverlay,
+    closeOverlay
   } = useSearchBar({ isMdScreen, initialQuery, initialLocation });
 
   const largeScreenFields = () => (
@@ -45,7 +45,6 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
           highlightedIndex={highlightedIndex}
           handleKeyDown={handleKeyDown}
           readOnly={false}
-          variant={variant}
         />
         <LocationField
           location={location}
@@ -56,7 +55,6 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
           isLoading={isLoading}
           highlightedIndex={highlightedIndex}
           handleKeyDown={handleKeyDown}
-          variant={variant}
         />
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />

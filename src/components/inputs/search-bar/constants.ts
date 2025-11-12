@@ -39,7 +39,7 @@ export const HAIRDRESSERS: Salon[] = [
   { id: 22, name: 'Chic Hair Lounge 2', image: '/assets/images/search/tunis.png', locationId: 2 },
   { id: 23, name: 'Glam Hair Co. 2', image: '/assets/images/search/tunis.png', locationId: 1 },
   { id: 24, name: 'Urban Style Salon 2', image: '/assets/images/search/tunis.png', locationId: 2 },
-  { id: 25, name: 'Exclusive Hair Studio', image: '/assets/images/search/tunis.png', locationId: 1 },
+  { id: 25, name: 'Exclusive Hair Studio', image: '/assets/images/search/tunis.png', locationId: 1 }
 ];
 
 export const BARBERS: Salon[] = [
@@ -47,7 +47,7 @@ export const BARBERS: Salon[] = [
   { id: 2, name: 'Urban Fade', image: '/assets/images/search/tunis.png', locationId: 2 },
   { id: 3, name: 'Gentlemen’s Cut', image: '/assets/images/search/tunis.png', locationId: 1 },
   { id: 4, name: 'Sharp Line Studio', image: '/assets/images/search/tunis.png', locationId: 2 },
-  { id: 5, name: 'The Modern Barber', image: '/assets/images/search/tunis.png', locationId: 1 },
+  { id: 5, name: 'The Modern Barber', image: '/assets/images/search/tunis.png', locationId: 1 }
 ];
 
 export const MAKEUP_ARTISTS: Salon[] = [
@@ -55,7 +55,7 @@ export const MAKEUP_ARTISTS: Salon[] = [
   { id: 2, name: 'Beauty by Lina', image: '/assets/images/search/tunis.png', locationId: 2 },
   { id: 3, name: 'Glow Studio', image: '/assets/images/search/tunis.png', locationId: 1 },
   { id: 4, name: 'Makeup Lounge', image: '/assets/images/search/tunis.png', locationId: 2 },
-  { id: 5, name: 'Perfect Look', image: '/assets/images/search/tunis.png', locationId: 1 },
+  { id: 5, name: 'Perfect Look', image: '/assets/images/search/tunis.png', locationId: 1 }
 ];
 
 export const MANICURE_SALONS: Salon[] = [
@@ -63,7 +63,7 @@ export const MANICURE_SALONS: Salon[] = [
   { id: 2, name: 'Polish & Shine', image: '/assets/images/search/tunis.png', locationId: 2 },
   { id: 3, name: 'Luxury Nails', image: '/assets/images/search/tunis.png', locationId: 1 },
   { id: 4, name: 'The Nail Room', image: '/assets/images/search/tunis.png', locationId: 2 },
-  { id: 5, name: 'Pretty Hands', image: '/assets/images/search/tunis.png', locationId: 1 },
+  { id: 5, name: 'Pretty Hands', image: '/assets/images/search/tunis.png', locationId: 1 }
 ];
 
 export const BEAUTY_SALONS: Salon[] = [
@@ -71,7 +71,7 @@ export const BEAUTY_SALONS: Salon[] = [
   { id: 2, name: 'Elegance Spa', image: '/assets/images/search/tunis.png', locationId: 2 },
   { id: 3, name: 'Glow & Care', image: '/assets/images/search/tunis.png', locationId: 1 },
   { id: 4, name: 'Pure Beauty Lounge', image: '/assets/images/search/tunis.png', locationId: 2 },
-  { id: 5, name: 'Harmony Salon', image: '/assets/images/search/tunis.png', locationId: 1 },
+  { id: 5, name: 'Harmony Salon', image: '/assets/images/search/tunis.png', locationId: 1 }
 ];
 
 export const SERVICES: ServiceItem[] = [
@@ -79,7 +79,7 @@ export const SERVICES: ServiceItem[] = [
   { id: 2, name: 'Barber', salons: BARBERS },
   { id: 3, name: 'Makeup Artist', salons: MAKEUP_ARTISTS },
   { id: 4, name: 'Manicure', salons: MANICURE_SALONS },
-  { id: 5, name: 'Beauty salons', salons: BEAUTY_SALONS },
+  { id: 5, name: 'Beauty salons', salons: BEAUTY_SALONS }
 ];
 
 export const ADDRESSES: Item[] = [

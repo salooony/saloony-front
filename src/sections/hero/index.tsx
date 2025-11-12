@@ -28,7 +28,7 @@ export default function Hero({ variant }: { readonly variant?: MainLayoutType })
             Search for Barber Shop
           </Typography>
 
-          <SearchBar variant={variant}/>
+          <SearchBar variant={variant} />
         </Container>
       </Box>
 

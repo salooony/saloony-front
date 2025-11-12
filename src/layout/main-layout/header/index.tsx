@@ -8,12 +8,12 @@ import AnimatedLink from '@src/components/@extended/animated-link';
 import LanguageDropdown from '@src/components/languageDropdown';
 import useHeader from './useHeader.hook';
 import useConfig from 'hooks/useConfig';
-import { APP_DEFAULT_PATH, MainLayoutType, ThemeMode } from 'config';
+import { APP_DEFAULT_PATH } from 'config';
 import { useScroll } from 'contexts/scrollProvider';
 import { useTheme } from '@mui/material/styles';
-import { HeaderProps } from '@src/types/header';
+import { MainLayoutType } from '@src/config';
+
 import MenuOutlined from '@ant-design/icons/MenuOutlined';
-import ProfessionalButton from '@src/components/professionalButton';
 import LoginOutlined from '@ant-design/icons/LoginOutlined';
 
 import {
@@ -28,14 +28,16 @@ import {
   menuIconStyle,
   headerButtonStyle
 } from './style';
+import ProfessionalButton from '@src/components/professionalButton';
 
+interface HeaderProps {
+  variant?: MainLayoutType;
+}
 export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
   const { container } = useConfig();
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
   const { scrolled } = useScroll();
   const theme = useTheme();
-  const homePath = '/';
-  const loginPath = '/login';
 
   return (
     <AppBar sx={appBarStyle(theme, scrolled)}>
@@ -46,45 +48,28 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
           </IconButton>
 
           <Box sx={logoBoxStyle}>
-            <Logo isHeader to={homePath} color={variant === MainLayoutType.HOME ? ThemeMode.LIGHT : ThemeMode.DARK} />
-            {variant === MainLayoutType.SEARCH ? (
-              <></>
-            ) : (
-              <List sx={listStyle}>
-                <AnimatedLink href="/components-overview/buttons" target="_blank" darkLink={variant !== MainLayoutType.HOME}>
-                  Hairdresser
-                </AnimatedLink>
-                <AnimatedLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" darkLink={variant !== MainLayoutType.HOME}>
-                  Barber
-                </AnimatedLink>
-              </List>
-            )}
+            <Logo isHeader to="/" />
+            <List sx={listStyle}>
+              <AnimatedLink href="/components-overview/buttons" target="_blank">
+                Hairdresser
+              </AnimatedLink>
+              <AnimatedLink href="https://codedthemes.gitbook.io/mantis/" target="_blank">
+                Barber
+              </AnimatedLink>
+            </List>
           </Box>
 
           <Box sx={rightBoxStyle(scrolled)}>
             <Link
               className="header-link"
               component={Link}
-              href={user ? APP_DEFAULT_PATH : loginPath}
+              href={user ? APP_DEFAULT_PATH : '/login'}
               target="_blank"
               underline="none"
               sx={{ color: theme.palette.common.white }}
             >
               <AnimateButton>
-                <Button
-                  variant="text"
-                  sx={headerButtonStyle(
-                    theme,
-                    variant === MainLayoutType.HOME ? theme.palette.common.white : 'transparent',
-                    variant === MainLayoutType.HOME
-                      ? theme.palette.primary.main
-                      : scrolled
-                        ? theme.palette.common.white
-                        : theme.palette.primary.main,
-                    scrolled ? theme.palette.common.white : theme.palette.primary.main,
-                    scrolled ? theme.palette.primary.main : theme.palette.common.white
-                  )}
-                >
+                <Button variant="text" sx={headerButtonStyle(theme, theme.palette.common.white, theme.palette.primary.main)}>
                   {user ? 'Mon compte' : 'Login'}
                 </Button>
               </AnimateButton>
@@ -95,35 +80,23 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
               textColor={scrolled ? theme.palette.primary.main : theme.palette.common.white}
             />
 
-            <LanguageDropdown 
-              mainColor={scrolled ? theme.palette.common.white : theme.palette.primary.main}
-              backColor={
-                variant === MainLayoutType.HOME
-                  ? theme.palette.common.white
-                  : scrolled
-                    ? theme.palette.common.white
-                    : theme.palette.primary.main
-              }
-              textColor={
-                variant === MainLayoutType.HOME
-                  ? theme.palette.primary.main
-                  : scrolled
-                    ? theme.palette.primary.main
-                    : theme.palette.common.white
-              }
+            <LanguageDropdown
+              color={scrolled ? theme.palette.common.white : theme.palette.primary.main}
+              bgColor={scrolled ? theme.palette.common.white : theme.palette.primary.main}
+              listItemColor={scrolled ? theme.palette.primary.main : theme.palette.common.white}
             />
           </Box>
 
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-            <Link href={user ? APP_DEFAULT_PATH : loginPath} target="_blank">
+            <Link href={user ? APP_DEFAULT_PATH : '/login'} target="_blank" underline="none">
               <AnimateButton>
                 <IconButton
+                  component="span"
                   color="secondary"
                   sx={{
                     bgcolor: theme.palette.common.white,
                     '&:hover': {
-                      bgcolor: theme.palette.primary.lighter,
-                      color: theme.palette.primary.main
+                      bgcolor: theme.palette.primary.lighter
                     }
                   }}
                 >
@@ -136,10 +109,15 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
 
         <Drawer anchor="left" open={drawerToggle} onClose={drawerToggler(false)} sx={drawerStyle(theme)}>
           <Box sx={drawerBoxStyle}>
-            <Logo isIcon to={homePath} />
+            <Logo isIcon to="/" />
             <List>
               <ListItem sx={drawerListItemStyle}>
-                <LanguageDropdown mainColor={theme.palette.common.white} />
+                <LanguageDropdown
+                  color={theme.palette.common.white}
+                  bgColor={theme.palette.common.white}
+                  listItemColor={theme.palette.primary.main}
+                  ml={1}
+                />
               </ListItem>
               <ListItemButton component={Link} href="/components-overview/buttons">
                 <ListItemText primary="Hairdresser" />
@@ -147,7 +125,7 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
               <ListItemButton component={Link} href="https://codedthemes.gitbook.io/mantis/" target="_blank">
                 <ListItemText primary="Barber" />
               </ListItemButton>
-              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : loginPath}>
+              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : '/login'}>
                 <ListItemText primary={user ? 'Mon compte' : 'Login'} />
               </ListItemButton>
               <ListItemButton component={Link} href="https://mui.com/store/items/mantis-react-admin-dashboard-template/" target="_blank">

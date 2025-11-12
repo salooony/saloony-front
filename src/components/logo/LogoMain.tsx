@@ -10,6 +10,5 @@ interface Props {
 }
 
 export default function LogoMain({ width = 214, height = 150, color = ThemeMode.LIGHT }: Props) {
-
   return <Image src={color === ThemeMode.DARK ? logoDark : logo} alt="Saloony Logo" width={width} height={height} />;
 }
