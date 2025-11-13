@@ -1,3 +1,5 @@
+'use client';
+
 // material-ui
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
