@@ -16,4 +16,3 @@ export default function SearchButton({ onClick, disabled }: SearchButtonProps): 
     </Box>
   );
 }
-

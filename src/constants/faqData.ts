@@ -24,5 +24,5 @@ export const faqData: FaqItem[] = [
     question: 'How do I list my saloon on Saloony?',
     answer:
       'If you are a professional, please click on the "I Am A Beauty Professional" link in the header and follow the steps to register your business and begin listing your services with us.'
-  },
+  }
 ];

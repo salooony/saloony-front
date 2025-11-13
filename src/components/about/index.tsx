@@ -6,14 +6,13 @@ import JustifiedTextWithLine from '../@extended/justified-text-with-line';
 import { useTheme } from '@mui/material/styles';
 import { sectionBoxStyle } from '@src/styled/commonStyles';
 
-
 export default function About() {
   const theme = useTheme();
-  return( 
+  return (
     <Box>
       <Box sx={sectionBoxStyle}>
         <JustifiedTextWithLine>About Saloony</JustifiedTextWithLine>
-        <Image src={scissorsImage} alt="service" height={40} width={40}/>
+        <Image src={scissorsImage} alt="service" height={40} width={40} />
       </Box>
       <Box sx={{ display: 'flex', gap: 4, alignItems: 'center', flexDirection: { xs: 'column', sm: 'column', md: 'row' } }}>
         <Image src={aboutImage} alt="About Saloony" height={430} width={370} style={{ maxWidth: '370px', width: '100%', height: 'auto' }} />

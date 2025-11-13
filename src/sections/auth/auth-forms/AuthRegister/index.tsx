@@ -102,11 +102,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
               const [month, day, year] = value.split('/').map(Number);
               const parsedDate = new Date(year, month - 1, day);
 
-              return (
-                parsedDate.getFullYear() === year &&
-                parsedDate.getMonth() === month - 1 &&
-                parsedDate.getDate() === day
-              );
+              return parsedDate.getFullYear() === year && parsedDate.getMonth() === month - 1 && parsedDate.getDate() === day;
             })
         })}
         onSubmit={async (values, { setErrors, setSubmitting }) => {
@@ -301,7 +297,9 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                 </AnimateButton>
                 <Typography>
                   Already have an account?{' '}
-                  <Link href={session ? '/pages/login' : '/login'} sx={LinklStyles}  >Log in</Link>
+                  <Link href={session ? '/pages/login' : '/login'} sx={LinklStyles}>
+                    Log in
+                  </Link>
                 </Typography>
               </Grid>
             </Grid>

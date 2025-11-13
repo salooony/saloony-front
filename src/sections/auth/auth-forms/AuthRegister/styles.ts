@@ -25,6 +25,5 @@ export const LinklStyles: SxProps<Theme> = {
   textDecoration: 'none',
   cursor: 'pointer',
   color: 'secondary.main',
-  fontSize: '1rem',
-
+  fontSize: '1rem'
 };

@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
 import GoogleIcon from '@mui/icons-material/Google';
+import { ReactNode } from 'react';
 // ==============================|| AUTH TYPES ||============================== //
 
 export type GuardProps = {
-  children: ReactElement | null;
+  readonly children: ReactNode;
 };
 
 export type AuthLoginProps = {

@@ -7,7 +7,7 @@ export const heroContainerStyle = {
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  position: 'relative',
+  position: 'relative'
 };
 
 export const heroContentStyle = {
@@ -17,16 +17,16 @@ export const heroContentStyle = {
   justifyContent: 'center',
   gap: 2,
   position: 'relative',
-  zIndex: 1,
+  zIndex: 1
 };
 
 export const heroTitleStyle = (theme: Theme) => ({
   fontSize: {
     xs: theme.typography.h3.fontSize,
     sm: theme.typography.h2.fontSize,
-    md: theme.typography.h1.fontSize,
+    md: theme.typography.h1.fontSize
   },
-  lineHeight: 1.2,
+  lineHeight: 1.2
 });
 
 export const heroSubtitleStyle = (theme: Theme) => ({
@@ -34,7 +34,7 @@ export const heroSubtitleStyle = (theme: Theme) => ({
     sm: theme.typography.h4.fontSize,
     md: theme.typography.h3.fontSize
   },
-  lineHeight: 1.2,
+  lineHeight: 1.2
 });
 
 export const contentSectionStyle = (theme: Theme) => ({
@@ -44,10 +44,10 @@ export const contentSectionStyle = (theme: Theme) => ({
   alignItems: 'center',
   justifyContent: 'center',
   gap: 20,
-  p: 10,
+  p: 10
 });
 
-export const heroBgStyle: CSSProperties =  {
+export const heroBgStyle: CSSProperties = {
   objectFit: 'cover',
   objectPosition: 'center 40%',
   zIndex: -1

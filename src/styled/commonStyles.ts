@@ -5,10 +5,10 @@ export const sectionBoxStyle = {
   justifyContent: {
     xs: 'center',
     sm: 'center',
-    md: 'flex-start',
+    md: 'flex-start'
   },
   gap: 4,
-  mb: 4,
+  mb: 4
 };
 
 export const arrowsStyle = (theme: Theme) => ({

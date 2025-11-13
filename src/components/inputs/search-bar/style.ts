@@ -57,33 +57,32 @@ export const SmallSuggestionBoxStyle = (theme: Theme) => ({
   width: '100%',
   zIndex: 10,
   overflowY: 'auto'
-})
+});
 
 export const suggestionItemStyle = (theme: Theme, highlighted: boolean = false) => ({
   px: 2,
   py: 1,
   cursor: 'pointer',
-  backgroundColor: highlighted ? theme.palette.action.selected : 'transparent', 
+  backgroundColor: highlighted ? theme.palette.action.selected : 'transparent',
   '&:hover': {
-    backgroundColor: theme.palette.grey[100],
-  },
+    backgroundColor: theme.palette.grey[100]
+  }
 });
-
 
 export const iconButtonStyle = (theme: Theme, isDisabled: boolean) => ({
   color: 'black',
   width: 48,
   height: 48,
-  '&:hover': !isDisabled ? { color: theme.palette.text.secondary } : {}, 
-  opacity: isDisabled ? 0.5 : 1, 
-  cursor: isDisabled ? 'not-allowed' : 'pointer',
+  '&:hover': !isDisabled ? { color: theme.palette.text.secondary } : {},
+  opacity: isDisabled ? 0.5 : 1,
+  cursor: isDisabled ? 'not-allowed' : 'pointer'
 });
 
 export const circularProgressStyle = {
   display: 'flex',
   justifyContent: 'center',
   p: 2
-}
+};
 export const iconContainerStyle = {
   display: 'flex',
   alignItems: 'center',
@@ -93,7 +92,7 @@ export const iconContainerStyle = {
 export const centerModal = {
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'center'
 };
 
 export const FiXStyle = {
@@ -106,7 +105,7 @@ export const modalBoxStyle = (theme: Theme) => ({
   position: 'relative',
   width: '100%',
   height: '100%',
-  backgroundColor: theme.palette.grey[100],
+  backgroundColor: theme.palette.grey[100]
 });
 
 export const smallSearchBoxStyle = (theme: Theme) => ({

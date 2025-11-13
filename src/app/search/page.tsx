@@ -4,6 +4,7 @@ import { Suspense, lazy } from 'react';
 import { useSearchParams } from 'next/navigation';
 import MainLayout from '@src/layout/main-layout';
 import Loader from '@src/components/Loader';
+import { MainLayoutType } from '@src/config';
 
 const SearchResults = lazy(() => import('@src/sections/search/search-results'));
 const SearchResultsWithoutLocation = lazy(() => import('@src/sections/search/search-results-without-location'));

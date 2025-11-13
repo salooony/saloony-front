@@ -84,5 +84,5 @@ export const SERVICES: ServiceItem[] = [
 
 export const ADDRESSES: Item[] = [
   { id: 1, name: 'Paris' },
-  { id: 2, name: 'paly' },
+  { id: 2, name: 'paly' }
 ];

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { SERVICES, ADDRESSES, Item } from './constants';
 
@@ -19,6 +19,20 @@ export default function useSearchBar(isMdScreen: boolean, initialQuery = '', ini
     if (isMdScreen) setIsOverlayOpen(true);
   };
   const closeOverlay = () => setIsOverlayOpen(false);
+
+  const fetchSuggestions = useCallback(
+    (input: string) => {
+      setIsLoading(true);
+      setTimeout(() => {
+        const source = focusedInput === 'query' ? SERVICES : ADDRESSES;
+        const filtered = source.filter((item) => item.name.toLowerCase().includes(input.toLowerCase()));
+        setSuggestions(filtered);
+        setHighlightedIndex(-1);
+        setIsLoading(false);
+      }, 200);
+    },
+    [focusedInput]
+  );
 
   useEffect(() => {
     const value = focusedInput === 'query' ? query : location?.name || '';
@@ -42,18 +56,7 @@ export default function useSearchBar(isMdScreen: boolean, initialQuery = '', ini
       const timer = setTimeout(() => fetchSuggestions(value), 300);
       return () => clearTimeout(timer);
     }
-  }, [query, location, focusedInput]);
-
-  const fetchSuggestions = (input: string) => {
-    setIsLoading(true);
-    setTimeout(() => {
-      const source = focusedInput === 'query' ? SERVICES : ADDRESSES;
-      const filtered = source.filter((item) => item.name.toLowerCase().includes(input.toLowerCase()));
-      setSuggestions(filtered);
-      setHighlightedIndex(-1);
-      setIsLoading(false);
-    }, 200);
-  };
+  }, [query, location, focusedInput, fetchSuggestions]);
 
   const handleSearch = () => {
     const q = query.trim();
@@ -81,7 +84,7 @@ export default function useSearchBar(isMdScreen: boolean, initialQuery = '', ini
       else setLocation(suggestions[highlightedIndex]);
       setSuggestions([]);
       setHighlightedIndex(-1);
-      setFocusedInput(null); 
+      setFocusedInput(null);
     }
   };
 
@@ -100,6 +103,6 @@ export default function useSearchBar(isMdScreen: boolean, initialQuery = '', ini
     handleKeyDown,
     isOverlayOpen,
     openOverlay,
-    closeOverlay,
+    closeOverlay
   };
 }

@@ -28,7 +28,6 @@ import {
   menuIconStyle,
   headerButtonStyle
 } from './style';
-import SearchBar from '@src/components/inputs/search-bar';
 
 export default function Header({ variant = 'home' }: HeaderProps) {
   const { container } = useConfig();

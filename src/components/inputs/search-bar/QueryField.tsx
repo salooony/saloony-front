@@ -9,7 +9,6 @@ import { QueryFieldProps } from '@src/types/QueryField';
 import { useIsMdScreen } from '@src/constants/breakpoints';
 import useClickOutside from './useClickOutside';
 
-
 export default function QueryField(props: QueryFieldProps): JSX.Element {
   const { query, readOnly = false, onOuterMouseDown, onSelectQuery, variant } = props;
 

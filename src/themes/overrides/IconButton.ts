@@ -10,7 +10,7 @@ export default function IconButton(theme: Theme) {
         root: {
           borderRadius: 4,
           '&:hover': {
-            backgroundColor: theme.palette.primary.light,
+            backgroundColor: theme.palette.primary.light
           },
           '&.MuiIconButton-loading': {
             pointerEvents: 'none !important',

@@ -26,8 +26,8 @@ export const slideLoaderStyle = (theme: Theme, progress: number) => ({
     width: 50,
     height: 50,
     borderRadius: '50%',
-    backgroundColor: 'white',
-  },
+    backgroundColor: 'white'
+  }
 });
 
 export const navigationContainerStyle = {
@@ -35,7 +35,7 @@ export const navigationContainerStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   gap: 4,
-  mt: 4,
+  mt: 4
 };
 
 export const navButtonStyle = {
@@ -46,7 +46,7 @@ export const navButtonStyle = {
   position: 'relative',
   zIndex: 2,
   borderRadius: '50%',
-  transition: 'all 0.3s ease',
+  transition: 'all 0.3s ease'
 };
 
 export const iconWrapperStyle = {
@@ -86,5 +86,3 @@ export const imageStyle: CSSProperties = {
   objectFit: 'cover',
   borderRadius: '0'
 };
-
-
