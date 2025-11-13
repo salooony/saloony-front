@@ -7,10 +7,10 @@ export const SERVICES: Item[] = [
   { id: 2, name: 'Barber' },
   { id: 3, name: 'Makeup Artist' },
   { id: 4, name: 'Manicure' },
-  { id: 5, name: 'Beauty salons' },
+  { id: 5, name: 'Beauty salons' }
 ];
 
 export const ADDRESSES: Item[] = [
   { id: 1, name: 'Paris' },
-  { id: 2, name: 'paly' },
+  { id: 2, name: 'paly' }
 ];

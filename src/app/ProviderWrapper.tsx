@@ -1,8 +1,5 @@
 'use client';
 
-import { ReactElement } from 'react';
-
-// next
 import { SessionProvider } from 'next-auth/react';
 
 // project imports
@@ -15,10 +12,11 @@ import Snackbar from 'components/@extended/Snackbar';
 import Notistack from 'components/third-party/Notistack';
 
 import { ConfigProvider } from 'contexts/ConfigContext';
+import { ReactNode } from 'react';
 
 // ==============================|| APP - THEME, ROUTER, LOCAL ||============================== //
 
-export default function ProviderWrapper({ children }: { readonly children: ReactElement }) {
+export default function ProviderWrapper({ children }: { readonly children: ReactNode }) {
   return (
     <ConfigProvider>
       <ThemeCustomization>

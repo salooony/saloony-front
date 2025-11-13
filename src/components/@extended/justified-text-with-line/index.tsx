@@ -5,7 +5,6 @@ import { useTheme } from '@mui/material/styles';
 import { FC } from 'react';
 import { justifiedTextWithLineStyle } from './style';
 
-
 interface JustifiedTextWithLineProps {
   children: React.ReactNode;
 }

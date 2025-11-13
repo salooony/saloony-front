@@ -20,7 +20,7 @@ export const socialLinkStyle = (theme: Theme): SxProps<Theme> => ({
   alignItems: 'center',
   bgcolor: 'background.paper',
   border: '1px solid',
-  borderColor: "text.primary",
+  borderColor: 'text.primary',
   color: 'text.primary',
   borderRadius: 3,
   transition: theme.transitions.create(['background-color', 'box-shadow'], {
@@ -34,15 +34,15 @@ export const socialLinkStyle = (theme: Theme): SxProps<Theme> => ({
   cursor: 'pointer'
 });
 
-export const iconBoxStyle : SxProps<Theme> = ({
+export const iconBoxStyle: SxProps<Theme> = {
   py: '8px',
   width: 45,
   height: 45,
   borderRight: '1px solid',
-  borderColor: "text.primary",
+  borderColor: 'text.primary',
   display: 'grid',
   placeItems: 'center'
-});
+};
 
 export const iconStyle = (theme: Theme): SxProps<Theme> => ({
   fontSize: 24,
@@ -61,7 +61,7 @@ export const dividerStyle: SxProps<Theme> = {
   my: 3,
   color: 'text.default',
   '&::before, &::after': {
-   borderColor: 'text.primary',
-   borderWidth: 1.5
+    borderColor: 'text.primary',
+    borderWidth: 1.5
   }
 };

@@ -22,7 +22,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
     isLoading,
     highlightedIndex,
     handleKeyDown,
-    disableFocusStyle,
+    disableFocusStyle
   } = props;
 
   const suggestionListId = 'location-suggestion-list';

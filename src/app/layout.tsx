@@ -4,6 +4,7 @@ import './globals.css';
 
 // project imports
 import ProviderWrapper from './ProviderWrapper';
+import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'Saloony: Coiffeur & Barbier en Ligne',
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({ children }: { readonly children: React.ReactElement }) {
+export default function RootLayout({ children }: { readonly children: ReactNode }) {
   return (
     <html lang="en">
       <body>

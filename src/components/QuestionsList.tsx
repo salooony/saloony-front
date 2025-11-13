@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'; 
+import { Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { CaretDownOutlined } from '@ant-design/icons';
 import { SyntheticEvent, useState } from 'react';
 
@@ -28,7 +28,7 @@ const faqData = [
     question: 'How do I list my saloon on Saloony?',
     answer:
       'If you are a professional, please click on the "I Am A Beauty Professional" link in the header and follow the steps to register your business and begin listing your services with us.'
-  },
+  }
 ];
 
 export default function QuestionsList() {
@@ -50,7 +50,7 @@ export default function QuestionsList() {
           onChange={handleChange(`panel${item.id}`)}
           sx={{
             boxShadow: 'none',
-            border: 'none',
+            border: 'none'
           }}
         >
           <AccordionSummary
@@ -60,7 +60,7 @@ export default function QuestionsList() {
             sx={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              backgroundColor: '#FCF7F3', 
+              backgroundColor: '#FCF7F3',
               borderTop: '1px solid #AC8D5F',
               py: 2
             }}
@@ -80,4 +80,3 @@ export default function QuestionsList() {
     </Box>
   );
 }
-

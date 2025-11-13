@@ -14,9 +14,9 @@ export const animatedLinkStyle = (theme: Theme) => ({
     height: '2px',
     backgroundColor: theme.palette.common.white,
     transform: 'translateX(-50%)',
-    transition: 'width 0.3s ease',
+    transition: 'width 0.3s ease'
   },
   '&:hover::after': {
-    width: '100%',
-  },
+    width: '100%'
+  }
 });

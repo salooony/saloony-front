@@ -11,7 +11,7 @@ const FooterBlock = lazy(() => import('./footer'));
 
 interface Props {
   readonly children: ReactNode;
-  variant?: MainLayoutType.HOME | MainLayoutType.SEARCH;
+  variant?: MainLayoutType;
 }
 
 export default function MainLayout({ children, variant = MainLayoutType.HOME }: Props) {

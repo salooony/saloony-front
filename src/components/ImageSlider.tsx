@@ -27,22 +27,21 @@ const sliderImages: SliderItem[] = [
   {
     key: 2,
     title: 'Massage',
-    src: massageImage, 
+    src: massageImage,
     paragraph:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do consequat. Duis aute irure dolor in reprehenderit in voluptate cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui um.qui officia deserunt est laborum.'
   },
   {
     key: 3,
     title: 'Manicure',
-    src: manicureImage, 
+    src: manicureImage,
     paragraph:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do consequat. Duis aute irure dolor in reprehenderit in voluptate cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui um.qui officia deserunt est laborum.'
-  }
-  ,
+  },
   {
     key: 4,
     title: 'Barber',
-    src: barberImage, 
+    src: barberImage,
     paragraph:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do consequat. Duis aute irure dolor in reprehenderit in voluptate cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui um.qui officia deserunt est laborum.'
   }
@@ -55,12 +54,12 @@ export default function ImageSlider() {
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev === sliderImages.length - 1 ? 0 : prev + 1));
-    setProgress(0); 
+    setProgress(0);
   };
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? sliderImages.length - 1 : prev - 1));
-    setProgress(0); 
+    setProgress(0);
   };
 
   // Auto-slide
@@ -102,7 +101,7 @@ export default function ImageSlider() {
           flexDirection: { xs: 'column', sm: 'column', md: 'row' }
         }}
       >
-        <Image 
+        <Image
           src={currentItem.src}
           alt={currentItem.title}
           height={430}
@@ -112,16 +111,16 @@ export default function ImageSlider() {
             width: '100%',
             height: '350px',
             objectFit: 'cover',
-            borderRadius: '0' 
+            borderRadius: '0'
           }}
         />
-        <Box 
-          sx={{ 
-            flex: 1, 
-            display: 'flex', 
-            flexDirection: 'column', 
+        <Box
+          sx={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
             // 'row-gap' أو 'gap' تعمل في Flexbox لتحديد المسافة بين العناصر الفرعية
-            gap: 3,
+            gap: 3
           }}
         >
           <Typography
@@ -152,12 +151,12 @@ export default function ImageSlider() {
         </Box>
       </Box>
 
-      <Box 
-        sx={{ 
-          display: 'flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          gap: 4, 
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 4,
           mt: 4
         }}
       >
@@ -172,13 +171,12 @@ export default function ImageSlider() {
               position: 'relative',
               zIndex: 2,
               borderRadius: '50%',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s ease'
             }}
           >
             <LeftOutlined style={{ color: '#877754', fontSize: '20px' }} />
           </IconButton>
         </Box>
-
 
         <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Box
@@ -211,7 +209,7 @@ export default function ImageSlider() {
               position: 'relative',
               zIndex: 2,
               borderRadius: '50%',
-              transition: 'all 0.3s ease',
+              transition: 'all 0.3s ease'
             }}
           >
             <RightOutlined style={{ color: '#877754', fontSize: '20px' }} />

@@ -9,7 +9,7 @@ interface JustifiedTextWithLineProps {
 
 const JustifiedTextWithLine: FC<JustifiedTextWithLineProps> = ({ children, lineWidth }) => {
   return (
-    <Box sx={{ position: 'relative' }} >
+    <Box sx={{ position: 'relative' }}>
       <Typography variant="body1" align="justify" sx={{ fontSize: 40, fontWeight: 900 }}>
         {children}
       </Typography>
@@ -19,7 +19,7 @@ const JustifiedTextWithLine: FC<JustifiedTextWithLineProps> = ({ children, lineW
           height: 3,
           bgcolor: '#8D5FAC',
           position: 'absolute',
-          bottom: 3,
+          bottom: 3
         }}
       />
     </Box>

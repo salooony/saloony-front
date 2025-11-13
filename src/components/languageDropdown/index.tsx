@@ -20,7 +20,7 @@ export default function LanguageDropdown({ color, bgColor, listItemColor, ml = 0
         open={Boolean(anchorEl)}
         onClose={() => handleClose()}
         PaperProps={{
-          sx: menuPaperStyle(bgColor, listItemColor, ml),
+          sx: menuPaperStyle(bgColor, listItemColor, ml)
         }}
       >
         <MenuItem onClick={() => handleClose('EN')}>EN</MenuItem>

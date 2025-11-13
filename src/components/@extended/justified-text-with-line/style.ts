@@ -6,4 +6,4 @@ export const justifiedTextWithLineStyle = (theme: Theme) => ({
   backgroundColor: theme.palette.primary.dark,
   position: 'absolute',
   bottom: 3
-}); 
+});

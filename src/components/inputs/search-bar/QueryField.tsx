@@ -9,7 +9,6 @@ import { QueryFieldProps } from '@src/types/QueryField';
 import { useIsSmallScreen } from '@src/constants/breakpoints';
 import useClickOutside from './useClickOutside';
 
-
 export default function QueryField(props: QueryFieldProps): JSX.Element {
   const { query, readOnly = false, onOuterMouseDown, onSelectQuery } = props;
 
@@ -72,8 +71,8 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
           disableUnderline: true,
           readOnly,
           sx: {
-            fontSize: isSmallScreen ? theme.typography.h5.fontSize : theme.typography.h6.fontSize,
-          },
+            fontSize: isSmallScreen ? theme.typography.h5.fontSize : theme.typography.h6.fontSize
+          }
         }}
       />
 

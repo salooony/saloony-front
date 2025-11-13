@@ -5,7 +5,7 @@ interface QueryFieldPropsBase {
   readOnly: boolean;
   onOuterMouseDown?: () => void;
   disableFocusStyle?: boolean;
-  onSelectQuery?: () => void
+  onSelectQuery?: () => void;
 }
 
 interface QueryFieldEditableProps extends QueryFieldPropsBase {

@@ -14,7 +14,7 @@ import {
   iconWrapperStyle,
   titleStyle,
   paragraphStyle,
-  imageStyle,
+  imageStyle
 } from './style';
 
 export default function ImageSlider() {

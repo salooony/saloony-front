@@ -31,7 +31,7 @@ import ProfessionalButton from '@src/components/professionalButton';
 
 interface HeaderProps {
   variant?: 'home' | 'search';
-} 
+}
 export default function Header({ variant = 'home' }: HeaderProps) {
   const { container } = useConfig();
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
@@ -91,8 +91,6 @@ export default function Header({ variant = 'home' }: HeaderProps) {
               <IconButton
                 component={Link}
                 color="secondary"
-                href={user ? APP_DEFAULT_PATH : '/login'}
-                target="_blank"
                 sx={{
                   bgcolor: theme.palette.common.white,
                   '&:hover': {

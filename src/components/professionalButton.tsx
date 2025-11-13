@@ -3,7 +3,7 @@ import React from 'react';
 import AnimateButton from './@extended/AnimateButton';
 import { headerButtonStyle } from '@src/layout/main-layout/header/style';
 import { useTheme } from '@mui/material/styles';
-import { ProfessionalButtonProps } from '@src/types/professionalButton'
+import { ProfessionalButtonProps } from '@src/types/professionalButton';
 
 export default function ProfessionalButton({ mainColor, textColor }: ProfessionalButtonProps) {
   const theme = useTheme();

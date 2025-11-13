@@ -26,7 +26,7 @@ export default function SearchBar() {
     handleKeyDown,
     isOverlayOpen,
     openOverlay,
-    closeOverlay,
+    closeOverlay
   } = useSearchBar(isSmallScreen);
 
   const largeScreenFields = () => (

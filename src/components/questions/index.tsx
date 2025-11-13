@@ -5,9 +5,8 @@ import JustifiedTextWithLine from '../@extended/justified-text-with-line';
 import QuestionsList from '../QuestionsList';
 import { sectionBoxStyle } from '@src/styled/commonStyles';
 
-
 export default function Questions() {
-  return( 
+  return (
     <Box>
       <Box sx={sectionBoxStyle}>
         <JustifiedTextWithLine>Q&A</JustifiedTextWithLine>

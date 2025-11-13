@@ -35,7 +35,7 @@ export default function LanguageDropdown({
         sx={{
           color: color,
           textTransform: 'none',
-          fontWeight: 500,
+          fontWeight: 500
         }}
       >
         {selectedLang}
@@ -49,7 +49,7 @@ export default function LanguageDropdown({
             bgcolor: bgColor,
             color: listItemColor,
             ml: ml
-          },
+          }
         }}
       >
         <MenuItem onClick={() => handleClose('EN')}>EN</MenuItem>
