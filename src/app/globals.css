@@ -1,6 +1,9 @@
 /* scroll bar */
 @import 'simplebar-react/dist/simplebar.min.css';
+<<<<<<< HEAD
 
+=======
+>>>>>>> aa9dff1 (feature/SALOONY-016-UserLogin)
 .css-13ddxbb > * + * {
   margin: 0 !important;
 }
