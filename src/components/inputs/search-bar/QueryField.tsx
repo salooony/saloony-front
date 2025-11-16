@@ -4,21 +4,22 @@ import { Box, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { JSX, useRef } from 'react';
 import CircularLoader from 'components/CircularLoader';
-import { searchBoxStyle, SmallSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
+import { noWrapStyle, searchBoxStyle, SmallSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
 import { QueryFieldProps } from '@src/types/QueryField';
 import { useIsMdScreen } from '@src/constants/breakpoints';
 import useClickOutside from './useClickOutside';
 
 
 export default function QueryField(props: QueryFieldProps): JSX.Element {
-  const { query, readOnly = false, onOuterMouseDown, onSelectQuery, variant } = props;
+  const { query, readOnly = false, onOuterMouseDown, onSelectQuery, variant, isExpanded } = props;
 
   const theme = useTheme();
   const isMdScreen = useIsMdScreen();
   const containerRef = useRef<HTMLDivElement>(null);
   const suggestionListId = 'query-suggestion-list';
-  const SuggestionStyle = isMdScreen ? SmallSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
+  const SuggestionStyle = isMdScreen ? SmallSuggestionBoxStyle : suggestionBoxStyle(theme);
   const isHome = variant === 'home';
+  const isSearch = variant === 'search';
 
   useClickOutside(containerRef, () => {
     if ('setFocusedInput' in props) props.setFocusedInput(null);
@@ -46,19 +47,22 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
       sx={searchBoxStyle(
         theme,
         !readOnly && 'focusedInput' in props && props.focusedInput === 'query' && !isMdScreen ? 'query' : null,
-        'query'
+        'query',
+        variant,
+        isExpanded
       )}
     >
-      {!isMdScreen && (
+      {!isMdScreen && !isSearch && (
         <Typography
           variant="h5"
           component="label"
           htmlFor="service-input"
           color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
+          sx={noWrapStyle}
         >
           What are you looking for?
-        </Typography>
-      )}
+        </Typography>)
+      }
 
       <TextField
         id="service-input"

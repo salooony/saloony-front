@@ -21,7 +21,7 @@ export default function SearchResultsWithoutLocation({ query }: SearchResultsPro
         <Typography variant={isSmScreen ? 'h5' : isMdScreen ? 'h4' : 'h3'} component="label" textAlign="center" px={3}>
           Book an appointment with a {query} online
         </Typography>
-        <SearchBar variant="search" initialQuery={query} />
+        <SearchBar variant="without-location" initialQuery={query} enableExpand={false} />
       </Box>
 
       <Box display="flex" flexDirection="column" px={5}>

@@ -11,7 +11,7 @@ import { JSX } from 'react';
 export default function LocationField(props: LocationFieldProps): JSX.Element {
   const theme = useTheme();
   const isMdScreen = useIsMdScreen();
-  const SuggestionStyle = isMdScreen ? SmallSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
+  const SuggestionStyle = isMdScreen ? SmallSuggestionBoxStyle : suggestionBoxStyle(theme);
   const {
     location,
     setLocation,
@@ -22,10 +22,12 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
     highlightedIndex,
     handleKeyDown,
     disableFocusStyle,
-    variant
+    variant,
+    isExpanded
   } = props;
   const suggestionListId = 'location-suggestion-list';
   const isHome = variant === 'home';
+  const isSearch = variant === 'search';
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setLocation({ id: 0, name: e.target.value });
   };
@@ -33,8 +35,8 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
   const open = focusedInput === 'location' && (isLoading || suggestions.length > 0);
 
   return (
-    <Box sx={searchBoxStyle(theme, !disableFocusStyle && focusedInput === 'location' ? 'location' : null, 'location')}>
-      {!isMdScreen && (
+    <Box sx={searchBoxStyle(theme, !disableFocusStyle && focusedInput === 'location' ? 'location' : null, 'location', variant, isExpanded)}>
+      {!isMdScreen && !isSearch && (
         <Typography
           variant="h5"
           component="label"

@@ -29,13 +29,20 @@ import {
   headerButtonStyle
 } from './style';
 import SearchBar from '@src/components/inputs/search-bar';
+import { useIsLgScreen, useIsMdScreen } from '@src/constants/breakpoints';
+import { ADDRESSES } from '@src/components/inputs/search-bar/constants';
+import { useState } from 'react';
 
-export default function Header({ variant = 'home' }: HeaderProps) {
+export default function Header({ variant = 'home', initialQuery = '', initialLocation = '' }: HeaderProps) {
+  const [headerExpanded, setHeaderExpanded] = useState(false);
   const { container } = useConfig();
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
   const { scrolled } = useScroll();
+  const isMdScreen = useIsMdScreen();
+  const isLgScreen = useIsLgScreen();
   const theme = useTheme();
-
+  const isSearch = variant === 'search';
+  const locationItem = initialLocation ? ADDRESSES.find((addr) => addr.name === initialLocation) || null : null;
   return (
     <AppBar sx={appBarStyle(theme, scrolled)}>
       <Container disableGutters={downMD} maxWidth={container ? 'xl' : false}>
@@ -44,10 +51,28 @@ export default function Header({ variant = 'home' }: HeaderProps) {
             <MenuOutlined />
           </IconButton>
 
-          <Box sx={logoBoxStyle}>
+          <Box sx={logoBoxStyle(isSearch ? (isLgScreen ? '1px' : 15) : 3)}>
             <Logo isHeader to="/" color={variant === 'home' ? 'light' : 'dark'}/>
             {variant === 'search' ? (
-              <></>
+              !isMdScreen && (
+                !headerExpanded ? (
+                  <SearchBar
+                    variant="search"
+                    initialQuery={initialQuery}
+                    initialLocation={locationItem}
+                    onFocusChange={(focused) => setHeaderExpanded(focused)}
+                    enableExpand={true}
+                  />
+                ) : (
+                  <SearchBar
+                    variant="home"
+                    initialQuery={initialQuery}
+                    initialLocation={locationItem}
+                    onFocusChange={(focused) => setHeaderExpanded(focused)}
+                    enableExpand={true}
+                  />
+                )
+              )
             ) : (
               <List sx={listStyle}>
                 <AnimatedLink href="/components-overview/buttons" target="_blank" darkLink={variant !== 'home'}>
@@ -60,14 +85,18 @@ export default function Header({ variant = 'home' }: HeaderProps) {
             )}
           </Box>
 
-          <Box sx={rightBoxStyle(scrolled)}>
+          <Box sx={rightBoxStyle(isSearch ? '3px' : 1.5)}>
             <Link
               className="header-link"
               component={Link}
               href={user ? APP_DEFAULT_PATH : '/login'}
               target="_blank"
               underline="none"
-              sx={{ color: theme.palette.common.white }}
+              sx={{
+                color: theme.palette.common.white,
+                paddingLeft: '0 !important',
+                paddingRight: '0 !important'
+              }}
             >
               <AnimateButton>
                 <Button

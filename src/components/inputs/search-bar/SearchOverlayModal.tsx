@@ -25,6 +25,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     handleKeyDown,
     handleSearch,
     isSearchDisabled,
+    variant
   } = props;
 
   const [activeField, setActiveField] = useState<'query' | 'location'>('query');
@@ -36,8 +37,10 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
           onClick={() => {
             onClose();
             setActiveField('query');
-            setQuery('');
-            setLocation(null); 
+            if (variant === 'home') {
+              setQuery('');
+              setLocation(null);
+            } 
           }}
           sx={FiXStyle}
         >

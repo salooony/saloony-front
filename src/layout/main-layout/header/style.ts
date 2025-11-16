@@ -3,7 +3,7 @@ import { Theme } from '@mui/material/styles';
 export const appBarStyle = (theme: Theme, scrolled: boolean) => ({
   boxShadow: scrolled ? 1 : 'none',
   backgroundColor: scrolled ? theme.palette.primary.main : { xs: theme.palette.primary.main, md: 'transparent' },
-  transition: 'all 0.3s ease-in-out'
+  transition: 'all 0.3s ease-in-out',
 });
 
 export const toolbarStyle = {
@@ -13,13 +13,13 @@ export const toolbarStyle = {
   maxHeight: 60
 };
 
-export const logoBoxStyle = { mr: 2, display: 'flex', alignItems: 'center', gap: { xs: 0, md: 3 } };
+export const logoBoxStyle = (gab?: number | string) => ({ mr: 2, display: 'flex', alignItems: 'center', gap: gab });
 
 export const listStyle = { display: { xs: 'none', md: 'flex' }, gap: 4 };
 
-export const rightBoxStyle = (scrolled: boolean) => ({
+export const rightBoxStyle = (gap?: number | string) => ({
   display: { xs: 'none', md: 'flex' },
-  gap: 1.5,
+  gap: gap ?? 1.5,
   '& .header-link': {
     px: 2,
     '&:hover': {
@@ -53,5 +53,6 @@ export const headerButtonStyle = (theme: Theme, mainColor?: string, textColor?: 
     color: hoverTextColor ?? theme.palette.primary.main
   },
   width: '100%',
+  whiteSpace: 'nowrap'
 });
 

@@ -10,7 +10,7 @@ import Questions from '@src/components/questions';
 import { useTheme } from '@mui/material/styles';
 import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle } from './style';
 
-export default function Hero({ variant }: { variant?: string }) {
+export default function Hero({ variant }: { variant?: 'home' | 'search' | 'without-location' }) {
   const theme = useTheme();
 
   return (
@@ -27,7 +27,7 @@ export default function Hero({ variant }: { variant?: string }) {
             Search for Barber Shop
           </Typography>
 
-          <SearchBar variant={variant}/>
+          <SearchBar variant={variant} enableExpand={false}/>
         </Container>
       </Box>
 

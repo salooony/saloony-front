@@ -1,23 +1,54 @@
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { SERVICES, ADDRESSES, Item } from './constants';
+import dayjs, { Dayjs } from 'dayjs';
+
 
 export default function useSearchBar(isMdScreen: boolean, initialQuery = '', initialLocation: Item | null = null) {
   const [query, setQuery] = useState<string>(initialQuery);
   const [location, setLocation] = useState<Item | null>(initialLocation);
-  const [focusedInput, setFocusedInput] = useState<'query' | 'location' | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
+  const [focusedInput, setFocusedInput] = useState<'query' | 'location' | 'date' | null>(null);
   const [suggestions, setSuggestions] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const [isOverlayOpen, setIsOverlayOpen] = useState<boolean>(false);
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const queryParam = searchParams.get('query');
+    const locationParam = searchParams.get('location');
+    const dateParam = searchParams.get('date');
+
+    if (queryParam) {
+      setQuery(decodeURIComponent(queryParam));
+    } else if (initialQuery) {
+      setQuery(initialQuery);
+    }
+
+    if (locationParam) {
+      const decodedLocation = decodeURIComponent(locationParam);
+      const foundLocation = ADDRESSES.find((addr) => addr.name === decodedLocation);
+      if (foundLocation) {
+        setLocation(foundLocation);
+      }
+    } else if (initialLocation) {
+      setLocation(initialLocation);
+    }
+
+    if (dateParam) {
+      setSelectedDate(dayjs(dateParam));
+    }
+  }, [searchParams, initialQuery, initialLocation]);
 
   const isSearchDisabled = !query.trim() || (location && !ADDRESSES.some((item) => item.name === location.name));
 
   const openOverlay = () => {
     if (isMdScreen) setIsOverlayOpen(true);
   };
+  
   const closeOverlay = () => setIsOverlayOpen(false);
 
   useEffect(() => {
@@ -62,8 +93,29 @@ export default function useSearchBar(isMdScreen: boolean, initialQuery = '', ini
     if (!q) return alert('Please enter a service or salon name');
     if (loc && !ADDRESSES.some((item) => item.name === loc)) return alert('Please select a valid address');
 
-    router.push(`/search?query=${encodeURIComponent(q)}${loc ? `&location=${encodeURIComponent(loc)}` : ''}`);
+    const params = new URLSearchParams();
+    params.set('query', encodeURIComponent(q));
+    if (loc) params.set('location', encodeURIComponent(loc));
+    if (selectedDate) params.set('date', selectedDate.format('YYYY-MM-DD'));
+
+    router.push(`/search?${params.toString()}`);
     if (isMdScreen) closeOverlay();
+  };
+
+  const handleDateChange = (newDate: Dayjs | null) => {
+    setSelectedDate(newDate);
+
+    if (typeof window !== 'undefined' && window.location.pathname === '/search') {
+      const currentParams = new URLSearchParams(window.location.search);
+      if (newDate) {
+        currentParams.set('date', newDate.format('YYYY-MM-DD'));
+      } else {
+        currentParams.delete('date');
+      }
+
+      const newUrl = `${window.location.pathname}?${currentParams.toString()}`;
+      window.history.replaceState({}, '', newUrl);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -77,8 +129,11 @@ export default function useSearchBar(isMdScreen: boolean, initialQuery = '', ini
       setHighlightedIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
     } else if (e.key === 'Enter' && highlightedIndex >= 0) {
       e.preventDefault();
-      if (focusedInput === 'query') setQuery(suggestions[highlightedIndex].name);
-      else setLocation(suggestions[highlightedIndex]);
+      if (focusedInput === 'query') {
+        setQuery(suggestions[highlightedIndex].name);
+      } else {
+        setLocation(suggestions[highlightedIndex]);
+      }
       setSuggestions([]);
       setHighlightedIndex(-1);
       setFocusedInput(null); 
@@ -90,6 +145,8 @@ export default function useSearchBar(isMdScreen: boolean, initialQuery = '', ini
     setQuery,
     location,
     setLocation,
+    selectedDate,
+    setSelectedDate: handleDateChange,
     focusedInput,
     setFocusedInput,
     suggestions,

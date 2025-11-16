@@ -12,13 +12,21 @@ const SearchResultsPage = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get('query') || '';
   const location = searchParams.get('location') || '';
+  const date = searchParams.get('date') || '';
 
   const hasLocation = location.trim() !== '';
 
   return (
-    <MainLayout variant={hasLocation ? 'search' : 'without-location'}>
+    <MainLayout 
+      variant={hasLocation ? 'search' : 'without-location'}
+      query={query}
+      location={location}
+    >
       <Suspense fallback={<Loader />}>
-        {hasLocation ? <SearchResults query={query} location={location} /> : <SearchResultsWithoutLocation query={query} />}
+        {hasLocation ? 
+          <SearchResults query={query} location={location} initialDate={date} /> : 
+          <SearchResultsWithoutLocation query={query} />
+        }
       </Suspense>
     </MainLayout>
   );
