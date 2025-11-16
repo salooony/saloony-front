@@ -1,14 +1,15 @@
 import Image from 'next/image';
 import logoDark from '@public/assets/images/icons/logo-dark.png';
 import logo from '@public/assets/images/icons/logo-white.png';
+import { ThemeMode } from '@src/config';
 
 interface Props {
   width?: number;
   height?: number;
-  color?: 'dark' | 'light';
+  color?: ThemeMode;
 }
 
-export default function LogoMain({ width = 214, height = 150, color = 'light' }: Props) {
+export default function LogoMain({ width = 214, height = 150, color = ThemeMode.LIGHT }: Props) {
 
-  return <Image src={color === 'dark' ? logoDark : logo} alt="Saloony Logo" width={width} height={height} />;
+  return <Image src={color === ThemeMode.DARK ? logoDark : logo} alt="Saloony Logo" width={width} height={height} />;
 }

@@ -14,7 +14,7 @@ export default function LanguageDropdown({ mainColor, backColor, textColor }: La
   return (
     <Box>
       <Button onClick={handleClick} endIcon={<DownOutlined />} sx={buttonStyle(theme, mainColor)}>
-        {selectedLang} 
+        {selectedLang}
       </Button>
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleClose()} sx={langListStyle(theme, backColor, textColor)}>

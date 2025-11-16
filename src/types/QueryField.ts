@@ -1,19 +1,20 @@
 import { Item } from '@src/components/inputs/search-bar/constants';
+import { FocusedInputType, MainLayoutType } from '@src/config';
 
 interface QueryFieldPropsBase {
   query: string;
   readOnly: boolean;
   onOuterMouseDown?: () => void;
   disableFocusStyle?: boolean;
-  onSelectQuery?: () => void
-  variant?: string;
+  onSelectQuery?: () => void;
+  variant?: MainLayoutType;
 }
 
 interface QueryFieldEditableProps extends QueryFieldPropsBase {
   readOnly: false;
   setQuery: (val: string) => void;
-  focusedInput: 'query' | 'location' | null;
-  setFocusedInput: (val: 'query' | 'location' | null) => void;
+  focusedInput: FocusedInputType | null;
+  setFocusedInput: (val: FocusedInputType | null) => void;
   suggestions: Item[];
   isLoading: boolean;
   highlightedIndex: number | null;

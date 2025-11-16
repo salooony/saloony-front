@@ -8,10 +8,11 @@ import SearchOverlayModal from './SearchOverlayModal';
 import { useIsMdScreen } from '@src/constants/breakpoints';
 import ProfessionalButton from '@src/components/professionalButton';
 import { searchBarProps } from '@src/types/searchBar';
+import { MainLayoutType } from '@src/config';
 
 export default function SearchBar({ variant, initialQuery = '', initialLocation = null }: searchBarProps) {
   const isMdScreen = useIsMdScreen();
-  const isHome = variant === 'home';
+  const isHome = variant === MainLayoutType.HOME;
 
   const {
     query,
@@ -29,7 +30,7 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
     isOverlayOpen,
     openOverlay,
     closeOverlay,
-  } = useSearchBar(isMdScreen, initialQuery, initialLocation);
+  } = useSearchBar({ isMdScreen, initialQuery, initialLocation });
 
   const largeScreenFields = () => (
     <>
@@ -65,7 +66,7 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
   const smallScreenFields = () => (
     <>
       <Box sx={inputGroupStyle}>
-        <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay}/>
+        <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />
     </>
@@ -93,7 +94,7 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
             handleSearch={handleSearch}
             isSearchDisabled={Boolean(isSearchDisabled)}
           />
-          {isHome ? <ProfessionalButton /> : null}
+          {isHome && <ProfessionalButton />}
         </Box>
       )}
     </Box>

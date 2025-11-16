@@ -2,16 +2,17 @@
 
 import { Box, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { searchBoxStyle, SmallSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
+import { searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
 import CircularLoader from 'components/CircularLoader';
 import { LocationFieldProps } from '@src/types/locationField';
 import { useIsMdScreen } from '@src/constants/breakpoints';
 import { JSX } from 'react';
+import { FocusedInputType, MainLayoutType } from '@src/config';
 
 export default function LocationField(props: LocationFieldProps): JSX.Element {
   const theme = useTheme();
   const isMdScreen = useIsMdScreen();
-  const SuggestionStyle = isMdScreen ? SmallSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
+  const SuggestionStyle = isMdScreen ? MdSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
   const {
     location,
     setLocation,
@@ -25,15 +26,21 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
     variant
   } = props;
   const suggestionListId = 'location-suggestion-list';
-  const isHome = variant === 'home';
+  const isHome = variant === MainLayoutType.HOME;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setLocation({ id: 0, name: e.target.value });
   };
 
-  const open = focusedInput === 'location' && (isLoading || suggestions.length > 0);
+  const open = focusedInput === FocusedInputType.LOCATION && (isLoading || suggestions.length > 0);
 
   return (
-    <Box sx={searchBoxStyle(theme, !disableFocusStyle && focusedInput === 'location' ? 'location' : null, 'location')}>
+    <Box
+      sx={searchBoxStyle(
+        theme,
+        !disableFocusStyle && focusedInput === FocusedInputType.LOCATION ? FocusedInputType.LOCATION : null,
+        FocusedInputType.LOCATION
+      )}
+    >
       {!isMdScreen && (
         <Typography
           variant="h5"
@@ -50,7 +57,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         fullWidth
         variant="standard"
         value={location?.name || ''}
-        onFocus={() => setFocusedInput('location')}
+        onFocus={() => setFocusedInput(FocusedInputType.LOCATION)}
         onBlur={() => setFocusedInput(null)}
         onChange={handleChange}
         onKeyDown={handleKeyDown}

@@ -7,6 +7,7 @@ import SearchButton from './SearchButton';
 import { SearchOverlayModalProps } from '@src/types/searchOverlayModal';
 import { useTheme } from '@mui/material/styles';
 import { centerModal, FiXStyle, modalBoxStyle, smallSearchBoxStyle } from './style';
+import { FocusedInputType } from '@src/config';
 
 export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.Element {
   const theme = useTheme();
@@ -27,7 +28,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     isSearchDisabled
   } = props;
 
-  const [activeField, setActiveField] = useState<'query' | 'location'>('query');
+  const [activeField, setActiveField] = useState<FocusedInputType.QUERY | FocusedInputType.LOCATION>(FocusedInputType.QUERY);
 
   return (
     <Modal open={open} onClose={onClose} closeAfterTransition disableEnforceFocus sx={centerModal} BackdropProps={{ onClick: onClose }}>
@@ -35,7 +36,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
         <IconButton
           onClick={() => {
             onClose();
-            setActiveField('query');
+            setActiveField(FocusedInputType.QUERY);
             setQuery('');
             setLocation(null);
           }}
@@ -51,7 +52,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
         <Divider />
 
         <Box sx={smallSearchBoxStyle}>
-          {activeField === 'query' ? (
+          {activeField === FocusedInputType.QUERY ? (
             <QueryField
               query={query}
               setQuery={setQuery}
@@ -63,7 +64,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
               handleKeyDown={handleKeyDown}
               readOnly={false}
               disableFocusStyle
-              onSelectQuery={() => setActiveField('location')}
+              onSelectQuery={() => setActiveField(FocusedInputType.LOCATION)}
             />
           ) : (
             <LocationField

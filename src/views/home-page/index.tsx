@@ -1,10 +1,11 @@
 import Hero from 'sections/hero';
 import MainLayout from '@src/layout/main-layout';
+import { MainLayoutType } from '@src/config';
 
 const HomePage = () => {
   return (
-    <MainLayout variant="home">
-      <Hero variant="home" />
+    <MainLayout variant={MainLayoutType.HOME}>
+      <Hero variant={MainLayoutType.HOME} />
     </MainLayout>
   );
 };

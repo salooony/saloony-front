@@ -1,4 +1,5 @@
 import { Item } from '@src/components/inputs/search-bar/constants';
+import { FocusedInputType } from '@src/config';
 
 export interface SearchOverlayModalProps {
   open: boolean;
@@ -7,8 +8,8 @@ export interface SearchOverlayModalProps {
   setQuery: (val: string) => void;
   location: Item | null;
   setLocation: (val: Item | null) => void;
-  focusedInput: 'query' | 'location' | null;
-  setFocusedInput: (val: 'query' | 'location' | null) => void;
+  focusedInput: FocusedInputType | null;
+  setFocusedInput: (val: FocusedInputType | null) => void;
   suggestions: Item[];
   isLoading: boolean;
   highlightedIndex: number;

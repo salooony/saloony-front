@@ -7,7 +7,7 @@ export const buttonStyle = (theme: Theme, mainColor?: string): SxProps<Theme> =>
 });
 
 export const langListStyle = (theme: Theme, backColor?: string, textColor?: string): SxProps<Theme> => ({
-  display: 'flex', 
+  display: 'flex',
   flexDirection: 'column',
   '& .MuiPaper-root': {
     backgroundColor: backColor ?? theme.palette.common.white,
@@ -16,5 +16,3 @@ export const langListStyle = (theme: Theme, backColor?: string, textColor?: stri
     color: textColor ?? theme.palette.primary.main,
   }
 });
-
-

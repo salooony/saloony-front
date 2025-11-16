@@ -8,7 +8,7 @@ import AnimatedLink from '@src/components/@extended/animated-link';
 import LanguageDropdown from '@src/components/languageDropdown';
 import useHeader from './useHeader.hook';
 import useConfig from 'hooks/useConfig';
-import { APP_DEFAULT_PATH } from 'config';
+import { APP_DEFAULT_PATH, MainLayoutType, ThemeMode } from 'config';
 import { useScroll } from 'contexts/scrollProvider';
 import { useTheme } from '@mui/material/styles';
 import { HeaderProps } from '@src/types/header';
@@ -29,7 +29,7 @@ import {
   headerButtonStyle
 } from './style';
 
-export default function Header({ variant = 'home' }: HeaderProps) {
+export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
   const { container } = useConfig();
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
   const { scrolled } = useScroll();
@@ -44,15 +44,15 @@ export default function Header({ variant = 'home' }: HeaderProps) {
           </IconButton>
 
           <Box sx={logoBoxStyle}>
-            <Logo isHeader to="/" color={variant === 'home' ? 'light' : 'dark'}/>
-            {variant === 'search' ? (
+            <Logo isHeader to="/" color={variant === MainLayoutType.HOME ? ThemeMode.LIGHT : ThemeMode.DARK} />
+            {variant === MainLayoutType.SEARCH ? (
               <></>
             ) : (
               <List sx={listStyle}>
-                <AnimatedLink href="/components-overview/buttons" target="_blank" darkLink={variant !== 'home'}>
+                <AnimatedLink href="/components-overview/buttons" target="_blank" darkLink={variant !== MainLayoutType.HOME}>
                   Hairdresser
                 </AnimatedLink>
-                <AnimatedLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" darkLink={variant !== 'home'}>
+                <AnimatedLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" darkLink={variant !== MainLayoutType.HOME}>
                   Barber
                 </AnimatedLink>
               </List>
@@ -73,8 +73,12 @@ export default function Header({ variant = 'home' }: HeaderProps) {
                   variant="text"
                   sx={headerButtonStyle(
                     theme,
-                    variant === 'home' ? theme.palette.common.white : 'transparent',
-                    variant === 'home' ? theme.palette.primary.main : scrolled ? theme.palette.common.white : theme.palette.primary.main,
+                    variant === MainLayoutType.HOME ? theme.palette.common.white : 'transparent',
+                    variant === MainLayoutType.HOME
+                      ? theme.palette.primary.main
+                      : scrolled
+                        ? theme.palette.common.white
+                        : theme.palette.primary.main,
                     scrolled ? theme.palette.common.white : theme.palette.primary.main,
                     scrolled ? theme.palette.primary.main : theme.palette.common.white
                   )}
@@ -92,10 +96,18 @@ export default function Header({ variant = 'home' }: HeaderProps) {
             <LanguageDropdown 
               mainColor={scrolled ? theme.palette.common.white : theme.palette.primary.main}
               backColor={
-                variant === 'home' ? theme.palette.common.white : scrolled ? theme.palette.common.white : theme.palette.primary.main
+                variant === MainLayoutType.HOME
+                  ? theme.palette.common.white
+                  : scrolled
+                    ? theme.palette.common.white
+                    : theme.palette.primary.main
               }
               textColor={
-                variant === 'home' ? theme.palette.primary.main : scrolled ? theme.palette.primary.main : theme.palette.common.white
+                variant === MainLayoutType.HOME
+                  ? theme.palette.primary.main
+                  : scrolled
+                    ? theme.palette.primary.main
+                    : theme.palette.common.white
               }
             />
           </Box>

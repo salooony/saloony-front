@@ -10,9 +10,9 @@ export const searchBoxStyle = (theme: Theme) => ({
   backgroundColor: theme.palette.primary.light,
 });
 export const buttonStyle = (theme: Theme) => ({
-  mb: 6, 
-  width: 'fit-content', 
-  textDecoration: 'underline', 
+  mb: 6,
+  width: 'fit-content',
+  textDecoration: 'underline',
   textTransform: 'none',
   color: theme.palette.common.black
 });

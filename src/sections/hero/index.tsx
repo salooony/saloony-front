@@ -9,8 +9,9 @@ import Services from '@src/components/services';
 import Questions from '@src/components/questions';
 import { useTheme } from '@mui/material/styles';
 import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle } from './style';
+import { MainLayoutType } from '@src/config';
 
-export default function Hero({ variant }: { variant?: string }) {
+export default function Hero({ variant }: { variant?: MainLayoutType }) {
   const theme = useTheme();
 
   return (

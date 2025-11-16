@@ -7,6 +7,7 @@ import useSearchResults from './useSearchResultsWithoutLocation';
 import { ADDRESSES } from '@src/components/inputs/search-bar/constants';
 import { useTheme } from '@mui/material/styles';
 import AnimatedCard from '@src/components/@extended/AnimatedCard';
+import { MainLayoutType } from '@src/config';
 
 export default function SearchResultsWithoutLocation({ query }: SearchResultsProps) {
   const isMdScreen = useIsMdScreen();
@@ -17,11 +18,11 @@ export default function SearchResultsWithoutLocation({ query }: SearchResultsPro
 
   return (
     <>
-      <Box sx={searchBoxStyle}>
+      <Box sx={searchBoxStyle(theme)}>
         <Typography variant={isSmScreen ? 'h5' : isMdScreen ? 'h4' : 'h3'} component="label" textAlign="center" px={3}>
           Book an appointment with a {query} online
         </Typography>
-        <SearchBar variant="search" initialQuery={query} />
+        <SearchBar variant={MainLayoutType.SEARCH} initialQuery={query} />
       </Box>
 
       <Box display="flex" flexDirection="column" px={5}>
