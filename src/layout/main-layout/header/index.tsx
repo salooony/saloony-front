@@ -34,6 +34,8 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
   const { scrolled } = useScroll();
   const theme = useTheme();
+  const homePath = '/';
+  const loginPath = '/login';
 
   return (
     <AppBar sx={appBarStyle(theme, scrolled)}>
@@ -44,7 +46,7 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
           </IconButton>
 
           <Box sx={logoBoxStyle}>
-            <Logo isHeader to="/" color={variant === MainLayoutType.HOME ? ThemeMode.LIGHT : ThemeMode.DARK} />
+            <Logo isHeader to={homePath} color={variant === MainLayoutType.HOME ? ThemeMode.LIGHT : ThemeMode.DARK} />
             {variant === MainLayoutType.SEARCH ? (
               <></>
             ) : (
@@ -63,7 +65,7 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
             <Link
               className="header-link"
               component={Link}
-              href={user ? APP_DEFAULT_PATH : '/login'}
+              href={user ? APP_DEFAULT_PATH : loginPath}
               target="_blank"
               underline="none"
               sx={{ color: theme.palette.common.white }}
@@ -113,7 +115,7 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
           </Box>
 
           <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-            <Link href={user ? APP_DEFAULT_PATH : '/login'} target="_blank">
+            <Link href={user ? APP_DEFAULT_PATH : loginPath} target="_blank">
               <AnimateButton>
                 <IconButton
                   color="secondary"
@@ -134,7 +136,7 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
 
         <Drawer anchor="left" open={drawerToggle} onClose={drawerToggler(false)} sx={drawerStyle(theme)}>
           <Box sx={drawerBoxStyle}>
-            <Logo isIcon to="/" />
+            <Logo isIcon to={homePath} />
             <List>
               <ListItem sx={drawerListItemStyle}>
                 <LanguageDropdown mainColor={theme.palette.common.white} />
@@ -145,7 +147,7 @@ export default function Header({ variant = MainLayoutType.HOME }: HeaderProps) {
               <ListItemButton component={Link} href="https://codedthemes.gitbook.io/mantis/" target="_blank">
                 <ListItemText primary="Barber" />
               </ListItemButton>
-              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : '/login'}>
+              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : loginPath}>
                 <ListItemText primary={user ? 'Mon compte' : 'Login'} />
               </ListItemButton>
               <ListItemButton component={Link} href="https://mui.com/store/items/mantis-react-admin-dashboard-template/" target="_blank">

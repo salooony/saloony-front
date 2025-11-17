@@ -28,11 +28,7 @@ export const inputGroupStyle = {
   gap: 2
 };
 
-export const searchBoxStyle = (
-  theme: Theme,
-  focusedInput: FocusedInputType | null,
-  inputName: FocusedInputType.QUERY | FocusedInputType.LOCATION
-) => ({
+export const searchBoxStyle = (theme: Theme, focusedInput: FocusedInputType | null, inputName: FocusedInputType) => ({
   width: { xs: '100%', md: '50%' },
   borderRadius: '12px',
   px: 2,

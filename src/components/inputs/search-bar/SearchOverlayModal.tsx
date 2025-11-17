@@ -28,7 +28,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     isSearchDisabled
   } = props;
 
-  const [activeField, setActiveField] = useState<FocusedInputType.QUERY | FocusedInputType.LOCATION>(FocusedInputType.QUERY);
+  const [activeField, setActiveField] = useState<FocusedInputType>(FocusedInputType.QUERY);
 
   return (
     <Modal open={open} onClose={onClose} closeAfterTransition disableEnforceFocus sx={centerModal} BackdropProps={{ onClick: onClose }}>
