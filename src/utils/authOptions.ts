@@ -1,7 +1,8 @@
 // next
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
-
+import GoogleProvider from 'next-auth/providers/google';
+import FacebookProvider from 'next-auth/providers/facebook';
 // project imports
 import axios from 'utils/axios';
 
@@ -23,6 +24,16 @@ declare module 'next-auth' {
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
   providers: [
+    GoogleProvider({
+      id: 'google',
+      clientId: process.env.NEXT_PUBLIC_AUTH_GOOGLE_ID!,
+      clientSecret: process.env.NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_SECRET!
+    }),
+    FacebookProvider({
+      id: 'facebook',
+      clientId: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_ID!,
+      clientSecret: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_CLIENT_SECRET!
+    }),
     CredentialsProvider({
       id: 'login',
       name: 'login',

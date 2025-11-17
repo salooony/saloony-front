@@ -6,7 +6,6 @@ import { SimplePaletteColorOptions, PaletteColorOptions } from '@mui/material/st
 export type PaletteThemeProps = {
   primary: SimplePaletteColorOptions;
   secondary: SimplePaletteColorOptions;
-  tertiary: SimplePaletteColorOptions;
   error: SimplePaletteColorOptions;
   warning: SimplePaletteColorOptions;
   info: SimplePaletteColorOptions;
