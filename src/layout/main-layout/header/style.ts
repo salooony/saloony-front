@@ -1,8 +1,6 @@
-import { Theme } from '@mui/material/styles';
-
-export const appBarStyle = (theme: Theme, scrolled: boolean) => ({
+export const appBarStyle = (scrolled: boolean) => ({
   boxShadow: scrolled ? 1 : 'none',
-  backgroundColor: scrolled ? theme.palette.primary.main : { xs: theme.palette.primary.main, md: 'transparent' },
+  backgroundColor: scrolled ? 'primary.main' : { xs: 'primary.main', md: 'transparent' },
   transition: 'all 0.3s ease-in-out',
 });
 
@@ -28,29 +26,29 @@ export const rightBoxStyle = (gap?: number | string) => ({
   }
 });
 
-export const drawerStyle = (theme: Theme) => ({
+export const drawerStyle = {
   '& .MuiDrawer-paper': {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
+    backgroundColor: 'primary.main',
+    color: 'common.white',
     width: 240
   }
-});
+};
 
 export const drawerBoxStyle = { p: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' };
 
 export const drawerListItemStyle = { display: 'flex', justifyContent: 'center' };
 
-export const menuIconStyle = (theme: Theme) => ({
-  color: theme.palette.common.white,
+export const menuIconStyle = {
+  color: 'common.white',
   display: { xs: 'block', md: 'none' },
-  '&:hover': { color: theme.palette.primary.lighter }
-});
-export const headerButtonStyle = (theme: Theme, mainColor?: string, textColor?: string, hoverColor?: string, hoverTextColor?: string) => ({
-  backgroundColor: mainColor ?? theme.palette.primary.main,
-  color: textColor ?? theme.palette.common.white,
+  '&:hover': { color: 'primary.lighter'}
+};
+export const headerButtonStyle = (mainColor?: string, textColor?: string, hoverColor?: string, hoverTextColor?: string) => ({
+  backgroundColor: mainColor ?? 'primary.main',
+  color: textColor ?? 'common.white',
   '&:hover': { 
-    backgroundColor: hoverColor ?? theme.palette.common.white, 
-    color: hoverTextColor ?? theme.palette.primary.main
+    backgroundColor: hoverColor ?? 'common.white', 
+    color: hoverTextColor ?? 'primary.main'
   },
   width: '100%',
   whiteSpace: 'nowrap'

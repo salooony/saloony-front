@@ -32,7 +32,7 @@ function ElevationScroll({ children, window }: ElevationScrollProps) {
   theme.shadows[4] = theme.customShadows.z1;
 
   return cloneElement(children as ReactElement<{ elevation?: number }>, {
-    elevation: trigger ? 4 : 0,
+    elevation: trigger ? 4 : 0
   });
 }
 
@@ -68,4 +68,4 @@ export default function CustomAppBar() {
       </AppBar>
     </ElevationScroll>
   );
-} 
+}

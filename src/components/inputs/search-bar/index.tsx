@@ -1,4 +1,5 @@
 import { Box, Divider, Paper } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import useSearchBar from './useSearchBar';
 import { searchContainerStyle, paperStyle, inputGroupStyle, dividerStyle } from './style';
 import QueryField from './QueryField';
@@ -8,9 +9,9 @@ import SearchOverlayModal from './SearchOverlayModal';
 import { useIsMdScreen } from '@src/constants/breakpoints';
 import ProfessionalButton from '@src/components/professionalButton';
 import { searchBarProps } from '@src/types/searchBar';
-import { useTheme } from '@mui/material/styles';
 import DateField from './DateField';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { MainLayoutType } from '@src/config';
 
 export default function SearchBar({
   variant,
@@ -19,11 +20,13 @@ export default function SearchBar({
   onFocusChange,
   enableExpand = true
 }: searchBarProps) {
-  const theme = useTheme();
   const isMdScreen = useIsMdScreen();
-  const isHome = variant === 'home';
-  const isSearch = variant === 'search';
+  const isHome = variant === MainLayoutType.HOME;
+  const isSearch = variant === MainLayoutType.SEARCH;
   const [isExpanded, setIsExpanded] = useState(false);
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
+  const searchBarRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
 
   const {
     query,
@@ -42,8 +45,8 @@ export default function SearchBar({
     handleKeyDown,
     isOverlayOpen,
     openOverlay,
-    closeOverlay,
-  } = useSearchBar(isMdScreen, initialQuery, initialLocation);
+    closeOverlay
+  } = useSearchBar({ isMdScreen, initialQuery, initialLocation });
 
   useEffect(() => {
     if (!enableExpand) {
@@ -75,8 +78,10 @@ export default function SearchBar({
           readOnly={false}
           variant={variant}
           isExpanded={isExpanded}
+          searchBarRef={searchBarRef}
+          datePickerOpen={datePickerOpen}
         />
-        {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(theme, isExpanded)} />}
+        {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(isExpanded)} />}
 
         <LocationField
           location={location}
@@ -89,8 +94,10 @@ export default function SearchBar({
           handleKeyDown={handleKeyDown}
           variant={variant}
           isExpanded={isExpanded}
+          searchBarRef={searchBarRef}
+          datePickerOpen={datePickerOpen}
         />
-        {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(theme, isExpanded)} />}
+        {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(isExpanded)} />}
         {(isSearch || (isHome && isExpanded)) && (
           <DateField
             focusedInput={focusedInput}
@@ -99,6 +106,8 @@ export default function SearchBar({
             setSelectedDate={setSelectedDate}
             variant={variant}
             isExpanded={isExpanded}
+            searchBarRef={searchBarRef}
+            onOpenChange={setDatePickerOpen}
           />
         )}
       </Box>
@@ -111,12 +120,12 @@ export default function SearchBar({
       <Box sx={inputGroupStyle}>
         <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
       </Box>
-      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant}/>
+      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
     </>
   );
 
   return (
-    <Box sx={searchContainerStyle}>
+    <Box ref={searchBarRef} sx={searchContainerStyle}>
       <Paper sx={paperStyle(theme, variant, isExpanded) as any}>{isMdScreen ? smallScreenFields() : largeScreenFields()}</Paper>
 
       {isMdScreen && (

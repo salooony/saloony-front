@@ -5,11 +5,11 @@ import QueryField from './QueryField';
 import LocationField from './LocationField';
 import SearchButton from './SearchButton';
 import { SearchOverlayModalProps } from '@src/types/searchOverlayModal';
-import { useTheme } from '@mui/material/styles';
 import { centerModal, FiXStyle, modalBoxStyle, smallSearchBoxStyle } from './style';
+import { FocusedInputType, MainLayoutType } from '@src/config';
+import { useTheme } from '@mui/material/styles';
 
 export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.Element {
-  const theme = useTheme();
   const {
     open,
     onClose,
@@ -28,16 +28,16 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     variant
   } = props;
 
-  const [activeField, setActiveField] = useState<'query' | 'location'>('query');
-
+  const [activeField, setActiveField] = useState<FocusedInputType.QUERY | FocusedInputType.LOCATION>(FocusedInputType.QUERY);
+  const theme = useTheme();
   return (
     <Modal open={open} onClose={onClose} closeAfterTransition disableEnforceFocus sx={centerModal} BackdropProps={{ onClick: onClose }}>
       <Box onClick={(e) => e.stopPropagation()} sx={modalBoxStyle(theme)}>
         <IconButton
           onClick={() => {
             onClose();
-            setActiveField('query');
-            if (variant === 'home') {
+            setActiveField(FocusedInputType.QUERY);
+            if (variant === MainLayoutType.HOME ) {
               setQuery('');
               setLocation(null);
             } 
@@ -47,14 +47,14 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
           <FiX size={30} />
         </IconButton>
 
-        <Typography variant="h4" fontWeight={600} py={2} textAlign="center" bgcolor={theme.palette.common.white}>
+        <Typography variant="h4" fontWeight={600} py={2} textAlign="center" bgcolor={'common.white'}>
           Search
         </Typography>
 
         <Divider />
 
         <Box sx={smallSearchBoxStyle}>
-          {activeField === 'query' ? (
+          {activeField === FocusedInputType.QUERY ? (
             <QueryField
               query={query}
               setQuery={setQuery}
@@ -66,7 +66,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
               handleKeyDown={handleKeyDown}
               readOnly={false}
               disableFocusStyle
-              onSelectQuery={() => setActiveField('location')}
+              onSelectQuery={() => setActiveField(FocusedInputType.LOCATION)}
             />
           ) : (
             <LocationField

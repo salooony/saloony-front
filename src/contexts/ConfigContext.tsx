@@ -5,7 +5,7 @@ import config, { MenuOrientation, ThemeDirection, ThemeMode } from 'config';
 import useLocalStorage from 'hooks/useLocalStorage';
 
 // types
-import { DefaultConfigProps, CustomizationProps, FontFamily, I18n, PresetColor } from 'types/config';
+import { DefaultConfigProps, CustomizationProps, I18n, PresetColor } from 'types/config';
 
 // initial state
 const initialState: CustomizationProps = {
@@ -85,7 +85,7 @@ function ConfigProvider({ children }: ConfigProviderProps) {
   );
 
   const onChangeFontFamily = useCallback(
-    (fontFamily: FontFamily) => {
+    (fontFamily: string) => {
       setConfig((prev: DefaultConfigProps) => ({ ...prev, fontFamily }));
     },
     [setConfig]

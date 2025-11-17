@@ -7,5 +7,5 @@ export default function CircularLoader() {
     <Box sx={circularProgressStyle}>
       <CircularProgress />
     </Box>
-  )
+  );
 }

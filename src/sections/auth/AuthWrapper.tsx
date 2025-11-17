@@ -6,8 +6,6 @@ import Grid from '@mui/material/Grid';
 
 // project imports
 import AuthCard from './AuthCard';
-import AuthBackground from './AuthBackground';
-import AuthFooter from 'components/cards/AuthFooter';
 import Logo from 'components/logo';
 
 interface Props {
@@ -19,7 +17,6 @@ interface Props {
 export default function AuthWrapper({ children }: Props) {
   return (
     <Box sx={{ minHeight: '100vh' }}>
-      <AuthBackground />
       <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: '100vh' }}>
         <Grid sx={{ px: 3, mt: 3 }} size={12}>
           <Logo to="/" />
@@ -36,9 +33,6 @@ export default function AuthWrapper({ children }: Props) {
               <AuthCard>{children}</AuthCard>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid sx={{ p: 3 }} size={12}>
-          <AuthFooter />
         </Grid>
       </Grid>
     </Box>

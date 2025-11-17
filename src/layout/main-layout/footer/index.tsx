@@ -4,7 +4,6 @@ import { Box, Grid, Link, Stack, List, ListItem, Typography } from '@mui/materia
 import { motion } from 'framer-motion';
 import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 import Logo from '@components/logo';
-import { useTheme } from '@mui/material/styles';
 
 import {
   centerBoxStyle,
@@ -19,11 +18,10 @@ import {
 } from './style';
 
 export default function FooterBlock() {
-  const theme = useTheme();
 
   return (
-    <Box sx={footerContainerStyle(theme)}>
-      <Grid container spacing={4} sx={footerGridStyle(theme)}>
+    <Box sx={footerContainerStyle}>
+      <Grid container spacing={4} sx={footerGridStyle}>
         <Grid>
           <motion.div
             initial={{ opacity: 0, translateY: 550 }}
@@ -33,10 +31,10 @@ export default function FooterBlock() {
             <Grid container sx={centerBoxStyle}>
               <Logo sx={{ width: 'auto' }} to="/" />
               <Grid sx={socialIconStyle}>
-                <Link href="https://www.facebook.com/codedthemes/" underline="none" target="_blank" sx={linkSX(theme)}>
+                <Link href="https://www.facebook.com/codedthemes/" underline="none" target="_blank" sx={linkSX}>
                   <FacebookOutlined />
                 </Link>
-                <Link href="https://www.instagram.com/codedthemes" underline="none" target="_blank" sx={linkSX(theme)}>
+                <Link href="https://www.instagram.com/codedthemes" underline="none" target="_blank" sx={linkSX}>
                   <InstagramOutlined />
                 </Link>
               </Grid>
@@ -45,7 +43,7 @@ export default function FooterBlock() {
         </Grid>
 
         <Grid container justifyContent="space-evenly" width={{ xs: '100%', sm: '100%', md: '70%' }}>
-          <Grid container sx={footerColumnStyle(theme)}>
+          <Grid container sx={footerColumnStyle}>
             <Stack spacing={2}>
               <Typography variant="h3"> About Saloony</Typography>
               <List sx={footerListsStyle}>
@@ -65,7 +63,7 @@ export default function FooterBlock() {
             </Stack>
           </Grid>
 
-          <Grid container sx={footerColumnStyle(theme)}>
+          <Grid container sx={footerColumnStyle}>
             <Stack spacing={2}>
               <Typography variant="h3">Find your Service</Typography>
               <List sx={footerListsStyle}>
@@ -91,7 +89,7 @@ export default function FooterBlock() {
         </Grid>
       </Grid>
 
-      <Box sx={footerTextStyle(theme)}>&copy; {new Date().getFullYear()} Saloony. All rights reserved.</Box>
+      <Box sx={footerTextStyle}>&copy; {new Date().getFullYear()} Saloony. All rights reserved.</Box>
     </Box>
   );
 }

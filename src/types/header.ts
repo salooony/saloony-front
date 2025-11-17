@@ -1,5 +1,7 @@
+import { MainLayoutType } from '@src/config';
+
 export interface HeaderProps {
-  variant?: 'home' | 'search' | 'without-location';
+  variant?: MainLayoutType;
   initialQuery?: string;
   initialLocation?: string;
 }

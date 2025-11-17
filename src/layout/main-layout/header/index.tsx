@@ -8,7 +8,7 @@ import AnimatedLink from '@src/components/@extended/animated-link';
 import LanguageDropdown from '@src/components/languageDropdown';
 import useHeader from './useHeader.hook';
 import useConfig from 'hooks/useConfig';
-import { APP_DEFAULT_PATH } from 'config';
+import { APP_DEFAULT_PATH, MainLayoutType, ThemeMode } from 'config';
 import { useScroll } from 'contexts/scrollProvider';
 import { useTheme } from '@mui/material/styles';
 import { HeaderProps } from '@src/types/header';
@@ -28,12 +28,13 @@ import {
   menuIconStyle,
   headerButtonStyle
 } from './style';
+
 import SearchBar from '@src/components/inputs/search-bar';
 import { useIsLgScreen, useIsMdScreen } from '@src/constants/breakpoints';
 import { ADDRESSES } from '@src/components/inputs/search-bar/constants';
 import { useState } from 'react';
 
-export default function Header({ variant = 'home', initialQuery = '', initialLocation = '' }: HeaderProps) {
+export default function Header({ variant = MainLayoutType.HOME, initialQuery = '', initialLocation = '' }: HeaderProps) {
   const [headerExpanded, setHeaderExpanded] = useState(false);
   const { container } = useConfig();
   const { user, downMD, drawerToggle, drawerToggler } = useHeader();
@@ -41,23 +42,23 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
   const isMdScreen = useIsMdScreen();
   const isLgScreen = useIsLgScreen();
   const theme = useTheme();
-  const isSearch = variant === 'search';
+  const isSearch = variant === MainLayoutType.SEARCH;
   const locationItem = initialLocation ? ADDRESSES.find((addr) => addr.name === initialLocation) || null : null;
   return (
-    <AppBar sx={appBarStyle(theme, scrolled)}>
+    <AppBar sx={appBarStyle(scrolled)}>
       <Container disableGutters={downMD} maxWidth={container ? 'xl' : false}>
         <Toolbar sx={toolbarStyle}>
-          <IconButton color="secondary" onClick={drawerToggler(true)} sx={menuIconStyle(theme)}>
+          <IconButton color="secondary" onClick={drawerToggler(true)} sx={menuIconStyle}>
             <MenuOutlined />
           </IconButton>
 
           <Box sx={logoBoxStyle(isSearch ? (isLgScreen ? '1px' : 15) : 3)}>
-            <Logo isHeader to="/" color={variant === 'home' ? 'light' : 'dark'}/>
-            {variant === 'search' ? (
+            <Logo isHeader to="/" color={variant === MainLayoutType.HOME ? ThemeMode.LIGHT : ThemeMode.DARK}/>
+            {variant === MainLayoutType.SEARCH ? (
               !isMdScreen && (
                 !headerExpanded ? (
                   <SearchBar
-                    variant="search"
+                    variant={MainLayoutType.SEARCH}
                     initialQuery={initialQuery}
                     initialLocation={locationItem}
                     onFocusChange={(focused) => setHeaderExpanded(focused)}
@@ -65,7 +66,7 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
                   />
                 ) : (
                   <SearchBar
-                    variant="home"
+                    variant={MainLayoutType.HOME}
                     initialQuery={initialQuery}
                     initialLocation={locationItem}
                     onFocusChange={(focused) => setHeaderExpanded(focused)}
@@ -75,10 +76,10 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
               )
             ) : (
               <List sx={listStyle}>
-                <AnimatedLink href="/components-overview/buttons" target="_blank" darkLink={variant !== 'home'}>
+                <AnimatedLink href="/components-overview/buttons" target="_blank" darkLink={variant !== MainLayoutType.HOME}>
                   Hairdresser
                 </AnimatedLink>
-                <AnimatedLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" darkLink={variant !== 'home'}>
+                <AnimatedLink href="https://codedthemes.gitbook.io/mantis/" target="_blank" darkLink={variant !== MainLayoutType.HOME}>
                   Barber
                 </AnimatedLink>
               </List>
@@ -93,7 +94,7 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
               target="_blank"
               underline="none"
               sx={{
-                color: theme.palette.common.white,
+                color: 'common.white',
                 paddingLeft: '0 !important',
                 paddingRight: '0 !important'
               }}
@@ -102,11 +103,10 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
                 <Button
                   variant="text"
                   sx={headerButtonStyle(
-                    theme,
-                    variant === 'home' ? theme.palette.common.white : 'transparent',
-                    variant === 'home' ? theme.palette.primary.main : scrolled ? theme.palette.common.white : theme.palette.primary.main,
-                    scrolled ? theme.palette.common.white : theme.palette.primary.main,
-                    scrolled ? theme.palette.primary.main : theme.palette.common.white
+                    variant === MainLayoutType.HOME ? 'common.white' : 'transparent',
+                    variant === MainLayoutType.HOME ? 'primary.main' : scrolled ? 'common.white' : 'primary.main',
+                    scrolled ? 'common.white' : 'primary.main',
+                    scrolled ? 'primary.main' : 'common.white'
                   )}
                 >
                   {user ? 'Mon compte' : 'Login'}
@@ -115,18 +115,14 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
             </Link>
 
             <ProfessionalButton
-              mainColor={scrolled ? theme.palette.common.white : theme.palette.primary.main}
-              textColor={scrolled ? theme.palette.primary.main : theme.palette.common.white}
+              mainColor={scrolled ? 'common.white' : 'primary.main'}
+              textColor={scrolled ? 'primary.main' : 'common.white'}
             />
 
             <LanguageDropdown 
-              mainColor={scrolled ? theme.palette.common.white : theme.palette.primary.main}
-              backColor={
-                variant === 'home' ? theme.palette.common.white : scrolled ? theme.palette.common.white : theme.palette.primary.main
-              }
-              textColor={
-                variant === 'home' ? theme.palette.primary.main : scrolled ? theme.palette.primary.main : theme.palette.common.white
-              }
+              mainColor={scrolled ? 'common.white' : 'primary.main'}
+              backColor={variant === MainLayoutType.HOME ? 'common.white' : scrolled ? 'common.white' : 'primary.main'}
+              textColor={variant === MainLayoutType.HOME ? 'primary.main' : scrolled ? 'primary.main' : 'common.white'}
             />
           </Box>
 
@@ -136,10 +132,10 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
                 <IconButton
                   color="secondary"
                   sx={{
-                    bgcolor: theme.palette.common.white,
+                    bgcolor: 'common.white',
                     '&:hover': {
-                      bgcolor: theme.palette.primary.lighter,
-                      color: theme.palette.primary.main
+                      bgcolor: 'primary.lighter',
+                      color: 'primary.main'
                     }
                   }}
                 >
@@ -150,12 +146,12 @@ export default function Header({ variant = 'home', initialQuery = '', initialLoc
           </Box>
         </Toolbar>
 
-        <Drawer anchor="left" open={drawerToggle} onClose={drawerToggler(false)} sx={drawerStyle(theme)}>
+        <Drawer anchor="left" open={drawerToggle} onClose={drawerToggler(false)} sx={drawerStyle}>
           <Box sx={drawerBoxStyle}>
             <Logo isIcon to="/" />
             <List>
               <ListItem sx={drawerListItemStyle}>
-                <LanguageDropdown mainColor={theme.palette.common.white} />
+                <LanguageDropdown mainColor={'common.white'} />
               </ListItem>
               <ListItemButton component={Link} href="/components-overview/buttons">
                 <ListItemText primary="Hairdresser" />

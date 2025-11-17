@@ -2,29 +2,29 @@ import { Theme } from '@mui/material/styles';
 
 export const faqTitleStyle = {
   textAlign: 'center',
-  mb: 2,
+  mb: 2
 };
 
 export const accordionStyle = {
   boxShadow: 'none',
-  border: 'none',
+  border: 'none'
 };
 
-export const accordionSummaryStyle = (theme: Theme) => ({
+export const accordionSummaryStyle = {
   flexDirection: 'row',
   justifyContent: 'space-between',
-  backgroundColor: theme.palette.primary.light,
-  borderTop: `1px solid ${theme.palette.primary.main}`,
-  py: 2,
-});
+  backgroundColor: 'primary.light',
+  borderTop: `1px solid primary.main`,
+  py: 2
+};
 
-export const questionTextStyle = (theme: Theme) => ({
+export const questionTextStyle = {
   fontWeight: 'medium',
-  fontSize: theme.typography.h5.fontSize,
-});
+  fontSize: 'h5.fontSize'
+};
 
-export const answerTextStyle = (theme: Theme) => ({
-  color: theme.palette.primary.main,
+export const answerTextStyle = {
+  color: 'primary.main',
   pl: 2,
-  fontSize: theme.typography.h6.fontSize,
-});
+  fontSize: 'h6.fontSize'
+};

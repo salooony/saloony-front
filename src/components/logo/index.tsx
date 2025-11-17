@@ -8,7 +8,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import LogoMain from './LogoMain';
 import LogoIcon from './LogoIcon';
 
-import { APP_DEFAULT_PATH } from 'config';
+import { APP_DEFAULT_PATH, ThemeMode } from 'config';
 
 // ==============================|| MAIN LOGO ||============================== //
 
@@ -17,11 +17,11 @@ interface Props {
   readonly isHeader?: boolean;
   readonly sx?: SxProps;
   readonly to?: string;
-  readonly color?: 'dark' | 'light';
+  readonly color?: ThemeMode;
 }
 
 
-export default function LogoSection({ isIcon, isHeader, sx, to, color = 'light' }: Props) {
+export default function LogoSection({ isIcon, isHeader, sx, to, color = ThemeMode.LIGHT }: Props) {
   const logoHeight = isHeader ? 100 : 150;
   const logoWidth = isHeader ? 140 : 214;
 
@@ -31,4 +31,3 @@ export default function LogoSection({ isIcon, isHeader, sx, to, color = 'light' 
     </ButtonBase>
   );
 }
-

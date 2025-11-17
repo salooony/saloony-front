@@ -3,10 +3,10 @@ import { Card, CardContent, CardMedia, SxProps, Theme } from '@mui/material';
 import { motion } from 'framer-motion';
 
 interface AnimatedCardProps {
-  image: string;
-  alt?: string;
-  sx?: SxProps<Theme>;
-  children: ReactNode;
+  readonly image: string;
+  readonly alt?: string;
+  readonly sx?: SxProps<Theme>;
+  readonly children: ReactNode;
 }
 
 export default function AnimatedCard({ image, alt, sx, children }: AnimatedCardProps) {

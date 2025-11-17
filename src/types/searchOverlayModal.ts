@@ -1,4 +1,5 @@
 import { Item } from '@src/components/inputs/search-bar/constants';
+import { FocusedInputType, MainLayoutType } from '@src/config';
 
 export interface SearchOverlayModalProps {
   open: boolean;
@@ -7,13 +8,13 @@ export interface SearchOverlayModalProps {
   setQuery: (val: string) => void;
   location: Item | null;
   setLocation: (val: Item | null) => void;
-  focusedInput: 'query' | 'location' | 'date' | null;
-  setFocusedInput: (val: 'query' | 'location' | 'date' | null) => void;
+  focusedInput: FocusedInputType | null;
+  setFocusedInput: (val: FocusedInputType | null) => void;
   suggestions: Item[];
   isLoading: boolean;
   highlightedIndex: number;
   handleKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   handleSearch: () => void;
   isSearchDisabled: boolean;
-  variant?: 'home' | 'search' | 'without-location';
+  variant?: MainLayoutType;
 }

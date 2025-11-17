@@ -1,9 +1,7 @@
-import { Theme } from '@mui/material/styles';
-
-export const justifiedTextWithLineStyle = (theme: Theme) => ({
+export const justifiedTextWithLineStyle = {
   width: '35px',
   height: 3,
-  backgroundColor: theme.palette.primary.dark,
+  backgroundColor: 'primary.dark',
   position: 'absolute',
   bottom: 3
-}); 
+};

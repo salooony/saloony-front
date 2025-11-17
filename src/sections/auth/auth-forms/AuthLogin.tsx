@@ -3,17 +3,11 @@
 import React, { useState, FocusEvent, SyntheticEvent } from 'react';
 
 // next
-import Image from 'next/legacy/image';
 import NextLink from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 
 // material-ui
-import { Theme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import Divider from '@mui/material/Divider';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
@@ -22,7 +16,6 @@ import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
 
 // third-party
 import * as Yup from 'yup';
@@ -30,26 +23,20 @@ import { preload } from 'swr';
 import { Formik } from 'formik';
 
 // project imports
-import FirebaseSocial from './FirebaseSocial';
 import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 
 import { APP_DEFAULT_PATH } from 'config';
 import { fetcher } from 'utils/axios';
+import { forgotPasswordStackStyle, inputFieldStyle, inputLabelStyle, submitButtonGridStyle, submitButtonStyle } from './style';
 
 // assets
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 
-const Auth0 = '/assets/images/icons/auth0.svg';
-const Cognito = '/assets/images/icons/aws-cognito.svg';
-const Google = '/assets/images/icons/google.svg';
-
 // ============================|| AWS CONNITO - LOGIN ||============================ //
 
 export default function AuthLogin({ providers, csrfToken }: any) {
-  const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
-  const [checked, setChecked] = useState(false);
   const { data: session } = useSession();
   const [capsWarning, setCapsWarning] = useState(false);
 
@@ -115,7 +102,9 @@ export default function AuthLogin({ providers, csrfToken }: any) {
             <Grid container spacing={3}>
               <Grid size={12}>
                 <Stack sx={{ gap: 1 }}>
-                  <InputLabel htmlFor="email-login">Email Address</InputLabel>
+                  <InputLabel htmlFor="email-login" sx={inputLabelStyle}>
+                    Email
+                  </InputLabel>
                   <OutlinedInput
                     id="email-login"
                     type="email"
@@ -126,6 +115,7 @@ export default function AuthLogin({ providers, csrfToken }: any) {
                     placeholder="Enter email address"
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
+                    sx={inputFieldStyle}
                   />
                 </Stack>
                 {touched.email && errors.email && (
@@ -136,8 +126,11 @@ export default function AuthLogin({ providers, csrfToken }: any) {
               </Grid>
               <Grid size={12}>
                 <Stack sx={{ gap: 1 }}>
-                  <InputLabel htmlFor="password-login">Password</InputLabel>
+                  <InputLabel htmlFor="password-login" sx={inputLabelStyle}>
+                    Password
+                  </InputLabel>
                   <OutlinedInput
+                    sx={inputFieldStyle}
                     fullWidth
                     color={capsWarning ? 'warning' : 'primary'}
                     error={Boolean(touched.password && errors.password)}
@@ -179,21 +172,8 @@ export default function AuthLogin({ providers, csrfToken }: any) {
                 )}
               </Grid>
 
-              <Grid sx={{ mt: -1 }} size={12}>
-                <Stack direction="row" sx={{ gap: 2, alignItems: 'baseline', justifyContent: 'space-between' }}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={checked}
-                        onChange={(event) => setChecked(event.target.checked)}
-                        name="checked"
-                        color="primary"
-                        size="small"
-                      />
-                    }
-                    label={<Typography variant="h6">Keep me sign in</Typography>}
-                  />
-
+              <Grid size={12}>
+                <Stack sx={forgotPasswordStackStyle}>
                   <Link variant="h6" component={NextLink} href={session ? '#!' : '/forget-pass'} color="text.primary">
                     Forgot Password?
                   </Link>
@@ -204,10 +184,18 @@ export default function AuthLogin({ providers, csrfToken }: any) {
                   <FormHelperText error>{errors.submit}</FormHelperText>
                 </Grid>
               )}
-              <Grid size={12}>
+              <Grid size={12} sx={submitButtonGridStyle}>
                 <AnimateButton>
-                  <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
-                    Login
+                  <Button
+                    disableElevation
+                    disabled={isSubmitting}
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    sx={submitButtonStyle}
+                  >
+                    Log in
                   </Button>
                 </AnimateButton>
               </Grid>
@@ -215,69 +203,6 @@ export default function AuthLogin({ providers, csrfToken }: any) {
           </form>
         )}
       </Formik>
-      {providers && (
-        <Stack
-          direction="row"
-          sx={{
-            gap: { xs: 1, sm: 2 },
-            justifyContent: { xs: 'space-around', sm: 'space-between' },
-            mt: 3,
-            '& .MuiButton-startIcon': { mr: { xs: 0, sm: 1 }, ml: { xs: 0, sm: -0.5 } }
-          }}
-        >
-          {Object.values(providers).map((provider: any) => {
-            if (provider.id === 'login' || provider.id === 'register') {
-              return;
-            }
-
-            return (
-              <Box key={provider.name} sx={{ width: '100%' }}>
-                <Divider sx={{ mt: 2 }}>
-                  <Typography variant="caption"> Login with</Typography>
-                </Divider>
-                {provider.id === 'google' && (
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth={!downSM}
-                    startIcon={<Image src={Google} alt="Twitter" width={16} height={16} />}
-                    onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
-                  >
-                    {!downSM && 'Google'}
-                  </Button>
-                )}
-                {provider.id === 'auth0' && (
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth={!downSM}
-                    startIcon={<Image src={Auth0} alt="Twitter" width={16} height={16} />}
-                    onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
-                  >
-                    {!downSM && 'Auth0'}
-                  </Button>
-                )}
-                {provider.id === 'cognito' && (
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth={!downSM}
-                    startIcon={<Image src={Cognito} alt="Twitter" width={16} height={16} />}
-                    onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
-                  >
-                    {!downSM && 'Cognito'}
-                  </Button>
-                )}
-              </Box>
-            );
-          })}
-        </Stack>
-      )}
-      {!providers && (
-        <Box sx={{ mt: 3 }}>
-          <FirebaseSocial />
-        </Box>
-      )}
     </>
   );
 }

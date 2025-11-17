@@ -2,11 +2,9 @@ import { Box, Button, Link } from '@mui/material';
 import React from 'react';
 import AnimateButton from './@extended/AnimateButton';
 import { headerButtonStyle } from '@src/layout/main-layout/header/style';
-import { useTheme } from '@mui/material/styles';
-import { ProfessionalButtonProps } from '@src/types/professionalButton'
+import { ProfessionalButtonProps } from '@src/types/professionalButton';
 
 export default function ProfessionalButton({ mainColor, textColor }: ProfessionalButtonProps) {
-  const theme = useTheme();
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -17,7 +15,7 @@ export default function ProfessionalButton({ mainColor, textColor }: Professiona
           target="_blank"
           disableElevation
           variant="contained"
-          sx={headerButtonStyle(theme, mainColor, textColor)}
+          sx={headerButtonStyle(mainColor, textColor)}
         >
           I am a beauty professional
         </Button>

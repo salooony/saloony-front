@@ -1,5 +1,5 @@
 import { Theme } from '@mui/material/styles';
-
+import { FocusedInputType, MainLayoutType } from '@src/config';
 export const searchContainerStyle = {
   width: '100%',
   maxWidth: 800,
@@ -17,13 +17,13 @@ export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean)
   py: 2,
   gap: 2,
   width: isExpanded ? '80%' : '100%',
-  maxHeight: variant === 'search' ? '50px' : 'auto',
-  maxWidth: variant === 'search' ? '600px' : '100%',
-  boxShadow: variant === 'search' ? 'none' : undefined,
+  maxHeight: variant === MainLayoutType.SEARCH ? '50px' : 'auto',
+  maxWidth: variant === MainLayoutType.SEARCH ? '600px' : '100%',
+  boxShadow: variant === MainLayoutType.SEARCH ? 'none' : undefined,
   border:
-    variant === 'search'
+    variant === MainLayoutType.SEARCH
       ? ` 1px solid ${theme.palette.grey[400]}`
-      : variant === 'home'
+      : variant === MainLayoutType.HOME
         ? isExpanded
           ? ` 1px solid ${theme.palette.grey[400]}`
           : undefined
@@ -39,8 +39,8 @@ export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean)
 
 
 
-export const dividerStyle = (theme: Theme, isExpanded: boolean) => ({
-  borderColor: theme.palette.common.black, 
+export const dividerStyle = (isExpanded: boolean) => ({
+  borderColor: 'common.black', 
   height: isExpanded ? 50 : 30,
   mt: 1.2
 });
@@ -55,15 +55,15 @@ export const inputGroupStyle = {
 
 export const searchBoxStyle = (
   theme: Theme,
-  focusedInput: 'query' | 'location' | 'date' | null,
-  inputName: 'query' | 'location' | 'date',
+  focusedInput: FocusedInputType | null,
+  inputName: FocusedInputType.QUERY | FocusedInputType.LOCATION | FocusedInputType.DATE,
   variant?: string,
   isExpanded?: boolean
 ) => ({
   width:
-    variant === 'search'
+    variant === MainLayoutType.SEARCH
       ? { xs: '100%', md: '30%' }
-      : variant === 'home'
+      : variant === MainLayoutType.HOME
         ? isExpanded
           ? { xs: '100%', md: '30%' }
           : { xs: '100%', md: '50%' }
@@ -85,9 +85,9 @@ export const noWrapStyle = {
   maxWidth: '100%', 
 };
 
-export const suggestionBoxStyle = (theme: Theme) => ({
+export const suggestionBoxStyle = {
   mt: 4,
-  backgroundColor: theme.palette.common.white,
+  backgroundColor: 'common.white',
   borderRadius: '8px',
   boxShadow: 2,
   position: 'absolute',
@@ -96,9 +96,9 @@ export const suggestionBoxStyle = (theme: Theme) => ({
   zIndex: 10,
   maxHeight: 200,
   overflowY: 'auto'
-});
+};
 
-export const SmallSuggestionBoxStyle = {
+export const MdSuggestionBoxStyle = {
   mt: 2.5,
   position: 'absolute',
   width: '100%',
@@ -110,18 +110,18 @@ export const suggestionItemStyle = (theme: Theme, highlighted: boolean = false) 
   px: 2,
   py: 1,
   cursor: 'pointer',
-  backgroundColor: highlighted ? theme.palette.action.selected : 'transparent', 
+  backgroundColor: highlighted ? 'action.selected' : 'transparent',
   '&:hover': {
-    backgroundColor: theme.palette.grey[100],
-  },
+    backgroundColor: theme.palette.grey[100]
+  }
 });
 
 
-export const iconButtonStyle = (theme: Theme, isDisabled: boolean, variant?: string) => ({
-  color: theme.palette.common.black,
-  width: variant === 'search' ? 35 : 48,
-  height: variant === 'search' ? 35 : 48,
-  '&:hover': !isDisabled ? { color: theme.palette.text.secondary } : {}, 
+export const iconButtonStyle = (isDisabled: boolean, variant?: string) => ({
+  color: 'common.black',
+  width: variant === MainLayoutType.SEARCH ? 35 : 48,
+  height: variant === MainLayoutType.SEARCH ? 35 : 48,
+  '&:hover': !isDisabled ? { color: 'text.secondary ' } : {},
   opacity: isDisabled ? 0.5 : 1, 
   cursor: isDisabled ? 'not-allowed' : 'pointer',
 });
@@ -131,20 +131,20 @@ export const circularProgressStyle = {
   justifyContent: 'center',
   p: 2
 }
-export const iconContainerStyle = (theme: Theme, variant?: string) => ({
+export const iconContainerStyle = (variant?: string) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   width: 35,
   height: 35,
   borderRadius: '30%',
-  backgroundColor: variant === 'search' ? theme.palette.primary.main : 'transparent',
+  backgroundColor: variant === MainLayoutType.SEARCH ? 'primary.main' : 'transparent',
 });
 
 export const centerModal = {
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'center',
+  justifyContent: 'center'
 };
 
 export const FiXStyle = {
@@ -157,12 +157,12 @@ export const modalBoxStyle = (theme: Theme) => ({
   position: 'relative',
   width: '100%',
   height: '100%',
-  backgroundColor: theme.palette.grey[100],
+  backgroundColor: theme.palette.grey[400]
 });
 
-export const smallSearchBoxStyle = (theme: Theme) => ({
-  backgroundColor: theme.palette.common.white,
+export const smallSearchBoxStyle = {
+  backgroundColor: 'common.white',
   display: 'flex',
   p: 1,
   boxShadow: 1
-});
+};

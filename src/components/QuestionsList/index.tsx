@@ -32,18 +32,18 @@ const QuestionsList: React.FC = () => {
       {faqData.map((item) => (
         <Accordion key={item.id} expanded={expanded === `panel${item.id}`} onChange={handleChange(`panel${item.id}`)} sx={accordionStyle}>
           <AccordionSummary
-            expandIcon={<CaretDownOutlined style={arrowsStyle(theme)} />}
+            expandIcon={<CaretDownOutlined style={arrowsStyle} />}
             aria-controls={`panel${item.id}bh-content`}
             id={`panel${item.id}bh-header`}
-            sx={accordionSummaryStyle(theme)}
+            sx={accordionSummaryStyle}
           >
-            <Typography variant="subtitle1" sx={questionTextStyle(theme)}>
+            <Typography variant="subtitle1" sx={questionTextStyle}>
               {item.question}
             </Typography>
           </AccordionSummary>
 
           <AccordionDetails>
-            <Typography variant="body2" sx={answerTextStyle(theme)}>
+            <Typography variant="body2" sx={answerTextStyle}>
               {item.answer}
             </Typography>
           </AccordionDetails>

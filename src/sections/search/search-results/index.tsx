@@ -6,6 +6,7 @@ import isBetween from 'dayjs/plugin/isBetween';
 import { SERVICES, ADDRESSES, Salon, ServiceItem } from '@src/components/inputs/search-bar/constants';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { FocusedInputType } from '@src/config';
 
 dayjs.extend(isBetween);
 
@@ -71,7 +72,7 @@ export default function SearchResults({ query, location, initialDate }: SearchRe
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
 
   useEffect(() => {
-    const dateParam = searchParams.get('date') || initialDate;
+    const dateParam = searchParams.get(FocusedInputType.DATE) || initialDate;
 
     if (dateParam) {
       setSelectedDate(createDayjsWithCurrentTime(dateParam));

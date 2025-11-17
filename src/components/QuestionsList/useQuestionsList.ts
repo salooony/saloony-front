@@ -9,6 +9,6 @@ export default function useQuestionsList() {
 
   return {
     expanded,
-    handleChange,
+    handleChange
   };
 }

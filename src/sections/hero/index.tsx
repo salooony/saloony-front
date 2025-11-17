@@ -7,11 +7,10 @@ import heroBg from '@public/assets/images/home/hero.jpg';
 import About from '@src/components/about';
 import Services from '@src/components/services';
 import Questions from '@src/components/questions';
-import { useTheme } from '@mui/material/styles';
 import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle } from './style';
+import { MainLayoutType } from '@src/config';
 
-export default function Hero({ variant }: { variant?: 'home' | 'search' | 'without-location' }) {
-  const theme = useTheme();
+export default function Hero({ variant }: { variant?: MainLayoutType }) {
 
   return (
     <>
@@ -19,11 +18,11 @@ export default function Hero({ variant }: { variant?: 'home' | 'search' | 'witho
         <Image src={heroBg} alt="Saloony hero" priority fill style={heroBgStyle} />
 
         <Container maxWidth="lg" sx={heroContentStyle}>
-          <Typography variant="h1" align="center" color="text.tertiary" sx={heroTitleStyle(theme)}>
+          <Typography variant="h1" align="center" color="text.tertiary" sx={heroTitleStyle}>
             Welcome To Saloony
           </Typography>
 
-          <Typography variant="subtitle1" align="center" color="text.tertiary" sx={heroSubtitleStyle(theme)}>
+          <Typography variant="subtitle1" align="center" color="text.tertiary" sx={heroSubtitleStyle}>
             Search for Barber Shop
           </Typography>
 
@@ -31,7 +30,7 @@ export default function Hero({ variant }: { variant?: 'home' | 'search' | 'witho
         </Container>
       </Box>
 
-      <Box sx={contentSectionStyle(theme)}>
+      <Box sx={contentSectionStyle}>
         <About />
         <Services />
         <Questions />

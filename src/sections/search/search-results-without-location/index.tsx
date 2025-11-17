@@ -5,13 +5,12 @@ import { SearchResultsProps } from '@src/types/searchResults';
 import { buttonStyle, searchBoxStyle } from './style';
 import useSearchResults from './useSearchResultsWithoutLocation';
 import { ADDRESSES } from '@src/components/inputs/search-bar/constants';
-import { useTheme } from '@mui/material/styles';
 import AnimatedCard from '@src/components/@extended/AnimatedCard';
+import { MainLayoutType } from '@src/config';
 
 export default function SearchResultsWithoutLocation({ query }: SearchResultsProps) {
   const isMdScreen = useIsMdScreen();
   const isSmScreen = useIsSmScreen();
-  const theme = useTheme();
 
   const { displayedResults, loadMore, hasMore } = useSearchResults(query, undefined, 12);
 
@@ -21,7 +20,7 @@ export default function SearchResultsWithoutLocation({ query }: SearchResultsPro
         <Typography variant={isSmScreen ? 'h5' : isMdScreen ? 'h4' : 'h3'} component="label" textAlign="center" px={3}>
           Book an appointment with a {query} online
         </Typography>
-        <SearchBar variant="without-location" initialQuery={query} enableExpand={false} />
+        <SearchBar variant={MainLayoutType.SearchWithoutLocation} initialQuery={query} enableExpand={false} />
       </Box>
 
       <Box display="flex" flexDirection="column" px={5}>
@@ -49,7 +48,7 @@ export default function SearchResultsWithoutLocation({ query }: SearchResultsPro
 
         {hasMore && (
           <Box display="flex" justifyContent="center">
-            <Button sx={buttonStyle(theme)} onClick={loadMore}>
+            <Button sx={buttonStyle} onClick={loadMore}>
               See more cities
             </Button>
           </Box>

@@ -60,8 +60,7 @@ export default function Palette(mode: ThemeMode, presetColor: PresetColor) {
       text: {
         primary: mode === ThemeMode.DARK ? alpha(paletteColor.grey[900]!, 0.87) : paletteColor.grey[700],
         secondary: mode === ThemeMode.DARK ? alpha(paletteColor.grey[900]!, 0.45) : paletteColor.grey[500],
-        disabled: mode === ThemeMode.DARK ? alpha(paletteColor.grey[900]!, 0.1) : paletteColor.grey[400],
-        tertiary: mode === ThemeMode.DARK ? alpha(paletteColor.grey[900]!, 0.87) : paletteColor.grey[100]
+        disabled: mode === ThemeMode.DARK ? alpha(paletteColor.grey[900]!, 0.1) : paletteColor.grey[400]
       },
       action: {
         disabled: paletteColor.grey[300]
