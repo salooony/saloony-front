@@ -1,15 +1,16 @@
 import { Box, Divider, Paper } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import useSearchBar from './useSearchBar';
-import { searchContainerStyle, paperStyle, inputGroupStyle, dividerStyle } from './style';
+import { searchContainerStyle, paperStyle, inputGroupStyle, dividerStyle, searchBarMotionVariants } from './style';
 import QueryField from './QueryField';
 import LocationField from './LocationField';
 import SearchButton from './SearchButton';
 import SearchOverlayModal from './SearchOverlayModal';
 import { useIsMdScreen } from '@src/constants/breakpoints';
-import ProfessionalButton from '@src/components/professionalButton';
+import ProfessionalButton from '@src/components/professional-button/professionalButton';
 import { searchBarProps } from '@src/types/searchBar';
 import DateField from './DateField';
+import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import { MainLayoutType } from '@src/config';
 
@@ -24,9 +25,9 @@ export default function SearchBar({
   const isHome = variant === MainLayoutType.HOME;
   const isSearch = variant === MainLayoutType.SEARCH;
   const [isExpanded, setIsExpanded] = useState(false);
-  const [datePickerOpen, setDatePickerOpen] = useState(false);
   const searchBarRef = useRef<HTMLDivElement>(null);
   const theme = useTheme();
+  const MotionPaper = motion(Paper);
 
   const {
     query,
@@ -45,7 +46,11 @@ export default function SearchBar({
     handleKeyDown,
     isOverlayOpen,
     openOverlay,
-    closeOverlay
+    closeOverlay,
+    datePickerOpen,
+    setDatePickerOpen,
+    setActiveField,
+    activeField
   } = useSearchBar({ isMdScreen, initialQuery, initialLocation });
 
   useEffect(() => {
@@ -124,9 +129,18 @@ export default function SearchBar({
     </>
   );
 
+
   return (
     <Box ref={searchBarRef} sx={searchContainerStyle}>
-      <Paper sx={paperStyle(theme, variant, isExpanded) as any}>{isMdScreen ? smallScreenFields() : largeScreenFields()}</Paper>
+      <MotionPaper
+        sx={paperStyle(theme, variant, isExpanded) as any}
+        initial={false}
+        animate={isExpanded ? 'expanded' : 'collapsed'}
+        variants={{ searchBarMotionVariants }}
+        transition={{ type: 'spring', stiffness: 40, damping: 30, mass: 1 }}
+      >
+        {isMdScreen ? smallScreenFields() : largeScreenFields()}
+      </MotionPaper>
 
       {isMdScreen && (
         <Box>
@@ -146,6 +160,8 @@ export default function SearchBar({
             handleSearch={handleSearch}
             isSearchDisabled={Boolean(isSearchDisabled)}
             variant={variant}
+            activeField={activeField}
+            setActiveField={setActiveField}
           />
           {isHome && <ProfessionalButton />}
         </Box>

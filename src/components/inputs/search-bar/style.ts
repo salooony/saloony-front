@@ -6,7 +6,7 @@ export const searchContainerStyle = {
   mx: 'auto',
   display: 'flex',
   flexDirection: 'column',
-  gap: 2,
+  gap: 2
 };
 
 export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean) => ({
@@ -34,14 +34,13 @@ export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean)
   right: 0,
   zIndex: isExpanded ? 20 : 'auto',
   mx: 'auto',
- 
+  transition: 'all 0.3s ease'
 });
-
 
 
 export const dividerStyle = (isExpanded: boolean) => ({
   borderColor: 'common.black', 
-  height: isExpanded ? 50 : 30,
+  height: isExpanded ? 60 : 30,
   mt: 1.2
 });
 
@@ -56,26 +55,39 @@ export const inputGroupStyle = {
 export const searchBoxStyle = (
   theme: Theme,
   focusedInput: FocusedInputType | null,
-  inputName: FocusedInputType.QUERY | FocusedInputType.LOCATION | FocusedInputType.DATE,
+  inputName: FocusedInputType,
   variant?: string,
   isExpanded?: boolean
 ) => ({
   width:
     variant === MainLayoutType.SEARCH
-      ? { xs: '100%', md: '30%' }
+      ? { xs: '100%', md: '33%' }
       : variant === MainLayoutType.HOME
         ? isExpanded
-          ? { xs: '100%', md: '30%' }
+          ? { xs: '100%', md: '33%' }
           : { xs: '100%', md: '50%' }
         : { xs: '100%', md: '50%' },
   borderRadius: '12px',
-  px: 2,
-  py: 1,
-  transition: 'all 0.2s ease',
+  p: 1.5,
+  transition: ['background-color 220ms ease', 'border 220ms ease', 'width 320ms cubic-bezier(.22,.8,.18,1)'].join(', '),
   backgroundColor: focusedInput === inputName ? theme.palette.grey[100] : 'transparent',
-  border: focusedInput === inputName ? `1px solid ${theme.palette.grey[400]}` : '1px solid transparent',
-  position: 'relative'
+  position: 'relative',
 });
+
+export const searchBarMotionVariants = {
+  expanded: {
+    y: -2,
+    scale: 1.002,
+    opacity: 1,
+    boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
+  },
+  collapsed: {
+    y: 0,
+    scale: 1,
+    opacity: 0.995,
+    boxShadow: 'none',
+  },
+};
 
 export const noWrapStyle = {
   whiteSpace: 'nowrap',
@@ -112,13 +124,13 @@ export const suggestionItemStyle = (theme: Theme, highlighted: boolean = false) 
   cursor: 'pointer',
   backgroundColor: highlighted ? 'action.selected' : 'transparent',
   '&:hover': {
-    backgroundColor: theme.palette.grey[100]
+    backgroundColor: 'action.selected'
   }
 });
 
 
 export const iconButtonStyle = (isDisabled: boolean, variant?: string) => ({
-  color: 'common.black',
+  color: variant === MainLayoutType.SEARCH ? 'common.white' : 'common.black',
   width: variant === MainLayoutType.SEARCH ? 35 : 48,
   height: variant === MainLayoutType.SEARCH ? 35 : 48,
   '&:hover': !isDisabled ? { color: 'text.secondary ' } : {},
@@ -157,12 +169,55 @@ export const modalBoxStyle = (theme: Theme) => ({
   position: 'relative',
   width: '100%',
   height: '100%',
-  backgroundColor: theme.palette.grey[400]
+  backgroundColor: theme.palette.grey[100]
 });
 
 export const smallSearchBoxStyle = {
   backgroundColor: 'common.white',
   display: 'flex',
+  alignItems: 'center',
   p: 1,
   boxShadow: 1
 };
+
+export const calendarLayout = {
+  display: 'flex',
+  flexDirection: 'column',
+  minWidth: '300px',
+  '.MuiPickersLayout-contentWrapper': {
+    width: '100%'
+  }
+}
+
+export const calendarPopper = (theme: Theme) => ({
+  '& .MuiPaper-root': {
+    borderRadius: '16px',
+    border: `1px solid ${theme.palette.divider}`,
+    boxShadow: theme.shadows[3],
+    marginTop: '30px',
+    width: 'fit-content',
+    minWidth: 'auto',
+    transform: 'translateX(-5px) !important',
+  },
+  '& .MuiDateCalendar-root': {
+    width: 'auto',
+  }
+});
+
+export const CalenderToolbar = (theme: Theme) => ({
+  p: 2,
+  pb: 1,
+  borderBottom: `1px solid ${theme.palette.divider}`,
+  justifyContent: 'space-between',
+  width: '100%'
+});
+
+export const calendarButton = (theme: Theme) => ({
+  borderRadius: '20px',
+  textTransform: 'none',
+  flex: 1,
+  fontWeight: 600,
+  borderColor: theme.palette.divider,
+  color: theme.palette.text.primary,
+  whiteSpace: 'nowrap',
+});

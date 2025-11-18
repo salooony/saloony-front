@@ -2,6 +2,7 @@
 
 import { Box, Grid, Link, Stack, List, ListItem, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+import { useTheme } from '@mui/material/styles';
 import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 import Logo from '@components/logo';
 
@@ -18,10 +19,10 @@ import {
 } from './style';
 
 export default function FooterBlock() {
-
+  const theme = useTheme();
   return (
     <Box sx={footerContainerStyle}>
-      <Grid container spacing={4} sx={footerGridStyle}>
+      <Grid container spacing={4} sx={footerGridStyle(theme)}>
         <Grid>
           <motion.div
             initial={{ opacity: 0, translateY: 550 }}

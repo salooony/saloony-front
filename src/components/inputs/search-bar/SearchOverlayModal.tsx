@@ -1,4 +1,4 @@
-import { JSX, useState } from 'react';
+import { JSX } from 'react';
 import { Box, Modal, IconButton, Typography, Divider } from '@mui/material';
 import { FiX } from 'react-icons/fi';
 import QueryField from './QueryField';
@@ -8,6 +8,8 @@ import { SearchOverlayModalProps } from '@src/types/searchOverlayModal';
 import { centerModal, FiXStyle, modalBoxStyle, smallSearchBoxStyle } from './style';
 import { FocusedInputType, MainLayoutType } from '@src/config';
 import { useTheme } from '@mui/material/styles';
+import DateField from './DateField';
+import useSearchBar from './useSearchBar';
 
 export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.Element {
   const {
@@ -25,11 +27,14 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     handleKeyDown,
     handleSearch,
     isSearchDisabled,
-    variant
+    variant,
+    activeField,
+    setActiveField
   } = props;
 
-  const [activeField, setActiveField] = useState<FocusedInputType.QUERY | FocusedInputType.LOCATION>(FocusedInputType.QUERY);
+  const { selectedDate, setSelectedDate, setDatePickerOpen } = useSearchBar({ isMdScreen: true });
   const theme = useTheme();
+
   return (
     <Modal open={open} onClose={onClose} closeAfterTransition disableEnforceFocus sx={centerModal} BackdropProps={{ onClick: onClose }}>
       <Box onClick={(e) => e.stopPropagation()} sx={modalBoxStyle(theme)}>
@@ -66,9 +71,13 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
               handleKeyDown={handleKeyDown}
               readOnly={false}
               disableFocusStyle
-              onSelectQuery={() => setActiveField(FocusedInputType.LOCATION)}
+              onSelectQuery={() => {
+                if (variant !== MainLayoutType.SEARCH) {
+                  setActiveField(FocusedInputType.LOCATION);
+                }
+              }}
             />
-          ) : (
+          ) : activeField === FocusedInputType.LOCATION ? (
             <LocationField
               location={location}
               setLocation={setLocation}
@@ -79,6 +88,15 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
               highlightedIndex={highlightedIndex}
               handleKeyDown={handleKeyDown}
               disableFocusStyle
+            />
+          ) : (
+            <DateField
+              focusedInput={focusedInput}
+              setFocusedInput={setFocusedInput}
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              variant={variant}
+              onOpenChange={setDatePickerOpen}
             />
           )}
           <SearchButton onClick={handleSearch} disabled={isSearchDisabled} size={20} />

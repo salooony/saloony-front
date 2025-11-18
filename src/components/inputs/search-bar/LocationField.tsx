@@ -2,7 +2,7 @@
 
 import { Box, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
+import { searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle, noWrapStyle } from './style';
 import CircularLoader from 'components/CircularLoader';
 import { LocationFieldProps } from '@src/types/locationField';
 import { useIsMdScreen } from '@src/constants/breakpoints';
@@ -36,7 +36,6 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
   const isHome = variant === MainLayoutType.HOME;
   const isSearch = variant === MainLayoutType.SEARCH;
 
-  // استخدام useClickOutside مع containerRef لمنع الإغلاق عند النقل بين الحقول
   useClickOutside([containerRef, searchBarRef!], () => {
     setFocusedInput(null);
   });
@@ -44,14 +43,12 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setTimeout(() => {
       const activeElement = document.activeElement;
-      // Consider focus moving to the date picker's popper as moving to another field
       let isMovingToOtherField =
         activeElement?.id === 'service-input' ||
         activeElement?.id === 'date-input' ||
         searchBarRef?.current?.contains(activeElement) ||
         Boolean(props?.datePickerOpen);
 
-      // If activeElement is inside MUI pickers (portal), treat as moving to other field
       let el = activeElement as HTMLElement | null;
       while (el && !isMovingToOtherField) {
         const cn = el.className;
@@ -90,7 +87,13 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
       )}
     >
       {!isMdScreen && !isSearch && (
-        <Typography variant="h5" component="label" htmlFor="location-input" color={isHome ? 'common.black' : theme.palette.grey[400]}>
+        <Typography
+          variant="h5"
+          component="label"
+          htmlFor="location-input"
+          color={isHome ? 'common.black' : theme.palette.grey[400]}
+          sx={noWrapStyle}
+        >
           Or
         </Typography>
       )}
@@ -112,6 +115,9 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         InputProps={{
           disableUnderline: true,
           sx: {
+            '& .MuiInputBase-input': {
+              noWrapStyle,
+            },
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : 'common.black',
               opacity: 1

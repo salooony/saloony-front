@@ -10,13 +10,13 @@ export const accordionStyle = {
   border: 'none'
 };
 
-export const accordionSummaryStyle = {
+export const accordionSummaryStyle = (theme: Theme) => ({
   flexDirection: 'row',
   justifyContent: 'space-between',
   backgroundColor: 'primary.light',
-  borderTop: `1px solid primary.main`,
+  borderTop: `1px solid ${theme.palette.primary.main}`,
   py: 2
-};
+});
 
 export const questionTextStyle = {
   fontWeight: 'medium',

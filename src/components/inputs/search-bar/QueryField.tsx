@@ -33,14 +33,12 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setTimeout(() => {
       const activeElement = document.activeElement;
-      // Consider focus moving to the date picker's popper as moving to another field
       let isMovingToOtherField =
         activeElement?.id === 'location-input' ||
         activeElement?.id === 'date-input' ||
         searchBarRef?.current?.contains(activeElement) ||
         Boolean(props.datePickerOpen);
 
-      // If activeElement is inside MUI pickers (portal), treat as moving to other field
       let el = activeElement as HTMLElement | null;
       while (el && !isMovingToOtherField) {
         const cn = el.className;
@@ -119,6 +117,9 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
           readOnly,
           sx: {
             fontSize: isMdScreen ? 'h5.fontSize' : 'h6.fontSize',
+            '& .MuiInputBase-input': {
+              ...noWrapStyle,
+            },
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : 'common.black',
               opacity: 1

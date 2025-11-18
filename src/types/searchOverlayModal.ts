@@ -17,4 +17,6 @@ export interface SearchOverlayModalProps {
   handleSearch: () => void;
   isSearchDisabled: boolean;
   variant?: MainLayoutType;
+  activeField: FocusedInputType;
+  setActiveField: (field: FocusedInputType) => void;
 }

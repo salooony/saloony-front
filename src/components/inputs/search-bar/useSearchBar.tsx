@@ -15,6 +15,8 @@ export default function useSearchBar(props: UseSearchBarProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const [isOverlayOpen, setIsOverlayOpen] = useState<boolean>(false);
+  const [datePickerOpen, setDatePickerOpen] = useState(false);
+  const [activeField, setActiveField] = useState<FocusedInputType>(FocusedInputType.QUERY);
 
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -159,6 +161,10 @@ export default function useSearchBar(props: UseSearchBarProps) {
     handleKeyDown,
     isOverlayOpen,
     openOverlay,
-    closeOverlay
+    closeOverlay,
+    setDatePickerOpen,
+    datePickerOpen,
+    activeField,
+    setActiveField
   };
-}
+} 

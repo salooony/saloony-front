@@ -10,7 +10,7 @@ import Questions from '@src/components/questions';
 import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle } from './style';
 import { MainLayoutType } from '@src/config';
 
-export default function Hero({ variant }: { variant?: MainLayoutType }) {
+export default function Hero({ variant }: { readonly variant?: MainLayoutType }) {
 
   return (
     <>

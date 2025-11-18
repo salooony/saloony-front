@@ -1,4 +1,7 @@
+import { FocusedInputType } from '@src/config';
+
 export interface SearchResultsProps {
-  query: string;
-  location?: string;
+  query: FocusedInputType.QUERY;
+  location?: FocusedInputType.LOCATION;
+  date?: FocusedInputType.DATE;
 }

@@ -1,3 +1,5 @@
+import { MainLayoutType } from '@src/config';
+
 export const appBarStyle = (scrolled: boolean) => ({
   boxShadow: scrolled ? 1 : 'none',
   backgroundColor: scrolled ? 'primary.main' : { xs: 'primary.main', md: 'transparent' },
@@ -15,9 +17,9 @@ export const logoBoxStyle = (gab?: number | string) => ({ mr: 2, display: 'flex'
 
 export const listStyle = { display: { xs: 'none', md: 'flex' }, gap: 4 };
 
-export const rightBoxStyle = (gap?: number | string) => ({
-  display: { xs: 'none', md: 'flex' },
-  gap: gap ?? 1.5,
+export const rightBoxStyle = (isSearch: boolean) => ({
+  display: isSearch ? 'flex' :{ xs: 'none', md: 'flex' },
+  gap: isSearch ? '3px' : 1.5,
   '& .header-link': {
     px: 2,
     '&:hover': {
@@ -43,14 +45,24 @@ export const menuIconStyle = {
   display: { xs: 'block', md: 'none' },
   '&:hover': { color: 'primary.lighter'}
 };
-export const headerButtonStyle = (mainColor?: string, textColor?: string, hoverColor?: string, hoverTextColor?: string) => ({
-  backgroundColor: mainColor ?? 'primary.main',
-  color: textColor ?? 'common.white',
-  '&:hover': { 
-    backgroundColor: hoverColor ?? 'common.white', 
-    color: hoverTextColor ?? 'primary.main'
-  },
-  width: '100%',
-  whiteSpace: 'nowrap'
-});
+export const headerButtonStyle = (variant: MainLayoutType, scrolled: boolean, isMdScreen: boolean) => {
+  const isHome = variant === MainLayoutType.HOME;
+
+  const mainColor = isHome ? 'common.white' : 'transparent';
+  const textColor = isHome ? 'primary.main' : isMdScreen ? 'common.white' : scrolled ? 'common.white' : 'primary.main';
+  const hoverColor = isHome ? 'common.white' : 'transparent';
+  const hoverTextColor = isHome ? 'primary.main' : isMdScreen ? 'common.white' : scrolled ? 'common.white' : 'primary.main';
+
+  return {
+    backgroundColor: mainColor,
+    color: textColor,
+    '&:hover': { 
+      backgroundColor: hoverColor, 
+      color: hoverTextColor
+    },
+    width: '100%',
+    whiteSpace: 'nowrap'
+  };
+};
+
 

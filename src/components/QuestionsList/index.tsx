@@ -35,7 +35,7 @@ const QuestionsList: React.FC = () => {
             expandIcon={<CaretDownOutlined style={arrowsStyle} />}
             aria-controls={`panel${item.id}bh-content`}
             id={`panel${item.id}bh-header`}
-            sx={accordionSummaryStyle}
+            sx={accordionSummaryStyle(theme)}
           >
             <Typography variant="subtitle1" sx={questionTextStyle}>
               {item.question}

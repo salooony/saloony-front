@@ -10,10 +10,9 @@ import useHeader from './useHeader.hook';
 import useConfig from 'hooks/useConfig';
 import { APP_DEFAULT_PATH, MainLayoutType, ThemeMode } from 'config';
 import { useScroll } from 'contexts/scrollProvider';
-import { useTheme } from '@mui/material/styles';
 import { HeaderProps } from '@src/types/header';
 import MenuOutlined from '@ant-design/icons/MenuOutlined';
-import ProfessionalButton from '@src/components/professionalButton';
+import ProfessionalButton from '@src/components/professional-button/professionalButton';
 import LoginOutlined from '@ant-design/icons/LoginOutlined';
 
 import {
@@ -41,19 +40,32 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
   const { scrolled } = useScroll();
   const isMdScreen = useIsMdScreen();
   const isLgScreen = useIsLgScreen();
-  const theme = useTheme();
   const isSearch = variant === MainLayoutType.SEARCH;
   const locationItem = initialLocation ? ADDRESSES.find((addr) => addr.name === initialLocation) || null : null;
+  const homePath = '/';
+  const loginPath = '/login';
   return (
     <AppBar sx={appBarStyle(scrolled)}>
       <Container disableGutters={downMD} maxWidth={container ? 'xl' : false}>
         <Toolbar sx={toolbarStyle}>
-          <IconButton color="secondary" onClick={drawerToggler(true)} sx={menuIconStyle}>
-            <MenuOutlined />
-          </IconButton>
 
-          <Box sx={logoBoxStyle(isSearch ? (isLgScreen ? '1px' : 15) : 3)}>
-            <Logo isHeader to="/" color={variant === MainLayoutType.HOME ? ThemeMode.LIGHT : ThemeMode.DARK}/>
+          <Box sx={logoBoxStyle(isSearch ? (isLgScreen ? '1px' : 15) : 0.5)}>
+            <IconButton color="secondary" onClick={drawerToggler(true)} sx={menuIconStyle}>
+              <MenuOutlined />
+            </IconButton>
+            <Logo
+              isHeader
+              to={homePath}
+              color={
+                variant === MainLayoutType.HOME
+                  ? ThemeMode.LIGHT
+                  : isMdScreen
+                    ? ThemeMode.LIGHT
+                    : scrolled
+                      ? ThemeMode.LIGHT
+                      : ThemeMode.DARK
+              }
+            />
             {variant === MainLayoutType.SEARCH ? (
               !isMdScreen && (
                 !headerExpanded ? (
@@ -86,11 +98,11 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
             )}
           </Box>
 
-          <Box sx={rightBoxStyle(isSearch ? '3px' : 1.5)}>
+          <Box sx={rightBoxStyle(isSearch)}>
             <Link
               className="header-link"
               component={Link}
-              href={user ? APP_DEFAULT_PATH : '/login'}
+              href={user ? APP_DEFAULT_PATH : loginPath}
               target="_blank"
               underline="none"
               sx={{
@@ -100,34 +112,20 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
               }}
             >
               <AnimateButton>
-                <Button
-                  variant="text"
-                  sx={headerButtonStyle(
-                    variant === MainLayoutType.HOME ? 'common.white' : 'transparent',
-                    variant === MainLayoutType.HOME ? 'primary.main' : scrolled ? 'common.white' : 'primary.main',
-                    scrolled ? 'common.white' : 'primary.main',
-                    scrolled ? 'primary.main' : 'common.white'
-                  )}
-                >
+                <Button variant="text" sx={headerButtonStyle(variant, scrolled, isMdScreen)}>
                   {user ? 'Mon compte' : 'Login'}
                 </Button>
               </AnimateButton>
             </Link>
 
-            <ProfessionalButton
-              mainColor={scrolled ? 'common.white' : 'primary.main'}
-              textColor={scrolled ? 'primary.main' : 'common.white'}
-            />
+            <ProfessionalButton scrolled={scrolled} isMdScreen={isMdScreen} />
 
-            <LanguageDropdown 
-              mainColor={scrolled ? 'common.white' : 'primary.main'}
-              backColor={variant === MainLayoutType.HOME ? 'common.white' : scrolled ? 'common.white' : 'primary.main'}
-              textColor={variant === MainLayoutType.HOME ? 'primary.main' : scrolled ? 'primary.main' : 'common.white'}
-            />
+            <LanguageDropdown variant={variant} scrolled={scrolled} isMdScreen={isMdScreen} />
+
           </Box>
 
-          <Box sx={{ display: { xs: 'block', md: 'none' } }}>
-            <Link href={user ? APP_DEFAULT_PATH : '/login'} target="_blank">
+          <Box sx={{ display: isSearch ? 'none' : { xs: 'block', md: 'none' } }}>
+            <Link href={user ? APP_DEFAULT_PATH : loginPath} target="_blank">
               <AnimateButton>
                 <IconButton
                   color="secondary"
@@ -148,10 +146,10 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
 
         <Drawer anchor="left" open={drawerToggle} onClose={drawerToggler(false)} sx={drawerStyle}>
           <Box sx={drawerBoxStyle}>
-            <Logo isIcon to="/" />
+            <Logo isIcon to={homePath} />
             <List>
               <ListItem sx={drawerListItemStyle}>
-                <LanguageDropdown mainColor={'common.white'} />
+                <LanguageDropdown variant={variant} inDrawer />
               </ListItem>
               <ListItemButton component={Link} href="/components-overview/buttons">
                 <ListItemText primary="Hairdresser" />
@@ -159,7 +157,7 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
               <ListItemButton component={Link} href="https://codedthemes.gitbook.io/mantis/" target="_blank">
                 <ListItemText primary="Barber" />
               </ListItemButton>
-              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : '/login'}>
+              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : loginPath}>
                 <ListItemText primary={user ? 'Mon compte' : 'Login'} />
               </ListItemButton>
               <ListItemButton component={Link} href="https://mui.com/store/items/mantis-react-admin-dashboard-template/" target="_blank">

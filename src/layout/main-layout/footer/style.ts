@@ -1,14 +1,16 @@
 import { styled, SxProps } from '@mui/material/styles';
 import Link from '@mui/material/Link';
+import { Theme } from '@mui/material';
 
-export const FooterLink = styled(Link)({
-  color: 'common.white',
+export const FooterLink = styled(Link)(({ theme }) => ({
+  color: theme.palette.common.white,
   fontSize: '18px',
   transition: '0.3s',
   '&:hover': {
-    opacity: 0.8
-  }
-});
+    opacity: 0.8,
+  },
+}));
+
 
 export const linkSX = {
   color: 'common.white',
@@ -47,16 +49,16 @@ export const footerContainerStyle = {
   alignItems: 'center'
 };
 
-export const footerGridStyle = {
+export const footerGridStyle = (theme: Theme) =>({
   width: { xs: '100%', sm: '100%', md: '90%' },
   display: 'flex',
   flexDirection: { xs: 'column', sm: 'column', md: 'row' },
   gap: 4,
   alignItems: { xs: 'center', sm: 'center', md: 'stretch' },
   justifyContent: 'center',
-  borderBottom: `1px solid primary.lighter`,
+  borderBottom: `1px solid ${theme.palette.primary.lighter}`,
   pb: 4
-};
+});
 
 export const footerColumnStyle = {
   my: { xs: 0, sm: 0, md: 7 },
