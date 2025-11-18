@@ -2,17 +2,17 @@
 
 import { Box, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { searchBoxStyle, SmallSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
+import { searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
 import CircularLoader from 'components/CircularLoader';
 import { LocationFieldProps } from '@src/types/locationField';
-import { useIsSmallScreen } from '@src/constants/breakpoints';
+import { useIsMdScreen } from '@src/constants/breakpoints';
 import { JSX } from 'react';
+import { FocusedInputType, MainLayoutType } from '@src/config';
 
 export default function LocationField(props: LocationFieldProps): JSX.Element {
   const theme = useTheme();
-  const isSmallScreen = useIsSmallScreen();
-  const SuggestionStyle = isSmallScreen ? SmallSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
-
+  const isMdScreen = useIsMdScreen();
+  const SuggestionStyle = isMdScreen ? MdSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
   const {
     location,
     setLocation,
@@ -22,21 +22,32 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
     isLoading,
     highlightedIndex,
     handleKeyDown,
-    disableFocusStyle
+    disableFocusStyle,
+    variant
   } = props;
-
   const suggestionListId = 'location-suggestion-list';
-
+  const isHome = variant === MainLayoutType.HOME;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setLocation({ id: 0, name: e.target.value });
   };
 
-  const open = focusedInput === 'location' && (isLoading || suggestions.length > 0);
+  const open = focusedInput === FocusedInputType.LOCATION && (isLoading || suggestions.length > 0);
 
   return (
-    <Box sx={searchBoxStyle(theme, !disableFocusStyle && focusedInput === 'location' ? 'location' : null, 'location')}>
-      {!isSmallScreen && (
-        <Typography variant="h5" component="label" htmlFor="location-input">
+    <Box
+      sx={searchBoxStyle(
+        theme,
+        !disableFocusStyle && focusedInput === FocusedInputType.LOCATION ? FocusedInputType.LOCATION : null,
+        FocusedInputType.LOCATION
+      )}
+    >
+      {!isMdScreen && (
+        <Typography
+          variant="h5"
+          component="label"
+          htmlFor="location-input"
+          color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
+        >
           Or
         </Typography>
       )}
@@ -46,7 +57,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         fullWidth
         variant="standard"
         value={location?.name || ''}
-        onFocus={() => setFocusedInput('location')}
+        onFocus={() => setFocusedInput(FocusedInputType.LOCATION)}
         onBlur={() => setFocusedInput(null)}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
@@ -55,7 +66,15 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         aria-expanded={open}
         aria-controls={suggestionListId}
         aria-label="Search for location"
-        InputProps={{ disableUnderline: true }}
+        InputProps={{
+          disableUnderline: true,
+          sx: {
+            '& .MuiInputBase-input::placeholder': {
+              color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
+              opacity: 1,
+            },
+          }
+        }}
       />
 
       {open && (

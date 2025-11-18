@@ -1,9 +1,5 @@
 import { Box } from '@mui/material';
-
-interface SearchResultsProps {
-  query?: string;
-  location?: string;
-}
+import { SearchResultsProps } from '@src/types/searchResults';
 
 export default function SearchResults({ query, location }: SearchResultsProps) {
   return (

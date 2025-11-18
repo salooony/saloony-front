@@ -17,7 +17,8 @@ export const heroContentStyle = {
   justifyContent: 'center',
   gap: 2,
   position: 'relative',
-  zIndex: 1
+  zIndex: 1,
+  color: 'common.white'
 };
 
 export const heroTitleStyle = (theme: Theme) => ({

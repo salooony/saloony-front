@@ -8,7 +8,7 @@ import ButtonBase from '@mui/material/ButtonBase';
 import LogoMain from './LogoMain';
 import LogoIcon from './LogoIcon';
 
-import { APP_DEFAULT_PATH } from 'config';
+import { APP_DEFAULT_PATH, ThemeMode } from 'config';
 
 // ==============================|| MAIN LOGO ||============================== //
 
@@ -17,14 +17,17 @@ interface Props {
   readonly isHeader?: boolean;
   readonly sx?: SxProps;
   readonly to?: string;
+  readonly color?: ThemeMode;
 }
 
-export default function LogoSection({ isIcon, isHeader, sx, to }: Props) {
+
+export default function LogoSection({ isIcon, isHeader, sx, to, color = ThemeMode.LIGHT }: Props) {
   const logoHeight = isHeader ? 100 : 150;
   const logoWidth = isHeader ? 140 : 214;
+
   return (
     <ButtonBase disableRipple component={NextLink} href={to || APP_DEFAULT_PATH} sx={sx}>
-      {isIcon ? <LogoIcon /> : <LogoMain width={logoWidth} height={logoHeight} />}
+      {isIcon ? <LogoIcon /> : <LogoMain width={logoWidth} height={logoHeight} color={color} />}
     </ButtonBase>
   );
 }

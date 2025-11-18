@@ -5,7 +5,7 @@ import { MainLayoutType } from '@src/config';
 const HomePage = () => {
   return (
     <MainLayout variant={MainLayoutType.HOME}>
-      <Hero />
+      <Hero variant={MainLayoutType.HOME} />
     </MainLayout>
   );
 };

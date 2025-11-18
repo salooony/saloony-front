@@ -1,4 +1,5 @@
 import { Theme } from '@mui/material/styles';
+import { FocusedInputType } from '@src/config';
 
 export const searchContainerStyle = {
   width: '100%',
@@ -27,7 +28,7 @@ export const inputGroupStyle = {
   gap: 2
 };
 
-export const searchBoxStyle = (theme: Theme, focusedInput: 'query' | 'location' | null, inputName: 'query' | 'location') => ({
+export const searchBoxStyle = (theme: Theme, focusedInput: FocusedInputType | null, inputName: FocusedInputType) => ({
   width: { xs: '100%', md: '50%' },
   borderRadius: '12px',
   px: 2,
@@ -51,7 +52,7 @@ export const suggestionBoxStyle = (theme: Theme) => ({
   overflowY: 'auto'
 });
 
-export const SmallSuggestionBoxStyle = (theme: Theme) => ({
+export const MdSuggestionBoxStyle = (theme: Theme) => ({
   mt: 2.5,
   position: 'absolute',
   width: '100%',
