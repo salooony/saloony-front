@@ -1,6 +1,7 @@
 import type { SxProps } from '@mui/system';
 import type { Theme } from '@mui/material/styles';
 
+
 export const registerWrapperStyle: SxProps<Theme> = {
   minHeight: '100vh',
   backgroundColor: (theme) => theme.palette.background.default,

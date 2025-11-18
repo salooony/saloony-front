@@ -23,6 +23,7 @@
     "axios": "^1.12.2",
     "formik": "2.4.6",
     "framer-motion": "12.23.6",
+    "libphonenumber-js": "^1.12.26",
     "lodash-es": "4.17.21",
     "next": "^15.5.4",
     "next-auth": "4.24.11",

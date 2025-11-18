@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, SyntheticEvent } from 'react';
+import { useState, SyntheticEvent } from 'react';
 
 // next
 import Image from 'next/legacy/image';
@@ -22,7 +22,6 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 // third-party
-import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project imports
@@ -31,6 +30,8 @@ import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 
 import { APP_DEFAULT_PATH } from 'config';
+import { AUTH_REGISTER_VALIDATION_SCHEMA } from 'constants/auth';
+import { LOGIN_LINK, SESSION_LOGIN_LINK } from 'constants/links';
 
 // assets
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
@@ -42,7 +43,6 @@ import { btn, Gridbtn, InputLabelStyles, LinklStyles, OutlinedInputStyles } from
 const Auth0 = '/assets/images/icons/auth0.svg';
 const Cognito = '/assets/images/icons/aws-cognito.svg';
 const Google = '/assets/images/icons/google.svg';
-const DOB_FORMAT_REGEX = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
 
 // ============================|| AWS CONNITO - LOGIN ||============================ //
 
@@ -59,8 +59,6 @@ export default function AuthRegister({ providers, csrfToken }: any) {
     event.preventDefault();
   };
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <Formik
@@ -68,57 +66,24 @@ export default function AuthRegister({ providers, csrfToken }: any) {
           firstname: '',
           lastname: '',
           email: '',
-          Phonenumber: '',
+          phonenumber: '',
           password: '',
-          Dateofbirth: '',
+          dateofbirth: '',
           submit: null
         }}
-        validationSchema={Yup.object().shape({
-          firstname: Yup.string().max(255).required('First Name is required'),
-          lastname: Yup.string().max(255).required('Last Name is required'),
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          Phonenumber: Yup.string()
-            .trim()
-            .required('Phone number is required')
-            .matches(/^[0-9]{9,}$/, 'Phone number must contain at least 9 digits'),
-          password: Yup.string()
-            .required('Password is required')
-            .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) =>
-              value ? value === value.trim() : true
-            )
-            .max(10, 'Password must be less than 10 characters'),
-          Dateofbirth: Yup.string()
-            .transform((value) => (value ? value.trim() : value))
-            .required('Date of birth is required')
-            .test('dob-format', 'Date of birth must be in MM/DD/YYYY format', (value) => {
-              if (!value) {
-                return false;
-              }
-
-              if (!DOB_FORMAT_REGEX.test(value)) {
-                return false;
-              }
-
-              const [month, day, year] = value.split('/').map(Number);
-              const parsedDate = new Date(year, month - 1, day);
-
-              return parsedDate.getFullYear() === year && parsedDate.getMonth() === month - 1 && parsedDate.getDate() === day;
-            })
-        })}
+        validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA}
         onSubmit={async (values, { setErrors, setSubmitting }) => {
-          console.log('values : => ', values);
-
           const trimmedEmail = values.email.trim();
           const trimmedFirstname = values.firstname.trim();
           const trimmedLastname = values.lastname.trim();
-          const trimmedPhone = values.Phonenumber.trim();
+          const trimmedPhone = values.phonenumber.trim();
           await signIn('register', {
             redirect: false,
             firstname: trimmedFirstname,
             lastname: trimmedLastname,
             email: trimmedEmail,
-            Phonenumber: trimmedPhone,
-            Dateofbirth: values.Dateofbirth,
+            phonenumber: trimmedPhone,
+            dateofbirth: values.dateofbirth,
             password: values.password,
             callbackUrl: APP_DEFAULT_PATH
           }).then((res: any) => {
@@ -200,23 +165,23 @@ export default function AuthRegister({ providers, csrfToken }: any) {
               </Grid>
               <Grid size={6}>
                 <Stack sx={{ gap: 1 }}>
-                  <InputLabel htmlFor="Phonenumber-signup" sx={InputLabelStyles}>
+                  <InputLabel htmlFor="phonenumber-signup" sx={InputLabelStyles}>
                     Phone number
                   </InputLabel>
                   <OutlinedInput
                     fullWidth
-                    error={Boolean(touched.Phonenumber && errors.Phonenumber)}
-                    id="company-signup"
-                    value={values.Phonenumber}
-                    name="Phonenumber"
+                    error={Boolean(touched.phonenumber && errors.phonenumber)}
+                    id="phonenumber-signup"
+                    value={values.phonenumber}
+                    name="phonenumber"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     sx={OutlinedInputStyles}
                   />
                 </Stack>
-                {touched.Phonenumber && errors.Phonenumber && (
-                  <FormHelperText error id="helper-text-Phonenumber-signup">
-                    {errors.Phonenumber}
+                {touched.phonenumber && errors.phonenumber && (
+                  <FormHelperText error id="helper-text-phonenumber-signup">
+                    {errors.phonenumber}
                   </FormHelperText>
                 )}
               </Grid>
@@ -261,25 +226,25 @@ export default function AuthRegister({ providers, csrfToken }: any) {
               </Grid>
               <Grid size={6}>
                 <Stack sx={{ gap: 1 }}>
-                  <InputLabel htmlFor="Dateofbirth-signup" sx={InputLabelStyles}>
+                  <InputLabel htmlFor="dateofbirth-signup" sx={InputLabelStyles}>
                     Date of birth
                   </InputLabel>
                   <OutlinedInput
                     fullWidth
-                    error={Boolean(touched.Dateofbirth && errors.Dateofbirth)}
-                    id="Dateofbirth-signup"
+                    error={Boolean(touched.dateofbirth && errors.dateofbirth)}
+                    id="dateofbirth-signup"
                     type="lastname"
-                    value={values.Dateofbirth}
-                    name="Dateofbirth"
+                    value={values.dateofbirth}
+                    name="dateofbirth"
                     onBlur={handleBlur}
                     onChange={handleChange}
                     placeholder="MM/DD/YYYY"
                     sx={OutlinedInputStyles}
                   />
                 </Stack>
-                {touched.Dateofbirth && errors.Dateofbirth && (
-                  <FormHelperText error id="helper-text-Dateofbirth-signup">
-                    {errors.Dateofbirth}
+                {touched.dateofbirth && errors.dateofbirth && (
+                  <FormHelperText error id="helper-text-dateofbirth-signup">
+                    {errors.dateofbirth}
                   </FormHelperText>
                 )}
               </Grid>
@@ -296,8 +261,8 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                   </Button>
                 </AnimateButton>
                 <Typography>
-                  Already have an account?{' '}
-                  <Link href={session ? '/pages/login' : '/login'} sx={LinklStyles}>
+                  Already have an account?
+                  <Link href={session ? SESSION_LOGIN_LINK : LOGIN_LINK} sx={LinklStyles}>
                     Log in
                   </Link>
                 </Typography>
