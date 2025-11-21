@@ -103,18 +103,16 @@ export default function SearchBar({
           datePickerOpen={datePickerOpen}
         />
         {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(isExpanded)} />}
-        {(isSearch || (isHome && isExpanded)) && (
-          <DateField
-            focusedInput={focusedInput}
-            setFocusedInput={setFocusedInput}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            variant={variant}
-            isExpanded={isExpanded}
-            searchBarRef={searchBarRef}
-            onOpenChange={setDatePickerOpen}
-          />
-        )}
+        <DateField
+          focusedInput={focusedInput}
+          setFocusedInput={setFocusedInput}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          variant={variant}
+          isExpanded={isExpanded}
+          searchBarRef={searchBarRef}
+          onOpenChange={setDatePickerOpen}
+        />
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
     </>
@@ -124,11 +122,20 @@ export default function SearchBar({
     <>
       <Box sx={inputGroupStyle}>
         <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
+        <DateField
+          focusedInput={focusedInput}
+          setFocusedInput={setFocusedInput}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          variant={variant}
+          isExpanded={true}
+          searchBarRef={searchBarRef}
+          onOpenChange={setDatePickerOpen}
+        />
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
     </>
   );
-
 
   return (
     <Box ref={searchBarRef} sx={searchContainerStyle}>

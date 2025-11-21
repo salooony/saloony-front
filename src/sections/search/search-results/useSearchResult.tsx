@@ -32,8 +32,8 @@ export default function useSearchResults(initialQuery?: string, initialLocation?
 
     if (!schedule || schedule.isClosed) return false;
 
-    const [oh, om] = schedule.open.split(':').map(Number);
-    const [ch, cm] = schedule.close.split(':').map(Number);
+    const [oh, om] = schedule.open!.split(':').map(Number);
+    const [ch, cm] = schedule.close!.split(':').map(Number);
 
     const start = selectedDate.clone().set('hour', oh).set('minute', om);
     const end = selectedDate.clone().set('hour', ch).set('minute', cm);

@@ -1,19 +1,17 @@
-import { styled, SxProps } from '@mui/material/styles';
+import { styled, SxProps, Theme } from '@mui/material/styles';
 import Link from '@mui/material/Link';
-import { Theme } from '@mui/material';
 
 export const FooterLink = styled(Link)(({ theme }) => ({
   color: theme.palette.common.white,
   fontSize: '18px',
   transition: '0.3s',
   '&:hover': {
-    opacity: 0.8,
-  },
+    opacity: 0.8
+  }
 }));
 
-
-export const linkSX = {
-  color: 'common.white',
+export const linkSX = (theme: Theme): SxProps<Theme> => ({
+  color: theme.palette.common.white,
   fontSize: '2.1rem',
   fontWeight: 400,
   cursor: 'pointer',
@@ -23,7 +21,7 @@ export const linkSX = {
   '&:hover': {
     opacity: 1
   }
-};
+});
 
 export const socialIconStyle = {
   position: 'absolute',
@@ -40,16 +38,16 @@ export const centerBoxStyle: SxProps = {
   alignItems: 'center'
 };
 
-export const footerContainerStyle = {
-  backgroundColor: 'primary.main',
+export const footerContainerStyle = (theme: Theme): SxProps<Theme> => ({
+  bgcolor: theme.palette.primary.main,
   height: '100%',
   display: 'flex',
   flexDirection: 'column',
   p: { xs: 2, sm: 2, md: 0 },
   alignItems: 'center'
-};
+});
 
-export const footerGridStyle = (theme: Theme) =>({
+export const footerGridStyle = (theme: Theme): SxProps<Theme> => ({
   width: { xs: '100%', sm: '100%', md: '90%' },
   display: 'flex',
   flexDirection: { xs: 'column', sm: 'column', md: 'row' },
@@ -60,19 +58,19 @@ export const footerGridStyle = (theme: Theme) =>({
   pb: 4
 });
 
-export const footerColumnStyle = {
+export const footerColumnStyle = (theme: Theme): SxProps<Theme> => ({
   my: { xs: 0, sm: 0, md: 7 },
   display: 'flex',
   justifyContent: 'center'
-};
+});
 
-export const footerTextStyle = {
+export const footerTextStyle = (theme: Theme): SxProps<Theme> => ({
   width: '100%',
   textAlign: 'center',
   py: 2,
   fontSize: 18,
-  color: 'common.white',
-};
+  color: theme.palette.common.white
+});
 
 export const footerListsStyle = {
   p: 0,

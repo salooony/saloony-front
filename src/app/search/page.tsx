@@ -20,9 +20,11 @@ const SearchResultsPage = () => {
   return (
     <MainLayout variant={hasLocation ? MainLayoutType.SEARCH : MainLayoutType.SearchWithoutLocation} query={query} location={location}>
       <Suspense fallback={<Loader />}>
-        {hasLocation ? 
-          <SearchResults query={query} location={location} initialDate={date} /> : <SearchResultsWithoutLocation query={query} />
-        }
+        {hasLocation ? (
+          <SearchResults query={query} location={location} initialDate={date}  />
+        ) : (
+          <SearchResultsWithoutLocation query={query} />
+        )}
       </Suspense>
     </MainLayout>
   );

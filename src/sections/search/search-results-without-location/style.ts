@@ -1,4 +1,5 @@
-export const searchBoxStyle = {
+import { Theme } from '@mui/material/styles';
+export const searchBoxStyle = (theme: Theme) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -6,12 +7,12 @@ export const searchBoxStyle = {
   p: 8,
   pt: 16,
   gap: 2,
-  backgroundColor: 'primary.light',
-};
-export const buttonStyle = {
+  backgroundColor: theme.palette.primary.light,
+});
+export const buttonStyle = (theme: Theme) => ({
   mb: 6,
   width: 'fit-content',
   textDecoration: 'underline',
   textTransform: 'none',
-  color: 'common.black'
-};
+  color: theme.palette.common.black
+});

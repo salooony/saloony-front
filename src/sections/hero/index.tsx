@@ -7,10 +7,12 @@ import heroBg from '@public/assets/images/home/hero.jpg';
 import About from '@src/components/about';
 import Services from '@src/components/services';
 import Questions from '@src/components/questions';
-import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle } from './style';
+import { useTheme } from '@mui/material/styles';
+import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle, searchBarWrapperStyle } from './style';
 import { MainLayoutType } from '@src/config';
 
 export default function Hero({ variant }: { readonly variant?: MainLayoutType }) {
+  const theme = useTheme();
 
   return (
     <>
@@ -18,15 +20,17 @@ export default function Hero({ variant }: { readonly variant?: MainLayoutType })
         <Image src={heroBg} alt="Saloony hero" priority fill style={heroBgStyle} />
 
         <Container maxWidth="lg" sx={heroContentStyle}>
-          <Typography variant="h1" align="center" color="text.tertiary" sx={heroTitleStyle}>
+          <Typography variant="h1" align="center" color="text.tertiary" sx={heroTitleStyle(theme)}>
             Welcome To Saloony
           </Typography>
 
-          <Typography variant="subtitle1" align="center" color="text.tertiary" sx={heroSubtitleStyle}>
+          <Typography variant="subtitle1" align="center" color="text.tertiary" sx={heroSubtitleStyle(theme)}>
             Search for Barber Shop
           </Typography>
 
-          <SearchBar variant={variant} enableExpand={false}/>
+          <Box sx={searchBarWrapperStyle(theme)}>
+            <SearchBar variant={variant} enableExpand={false} />
+          </Box>
         </Container>
       </Box>
 

@@ -8,14 +8,14 @@ export const imageSliderBoxStyle = {
   flexDirection: { xs: 'column', sm: 'column', md: 'row' }
 };
 
-export const slideLoaderStyle = (progress: number) => ({
+export const slideLoaderStyle = (theme: Theme, progress: number) => ({
   position: 'absolute',
   width: 52,
   height: 52,
   borderRadius: '50%',
   background: `conic-gradient(
-    primary.main ${progress * 3.6}deg,
-    primary.lighter 0deg
+    ${theme.palette.primary.main} ${progress * 3.6}deg,
+    ${theme.palette.primary.lighter} 0deg
   )`,
   display: 'flex',
   alignItems: 'center',
@@ -56,7 +56,7 @@ export const iconWrapperStyle = {
   justifyContent: 'center'
 };
 
-export const titleStyle = {
+export const titleStyle = (theme: Theme) => ({
   position: 'relative',
   textAlign: 'center',
   display: 'inline-block',
@@ -69,10 +69,10 @@ export const titleStyle = {
     transform: 'translateX(-50%)',
     width: '60px',
     height: '4px',
-    backgroundColor: 'primary.dark',
+    backgroundColor: theme.palette.primary.dark,
     borderRadius: '2px'
   }
-};
+});
 
 export const paragraphStyle = {
   fontSize: { xs: 20, md: 25 },

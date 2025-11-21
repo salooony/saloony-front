@@ -29,7 +29,7 @@ export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean)
           : undefined
         : undefined,
   position: isExpanded ? 'absolute' : 'static',
-  top: 70,
+  bottom: isExpanded ? -20 : 'auto',
   left: 0,
   right: 0,
   zIndex: isExpanded ? 20 : 'auto',
@@ -39,17 +39,41 @@ export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean)
 
 
 export const dividerStyle = (isExpanded: boolean) => ({
-  borderColor: 'common.black', 
-  height: isExpanded ? 60 : 30,
-  mt: 1.2
+  height: '32px',
+  width: '1px',
+  backgroundColor: '#e0e0e0',
+  opacity: isExpanded ? 1 : 0,
+  transition: 'opacity 0.3s ease',
+  margin: isExpanded ? '0 4px' : '0 -1px',
+  alignSelf: 'center'
 });
 
 export const inputGroupStyle = {
   display: 'flex',
-  justifyContent: 'space-between',
-  flexDirection: { xs: 'column', sm: 'row', md: 'row' },
-  width: '90%',
-  gap: 2
+  alignItems: 'center',
+  width: '100%',
+  gap: 0,
+  '& > .field-container': {
+    display: 'flex',
+    alignItems: 'center',
+    transition: 'all 0.3s ease'
+  }
+};
+
+export const queryFieldContainer = (isExpanded: boolean) => ({
+  flex: isExpanded ? '0 0 35%' : '0 0 50%',
+  padding: '0 12px'
+});
+
+export const locationFieldContainer = (isExpanded: boolean) => ({
+  flex: isExpanded ? '0 0 30%' : '0 0 50%',
+  padding: '0 12px'
+});
+
+export const dateFieldContainer = {
+  flex: '0 0 30%',
+  padding: '0 12px',
+  animation: 'fadeIn 0.4s ease-in-out'
 };
 
 export const searchBoxStyle = (
@@ -75,18 +99,14 @@ export const searchBoxStyle = (
 });
 
 export const searchBarMotionVariants = {
-  expanded: {
-    y: -2,
-    scale: 1.002,
-    opacity: 1,
-    boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
-  },
   collapsed: {
-    y: 0,
-    scale: 1,
-    opacity: 0.995,
-    boxShadow: 'none',
+    width: '460px',
+    transition: { type: 'spring', stiffness: 300, damping: 30 }
   },
+  expanded: {
+    width: '900px',
+    transition: { type: 'spring', stiffness: 300, damping: 30 }
+  }
 };
 
 export const noWrapStyle = {

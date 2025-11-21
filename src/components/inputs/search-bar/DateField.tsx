@@ -23,7 +23,7 @@ export default function DateField({
   onOpenChange,
   variant,
   isExpanded,
-  searchBarRef,
+  searchBarRef
 }: DateFieldProps & { onDateChange?: (date: Dayjs | null) => void }): JSX.Element {
   const theme = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,8 +53,15 @@ export default function DateField({
   };
 
   const handleFieldClick = () => setFocusedInput(FocusedInputType.DATE);
-  const goToToday = () => handleDateChange(dayjs());
-  const goToTomorrow = () => handleDateChange(dayjs().add(1, 'day'));
+  const quickSetDate = (option: 'today' | 'tomorrow' | 'any' | Dayjs | null) => {
+    let value: Dayjs | null;
+    if (option === 'today') value = dayjs();
+    else if (option === 'tomorrow') value = dayjs().add(1, 'day');
+    else if (option === 'any') value = null;
+    else value = option as Dayjs | null;
+
+    handleDateChange(value);
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -71,11 +78,9 @@ export default function DateField({
         }}
         onClick={handleFieldClick}
       >
-        {isExpanded && (
-          <Typography variant="h5" component="label" htmlFor="date-input">
-            When?
-          </Typography>
-        )}
+        <Typography variant="h5" component="label" htmlFor="date-input">
+          When?
+        </Typography>
 
         <DatePicker
           open={isOpen}
@@ -96,11 +101,11 @@ export default function DateField({
               variant: 'standard',
               inputProps: {
                 ...params.inputProps,
-                placeholder: 'At any time',
+                placeholder: 'At any time'
               },
               InputProps: {
                 ...params.InputProps,
-                disableUnderline: true,
+                disableUnderline: true
               },
               onFocus: () => setFocusedInput(FocusedInputType.DATE),
               sx: {
@@ -109,28 +114,27 @@ export default function DateField({
                 },
                 '& .MuiInputBase-input::placeholder': {
                   color: theme.palette.common.black,
-                  opacity: 1,
-                },
-              },
+                  opacity: 1
+                }
+              }
             })
           }}
           slots={{
             toolbar: () => (
               <Stack direction="row" spacing={1} sx={CalenderToolbar(theme)}>
-                <Button variant="outlined" size="small" onClick={goToToday} sx={calendarButton(theme)}>
+                <Button variant="outlined" size="small" onClick={() => quickSetDate('today')} sx={calendarButton(theme)}>
                   Today
                 </Button>
 
-                <Button variant="outlined" size="small" onClick={goToTomorrow} sx={calendarButton(theme)}>
+                <Button variant="outlined" size="small" onClick={() => quickSetDate('tomorrow')} sx={calendarButton(theme)}>
                   Tomorrow
                 </Button>
 
-                <Button variant="outlined" size="small" onClick={() => handleDateChange(null)} sx={calendarButton(theme)}>
+                <Button variant="outlined" size="small" onClick={() => quickSetDate('any')} sx={calendarButton(theme)}>
                   At any time
                 </Button>
-
               </Stack>
-            ),
+            )
           }}
         />
       </Box>

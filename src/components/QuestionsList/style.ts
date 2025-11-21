@@ -13,18 +13,18 @@ export const accordionStyle = {
 export const accordionSummaryStyle = (theme: Theme) => ({
   flexDirection: 'row',
   justifyContent: 'space-between',
-  backgroundColor: 'primary.light',
+  backgroundColor: theme.palette.primary.light,
   borderTop: `1px solid ${theme.palette.primary.main}`,
   py: 2
 });
 
-export const questionTextStyle = {
+export const questionTextStyle = (theme: Theme) => ({
   fontWeight: 'medium',
-  fontSize: 'h5.fontSize'
-};
+  fontSize: theme.typography.h5.fontSize
+});
 
-export const answerTextStyle = {
-  color: 'primary.main',
+export const answerTextStyle = (theme: Theme) => ({
+  color: theme.palette.primary.main,
   pl: 2,
-  fontSize: 'h6.fontSize'
-};
+  fontSize: theme.typography.h6.fontSize
+});

@@ -1,3 +1,4 @@
+import { Theme } from '@mui/material/styles';
 import { CSSProperties } from 'react';
 
 export const heroContainerStyle = {
@@ -8,6 +9,13 @@ export const heroContainerStyle = {
   justifyContent: 'center',
   position: 'relative'
 };
+export const searchBarWrapperStyle = (theme: Theme) => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  minHeight: '80px',
+  mt: 2
+});
 
 export const heroContentStyle = {
   display: 'flex',
@@ -18,24 +26,25 @@ export const heroContentStyle = {
   position: 'relative',
   zIndex: 1,
   color: 'common.white',
+  width: '100%',
 };
 
-export const heroTitleStyle = {
+export const heroTitleStyle = (theme: Theme) => ({
   fontSize: {
-    xs: 'h3.fontSize',
-    sm: 'h2.fontSize',
-    md: 'h1.fontSize'
+    xs: theme.typography.h3.fontSize,
+    sm: theme.typography.h2.fontSize,
+    md: theme.typography.h1.fontSize
   },
   lineHeight: 1.2
-};
+});
 
-export const heroSubtitleStyle = {
+export const heroSubtitleStyle = (theme: Theme) => ({
   fontSize: {
-    sm: 'h4.fontSize',
-    md: 'h3.fontSize'
+    sm: theme.typography.h4.fontSize,
+    md: theme.typography.h3.fontSize
   },
   lineHeight: 1.2
-};
+});
 
 export const contentSectionStyle = {
   backgroundColor: 'primary.light',
