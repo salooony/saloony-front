@@ -1,5 +1,6 @@
 import { Theme } from '@mui/material/styles';
 import { FocusedInputType, MainLayoutType } from '@src/config';
+import { px } from 'framer-motion';
 export const searchContainerStyle = {
   width: '100%',
   maxWidth: 800,
@@ -118,7 +119,7 @@ export const MdSuggestionBoxStyle = {
   overflowY: 'auto'
 }
 
-export const suggestionItemStyle = (theme: Theme, highlighted: boolean = false) => ({
+export const suggestionItemStyle = (highlighted: boolean = false) => ({
   px: 2,
   py: 1,
   cursor: 'pointer',
@@ -189,18 +190,28 @@ export const calendarLayout = {
   }
 }
 
-export const calendarPopper = (theme: Theme) => ({
+export const calendarPopper = (theme: Theme, isMdScreen: boolean) => ({
+  width: isMdScreen ? '95%' : 'fit-content',
   '& .MuiPaper-root': {
     borderRadius: '16px',
     border: `1px solid ${theme.palette.divider}`,
     boxShadow: theme.shadows[3],
     marginTop: '30px',
-    width: 'fit-content',
+    width: isMdScreen ? '100%' : 'fit-content',
     minWidth: 'auto',
     transform: 'translateX(-5px) !important',
   },
   '& .MuiDateCalendar-root': {
-    width: 'auto',
+    width: isMdScreen ? '100%' : 'auto',
+  },
+  '& .MuiDayCalendar-weekContainer': {
+    justifyContent: isMdScreen ? 'space-between' : 'center'
+  },
+  '& .MuiDayCalendar-header': {
+    justifyContent: isMdScreen ? 'space-between' : 'center'
+  },
+  '& .MuiDateCalendar-viewTransitionContainer': {
+    px: isMdScreen ? '1.5%' : 0
   }
 });
 

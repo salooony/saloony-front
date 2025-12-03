@@ -1,14 +1,43 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { MainLayoutType } from '@src/config';
 
-
-export const buttonStyle = (scrolled: boolean, inDrawer?: boolean, variant?: MainLayoutType, isMdScreen?: boolean): SxProps<Theme> => ({
-  display: variant === MainLayoutType.SEARCH ? (isMdScreen ? 'none' : 'inline-flex') : 'inline-flex',
-  color: inDrawer ? 'common.white' : scrolled ? 'common.white' : 'primary.main',
-  textTransform: 'none',
-  fontWeight: 500,
-  '&:hover': { color: 'primary.main' }
-});
+export const buttonStyle = (
+  scrolled: boolean,
+  inDrawer?: boolean,
+  variant?: MainLayoutType,
+  isMdScreen?: boolean,
+  isSmScreen?: boolean
+): SxProps<Theme> => {
+  const isSearch = variant === MainLayoutType.SEARCH;
+  return {
+    color: inDrawer
+      ? 'common.white'
+      : isSearch
+        ? isSmScreen
+          ? 'common.black'
+          : 'primary.main'
+        : scrolled
+          ? 'common.white'
+          : !isMdScreen && !isSmScreen
+            ? 'primary.main'
+            : 'common.white',
+    textTransform: 'none',
+    fontWeight: 500,
+    '&:hover': {
+      color: inDrawer
+        ? 'common.white'
+        : isSearch
+          ? isSmScreen
+            ? 'common.black'
+            : 'primary.main'
+          : scrolled
+            ? 'common.white'
+            : !isMdScreen && !isSmScreen
+              ? 'primary.main'
+              : 'common.white'
+    }
+  };
+};
 
 export const langListStyle = (variant: MainLayoutType, scrolled: boolean, inDrawer: boolean): SxProps<Theme> => {
   const isHome = variant === MainLayoutType.HOME;
@@ -22,7 +51,7 @@ export const langListStyle = (variant: MainLayoutType, scrolled: boolean, inDraw
       backgroundColor: backColor,
     },
     '& .MuiMenuItem-root': {
-      color: textColor,
+      color: textColor
     }
   };
 };

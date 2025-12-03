@@ -136,7 +136,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
                 key={item.id}
                 role="option"
                 aria-selected={i === highlightedIndex}
-                sx={suggestionItemStyle(theme, i === highlightedIndex)}
+                sx={suggestionItemStyle(i === highlightedIndex)}
                 onMouseDown={() => setLocation(item)}
               >
                 <Typography>{item.name}</Typography>

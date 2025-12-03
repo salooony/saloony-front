@@ -7,7 +7,7 @@ import { FocusedInputType } from '@src/config';
 
 dayjs.extend(isBetween);
 
-export default function useSearchResults(initialQuery?: string, initialLocation?: string, initialDate?: string) {
+export default function useSearchResults(initialQuery?: string, initialLocation?: string) {
   const searchParams = useSearchParams();
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(null);
   const [openFields, setOpenFields] = useState(false);
@@ -30,7 +30,9 @@ export default function useSearchResults(initialQuery?: string, initialLocation?
     const dayName = getDayName(selectedDate);
     const schedule = salon.openingHours[dayName];
 
-    if (!schedule || schedule.isClosed) return false;
+    if (!schedule || schedule.isClosed || !schedule.open || !schedule.close) {
+      return false;
+    }
 
     const [oh, om] = schedule.open.split(':').map(Number);
     const [ch, cm] = schedule.close.split(':').map(Number);
@@ -41,6 +43,7 @@ export default function useSearchResults(initialQuery?: string, initialLocation?
     return selectedDate.isBetween(start, end, null, '[]');
   };
 
+
   const getOpeningHoursForDay = (salon: Salon, date: Dayjs | null): string => {
     if (!date) return '';
     const dayName = getDayName(date);
@@ -50,12 +53,21 @@ export default function useSearchResults(initialQuery?: string, initialLocation?
   };
 
   useEffect(() => {
-    const dateParam = searchParams.get(FocusedInputType.DATE) || initialDate;
-    setSelectedDate(dateParam ? createDayjsWithCurrentTime(dateParam) : null);
-  }, [searchParams, initialDate]);
+    const dateParam = searchParams.get(FocusedInputType.DATE);
+    const newDate = dateParam ? createDayjsWithCurrentTime(dateParam) : null;
+    const shouldUpdateDate = (
+      // Case 1: New date exists but currently no date is selected
+      (newDate && !selectedDate) ||
+      // Case 2: No new date but currently a date is selected (clear selection)
+      (!newDate && selectedDate) ||
+      // Case 3: Both dates exist but they're different
+      (newDate && selectedDate && !newDate.isSame(selectedDate)));
+    if (shouldUpdateDate) {
+      setSelectedDate(newDate);
+    }
+  }, [searchParams, selectedDate]);
 
   const normalizedQuery = initialQuery?.toLowerCase().trim() || '';
-
   const locationItem = ADDRESSES.find((addr) => addr.name.toLowerCase() === initialLocation?.toLowerCase());
   const locationId = locationItem?.id;
 

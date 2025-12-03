@@ -97,6 +97,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
               setSelectedDate={setSelectedDate}
               variant={variant}
               onOpenChange={setDatePickerOpen}
+              disableFocusStyle
             />
           )}
           <SearchButton onClick={handleSearch} disabled={isSearchDisabled} size={20} />

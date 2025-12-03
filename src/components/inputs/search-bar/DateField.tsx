@@ -12,6 +12,7 @@ import { DateFieldProps } from '@src/types/DateField';
 import dayjs, { Dayjs } from 'dayjs';
 import { FocusedInputType } from '@src/config';
 import useClickOutside from './useClickOutside';
+import { useIsMdScreen } from '@src/constants/breakpoints';
 
 export default function DateField({
   focusedInput,
@@ -23,12 +24,13 @@ export default function DateField({
   onOpenChange,
   variant,
   isExpanded,
-  searchBarRef,
+  searchBarRef
 }: DateFieldProps & { onDateChange?: (date: Dayjs | null) => void }): JSX.Element {
   const theme = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
-
   const isOpen = focusedInput === FocusedInputType.DATE;
+  const isMdScreen = useIsMdScreen();
+
 
   useClickOutside([containerRef, searchBarRef!], (event) => {
     if (!event) return;
@@ -89,7 +91,8 @@ export default function DateField({
           format="DD/MM/YYYY"
           slotProps={{
             layout: { sx: calendarLayout },
-            popper: { sx: calendarPopper(theme) },
+            popper: { sx: calendarPopper(theme, isMdScreen) },
+
             textField: (params: any) => ({
               id: 'date-input',
               fullWidth: true,

@@ -2,8 +2,17 @@ import { Box, Button, Link } from '@mui/material';
 import React from 'react';
 import AnimateButton from '../@extended/AnimateButton';
 import { ProfessionalButtonStyle } from './style';
+import { MainLayoutType } from '@src/config';
 
-export default function ProfessionalButton({ scrolled = false, isMdScreen = false }: { scrolled?: boolean; isMdScreen?: boolean }) {
+export default function ProfessionalButton({
+  scrolled = false,
+  isMdScreen = false,
+  variant = MainLayoutType.SEARCH
+}: {
+  scrolled?: boolean;
+  isMdScreen?: boolean;
+  variant?: MainLayoutType;
+}) {
   return (
     <Box sx={{ width: '100%' }}>
       <AnimateButton>
@@ -13,7 +22,7 @@ export default function ProfessionalButton({ scrolled = false, isMdScreen = fals
           target="_blank"
           disableElevation
           variant="contained"
-          sx={ProfessionalButtonStyle(scrolled, isMdScreen)}
+          sx={ProfessionalButtonStyle(scrolled, isMdScreen, variant)}
         >
           I am a beauty professional
         </Button>

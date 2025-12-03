@@ -3,7 +3,7 @@ import SearchBar from '@src/components/inputs/search-bar';
 import { useIsMdScreen, useIsSmScreen } from '@src/constants/breakpoints';
 import { SearchResultsProps } from '@src/types/searchResults';
 import { buttonStyle, searchBoxStyle } from './style';
-import useSearchResults from './useSearchResultsWithoutLocation';
+import useSearchResultsWithoutLocation from './useSearchResultsWithoutLocation';
 import { ADDRESSES } from '@src/components/inputs/search-bar/constants';
 import AnimatedCard from '@src/components/@extended/AnimatedCard';
 import { MainLayoutType } from '@src/config';
@@ -12,7 +12,7 @@ export default function SearchResultsWithoutLocation({ query }: SearchResultsPro
   const isMdScreen = useIsMdScreen();
   const isSmScreen = useIsSmScreen();
 
-  const { displayedResults, loadMore, hasMore } = useSearchResults(query, undefined, 12);
+  const { displayedResults, loadMore, hasMore } = useSearchResultsWithoutLocation(query, undefined, 12);
 
   return (
     <>

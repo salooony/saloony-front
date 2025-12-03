@@ -96,7 +96,6 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
           What are you looking for?
         </Typography>
       )}
-
       <TextField
         id="service-input"
         fullWidth
@@ -138,7 +137,7 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
                 key={item.id}
                 role="option"
                 aria-selected={i === props.highlightedIndex}
-                sx={suggestionItemStyle(theme, i === props.highlightedIndex)}
+                sx={suggestionItemStyle(i === props.highlightedIndex)}
                 onMouseDown={() => {
                   props.setQuery(item.name);
                   if (props.setFocusedInput) props.setFocusedInput(null);

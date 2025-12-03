@@ -10,18 +10,20 @@ export default function LanguageDropdown({
   variant = MainLayoutType.HOME,
   scrolled = false,
   inDrawer = false,
-  isMdScreen = false
+  isMdScreen = false,
+  isSmScreen = false
 }: {
   variant?: MainLayoutType;
   scrolled?: boolean;
   inDrawer?: boolean;
   isMdScreen?: boolean;
+  isSmScreen?: boolean;
 }) {
   const { anchorEl, selectedLang, handleClick, handleClose } = useLanguageDropdown();
 
   return (
     <Box>
-      <Button onClick={handleClick} endIcon={<DownOutlined />} sx={buttonStyle(scrolled, inDrawer, variant, isMdScreen)}>
+      <Button onClick={handleClick} endIcon={<DownOutlined />} sx={buttonStyle(scrolled, inDrawer, variant, isMdScreen, isSmScreen)}>
         {selectedLang}
       </Button>
 

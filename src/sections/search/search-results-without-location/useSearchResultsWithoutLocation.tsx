@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { SERVICES, ADDRESSES, Salon } from '@src/components/inputs/search-bar/constants';
 
-export default function useSearchResults(query: string, locationName?: string, pageSize: number = 12) {
+export default function useSearchResultsWithoutLocation(query: string, locationName?: string, pageSize: number = 12) {
   const [results, setResults] = useState<Salon[]>([]);
   const [displayedResults, setDisplayedResults] = useState<Salon[]>([]);
   const [currentPage, setCurrentPage] = useState(1);

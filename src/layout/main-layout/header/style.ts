@@ -1,10 +1,13 @@
 import { MainLayoutType } from '@src/config';
 
-export const appBarStyle = (scrolled: boolean) => ({
-  boxShadow: scrolled ? 1 : 'none',
-  backgroundColor: scrolled ? 'primary.main' : { xs: 'primary.main', md: 'transparent' },
-  transition: 'all 0.3s ease-in-out',
-});
+export const appBarStyle = (scrolled: boolean, variant: MainLayoutType) => {
+  const isSearch = variant === MainLayoutType.SEARCH;;
+  return {
+    boxShadow: scrolled ? 1 : 'none',
+    backgroundColor: isSearch ? 'common.white' : scrolled ? 'primary.main' : { xs: 'primary.main', md: 'transparent' },
+    transition: 'all 0.3s ease-in-out',
+  }
+};
 
 export const toolbarStyle = {
   px: { xs: 1.5, md: 0 },
@@ -18,7 +21,7 @@ export const logoBoxStyle = (gab?: number | string) => ({ mr: 2, display: 'flex'
 export const listStyle = { display: { xs: 'none', md: 'flex' }, gap: 4 };
 
 export const rightBoxStyle = (isSearch: boolean) => ({
-  display: isSearch ? 'flex' :{ xs: 'none', md: 'flex' },
+  display: 'flex',
   gap: isSearch ? '3px' : 1.5,
   '& .header-link': {
     px: 2,
@@ -40,11 +43,11 @@ export const drawerBoxStyle = { p: 2, display: 'flex', flexDirection: 'column', 
 
 export const drawerListItemStyle = { display: 'flex', justifyContent: 'center' };
 
-export const menuIconStyle = {
-  color: 'common.white',
+export const menuIconStyle = (variant: MainLayoutType) => ({
+  color: variant === MainLayoutType.SEARCH ? 'common.block' : 'common.white',
   display: { xs: 'block', md: 'none' },
   '&:hover': { color: 'primary.lighter'}
-};
+});
 export const headerButtonStyle = (variant: MainLayoutType, scrolled: boolean, isMdScreen: boolean) => {
   const isHome = variant === MainLayoutType.HOME;
 
