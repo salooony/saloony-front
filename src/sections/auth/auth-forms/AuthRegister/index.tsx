@@ -1,14 +1,12 @@
 'use client';
-
-import { useState, SyntheticEvent } from 'react';
-
 // next
 import Image from 'next/legacy/image';
 import { signIn, useSession } from 'next-auth/react';
 
+// rtk query
+import { useRegisterUserMutation } from 'store/api/userApi';
+
 // material-ui
-import { Theme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import FormHelperText from '@mui/material/FormHelperText';
@@ -30,7 +28,7 @@ import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 
 import { APP_DEFAULT_PATH } from 'config';
-import { AUTH_REGISTER_VALIDATION_SCHEMA } from 'constants/auth';
+import { AUTH_REGISTER_INITIAL_VALUES, AUTH_REGISTER_VALIDATION_SCHEMA } from 'constants/auth';
 import { LOGIN_LINK, SESSION_LOGIN_LINK } from 'constants/links';
 
 // assets
@@ -39,6 +37,7 @@ import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 
 // types
 import { btn, Gridbtn, InputLabelStyles, LinklStyles, OutlinedInputStyles } from './styles';
+import { useAuthRegister } from './useAuthRegister';
 
 const Auth0 = '/assets/images/icons/auth0.svg';
 const Cognito = '/assets/images/icons/aws-cognito.svg';
@@ -47,53 +46,19 @@ const Google = '/assets/images/icons/google.svg';
 // ============================|| AWS CONNITO - LOGIN ||============================ //
 
 export default function AuthRegister({ providers, csrfToken }: any) {
-  const { data: session } = useSession();
-  const downSM = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
-
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event: SyntheticEvent) => {
-    event.preventDefault();
-  };
+  const {
+    session,
+    downSM,
+    isLoading,
+    showPassword,
+    handleClickShowPassword,
+    handleMouseDownPassword,
+    handleOnSubmit,
+  } = useAuthRegister();
 
   return (
     <>
-      <Formik
-        initialValues={{
-          firstname: '',
-          lastname: '',
-          email: '',
-          phonenumber: '',
-          password: '',
-          dateofbirth: '',
-          submit: null
-        }}
-        validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA}
-        onSubmit={async (values, { setErrors, setSubmitting }) => {
-          const trimmedEmail = values.email.trim();
-          const trimmedFirstname = values.firstname.trim();
-          const trimmedLastname = values.lastname.trim();
-          const trimmedPhone = values.phonenumber.trim();
-          await signIn('register', {
-            redirect: false,
-            firstname: trimmedFirstname,
-            lastname: trimmedLastname,
-            email: trimmedEmail,
-            phonenumber: trimmedPhone,
-            dateofbirth: values.dateofbirth,
-            password: values.password,
-            callbackUrl: APP_DEFAULT_PATH
-          }).then((res: any) => {
-            if (res?.error) {
-              setErrors({ submit: res.error });
-              setSubmitting(false);
-            }
-          });
-        }}
-      >
+      <Formik initialValues={AUTH_REGISTER_INITIAL_VALUES} validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA} onSubmit={handleOnSubmit}>
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
@@ -256,7 +221,15 @@ export default function AuthRegister({ providers, csrfToken }: any) {
               )}
               <Grid size={12} sx={Gridbtn}>
                 <AnimateButton>
-                  <Button disableElevation disabled={isSubmitting} sx={btn} size="large" type="submit" variant="contained" color="primary">
+                  <Button
+                    disableElevation
+                    disabled={isSubmitting || isLoading}
+                    sx={btn}
+                    size="large"
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                  >
                     Get OTP
                   </Button>
                 </AnimateButton>

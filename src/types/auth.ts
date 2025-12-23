@@ -26,3 +26,44 @@ export type SocialButtonsConfig = {
   callbackUrl?: string;
   providerIds?: AuthLoginProps['providerIds'];
 };
+
+
+ export interface RegisterFormValues {
+  firstname: string;
+  lastname: string;
+  email: string;
+  phonenumber: string;
+  password: string;
+  dateofbirth: string;
+  submit: null | string;
+}
+
+export interface RegisterUserRequest {
+  firstname: string;
+  lastname: string;
+  email: string;
+  mobileNumber: string;
+  birthdate: string;
+  password: string;
+  role: string;
+  language: string;
+}
+
+export interface RegisterUserResponse {
+  success: boolean;
+  user: User;
+}
+
+export interface User {
+  id: string;
+  firstname: string;
+  lastname: string;
+  email: string;
+  mobileNumber: string;
+  birthdate: string; // ISO string
+  language: string;
+  role: 'user' | 'admin';
+  saloons: any[];
+  createdAt: string;
+  updatedAt: string;
+}

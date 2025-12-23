@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { baseApi } from "./api/baseApi";
 
 // Import features
 
@@ -7,13 +8,12 @@ import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
   reducer: {
-    // Feature slices
-    // RTK Query API slices
+    [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    })
+    }).concat(baseApi.middleware),
 });
 
 // Export types for TypeScript
