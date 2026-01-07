@@ -63,5 +63,7 @@ export const AUTH_REGISTER_INITIAL_VALUES = {
   phonenumber: '',
   password: '',
   dateofbirth: '',
+  role: 'Client',
+  language: 'French',
   submit: null
 };

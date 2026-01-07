@@ -35,6 +35,8 @@ export type SocialButtonsConfig = {
   phonenumber: string;
   password: string;
   dateofbirth: string;
+  role: string;
+  language: string;
   submit: null | string;
 }
 

@@ -3,9 +3,6 @@
 import Image from 'next/legacy/image';
 import { signIn, useSession } from 'next-auth/react';
 
-// rtk query
-import { useRegisterUserMutation } from 'store/api/userApi';
-
 // material-ui
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -58,7 +55,9 @@ export default function AuthRegister({ providers, csrfToken }: any) {
 
   return (
     <>
-      <Formik initialValues={AUTH_REGISTER_INITIAL_VALUES} validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA} onSubmit={handleOnSubmit}>
+      <Formik initialValues={AUTH_REGISTER_INITIAL_VALUES} 
+      validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA} 
+      onSubmit={handleOnSubmit}>
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
