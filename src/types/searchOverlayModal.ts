@@ -8,8 +8,8 @@ export interface SearchOverlayModalProps {
   setQuery: (val: string) => void;
   location: Item | null;
   setLocation: (val: Item | null) => void;
-  focusedInput: FocusedInputType | null;
-  setFocusedInput: (val: FocusedInputType | null) => void;
+  focusedInput: SearchFieldOrNull;
+  setFocusedInput: (val: SearchFieldOrNull) => void;
   suggestions: Item[];
   isLoading: boolean;
   highlightedIndex: number;

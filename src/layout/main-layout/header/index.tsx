@@ -8,7 +8,8 @@ import AnimatedLink from '@src/components/@extended/animated-link';
 import LanguageDropdown from '@src/components/languageDropdown';
 import useHeader from './useHeader.hook';
 import useConfig from 'hooks/useConfig';
-import { APP_DEFAULT_PATH, MainLayoutType, ThemeMode } from 'config';
+import { APP_DEFAULT_PATH } from 'config';
+import { MainLayoutType, ThemeMode } from '@src/config';
 import { useScroll } from 'contexts/scrollProvider';
 import { HeaderProps } from '@src/types/header';
 import MenuOutlined from '@ant-design/icons/MenuOutlined';
@@ -102,7 +103,7 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
             <Link
               className="header-link"
               component={Link}
-              href={user ? APP_DEFAULT_PATH : loginPath}
+              href={user ? APP_DEFAULT_PATH : '/login'}
               target="_blank"
               underline="none"
               sx={{
@@ -128,6 +129,7 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
             <Link href={user ? APP_DEFAULT_PATH : loginPath} target="_blank">
               <AnimateButton>
                 <IconButton
+                  component="span"
                   color="secondary"
                   sx={{
                     bgcolor: 'common.white',
@@ -146,7 +148,7 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
 
         <Drawer anchor="left" open={drawerToggle} onClose={drawerToggler(false)} sx={drawerStyle}>
           <Box sx={drawerBoxStyle}>
-            <Logo isIcon to={homePath} />
+            <Logo isIcon to="/" />
             <List>
               <ListItem sx={drawerListItemStyle}>
                 <LanguageDropdown variant={variant} inDrawer />
@@ -157,7 +159,7 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
               <ListItemButton component={Link} href="https://codedthemes.gitbook.io/mantis/" target="_blank">
                 <ListItemText primary="Barber" />
               </ListItemButton>
-              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : loginPath}>
+              <ListItemButton component={Link} href={user ? APP_DEFAULT_PATH : '/login'}>
                 <ListItemText primary={user ? 'Mon compte' : 'Login'} />
               </ListItemButton>
               <ListItemButton component={Link} href="https://mui.com/store/items/mantis-react-admin-dashboard-template/" target="_blank">

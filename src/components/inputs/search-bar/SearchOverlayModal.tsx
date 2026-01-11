@@ -7,6 +7,7 @@ import SearchButton from './SearchButton';
 import { SearchOverlayModalProps } from '@src/types/searchOverlayModal';
 import { centerModal, FiXStyle, modalBoxStyle, smallSearchBoxStyle } from './style';
 import { FocusedInputType, MainLayoutType } from '@src/config';
+import { SearchField } from '@src/types/searchField';
 import { useTheme } from '@mui/material/styles';
 import DateField from './DateField';
 import useSearchBar from './useSearchBar';
@@ -59,7 +60,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
         <Divider />
 
         <Box sx={smallSearchBoxStyle}>
-          {activeField === FocusedInputType.QUERY ? (
+          {activeField === SearchField.QUERY ? (
             <QueryField
               query={query}
               setQuery={setQuery}

@@ -553,7 +553,7 @@ export const SERVICES: ServiceItem[] = [
   { id: 2, name: 'Barber', salons: BARBERS },
   { id: 3, name: 'Makeup Artist', salons: MAKEUP_ARTISTS },
   { id: 4, name: 'Manicure', salons: MANICURE_SALONS },
-  { id: 5, name: 'Beauty salons', salons: BEAUTY_SALONS },
+  { id: 5, name: 'Beauty salons', salons: BEAUTY_SALONS }
 ];
 
 export const ADDRESSES: Item[] = [

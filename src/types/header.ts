@@ -5,3 +5,7 @@ export interface HeaderProps {
   initialQuery?: string;
   initialLocation?: string;
 }
+export enum HeaderVariant {
+  HOME = 'home',
+  SEARCH = 'search'
+}
