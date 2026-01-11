@@ -48,10 +48,9 @@ export const menuIconStyle = (theme: Theme) => ({
 export const headerButtonStyle = (theme: Theme, mainColor?: string, textColor?: string, hoverColor?: string, hoverTextColor?: string) => ({
   backgroundColor: mainColor ?? theme.palette.primary.main,
   color: textColor ?? theme.palette.common.white,
-  '&:hover': { 
-    backgroundColor: hoverColor ?? theme.palette.common.white, 
+  '&:hover': {
+    backgroundColor: hoverColor ?? theme.palette.common.white,
     color: hoverTextColor ?? theme.palette.primary.main
   },
-  width: '100%',
+  width: '100%'
 });
-

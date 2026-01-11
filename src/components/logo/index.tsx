@@ -20,7 +20,6 @@ interface Props {
   readonly color?: ThemeMode;
 }
 
-
 export default function LogoSection({ isIcon, isHeader, sx, to, color = ThemeMode.LIGHT }: Props) {
   const logoHeight = isHeader ? 100 : 150;
   const logoWidth = isHeader ? 140 : 214;

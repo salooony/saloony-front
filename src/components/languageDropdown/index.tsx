@@ -7,17 +7,17 @@ import { buttonStyle, langListStyle } from './style';
 import { LanguageDropdownProps } from '@src/types/langDropdown';
 import { useTheme } from '@mui/material/styles';
 
-export default function LanguageDropdown({ mainColor, backColor, textColor }: LanguageDropdownProps) {
+export default function LanguageDropdown({ color, bgColor, listItemColor, ml }: LanguageDropdownProps) {
   const { anchorEl, selectedLang, handleClick, handleClose } = useLanguageDropdown();
   const theme = useTheme();
 
   return (
-    <Box>
-      <Button onClick={handleClick} endIcon={<DownOutlined />} sx={buttonStyle(theme, mainColor)}>
+    <Box ml={ml}>
+      <Button onClick={handleClick} endIcon={<DownOutlined />} sx={buttonStyle(theme, color)}>
         {selectedLang}
       </Button>
 
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleClose()} sx={langListStyle(theme, backColor, textColor)}>
+      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleClose()} sx={langListStyle(theme, bgColor, listItemColor)}>
         <MenuItem onClick={() => handleClose('EN')}>EN</MenuItem>
         <MenuItem onClick={() => handleClose('AR')}>AR</MenuItem>
         <MenuItem onClick={() => handleClose('FR')}>FR</MenuItem>

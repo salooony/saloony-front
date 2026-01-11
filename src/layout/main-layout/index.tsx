@@ -9,7 +9,6 @@ import { MainLayoutType } from '@src/config';
 const Header = lazy(() => import('./header'));
 const FooterBlock = lazy(() => import('./footer'));
 
-
 export default function MainLayout({ children, variant = MainLayoutType.HOME }: mainLayoutProps): JSX.Element {
   return (
     <ScrollProvider>
