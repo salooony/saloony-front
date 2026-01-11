@@ -34,7 +34,8 @@ export function useGetSnackbar() {
   const { data } = useSWR(endpoints.key, () => initialState, {
     revalidateIfStale: false,
     revalidateOnFocus: false,
-    revalidateOnReconnect: false
+    revalidateOnReconnect: false,
+    fallbackData: initialState
   });
 
   const memoizedValue = useMemo(() => ({ snackbar: data! }), [data]);

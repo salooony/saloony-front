@@ -26,7 +26,7 @@ export const slideLoaderStyle = (theme: Theme, progress: number) => ({
     width: 50,
     height: 50,
     borderRadius: '50%',
-    backgroundColor: 'white'
+    backgroundColor: theme.palette.background.paper
   }
 });
 

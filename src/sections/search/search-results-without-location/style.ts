@@ -7,7 +7,7 @@ export const searchBoxStyle = (theme: Theme) => ({
   p: 8,
   pt: 16,
   gap: 2,
-  backgroundColor: theme.palette.primary.light,
+  backgroundColor: theme.palette.primary.light
 });
 export const buttonStyle = (theme: Theme) => ({
   mb: 6,

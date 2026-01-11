@@ -1,5 +1,6 @@
 export interface LanguageDropdownProps {
-  mainColor?: string;
-  backColor?: string;
-  textColor?: string;
+  color?: string;
+  bgColor?: string;
+  listItemColor?: string;
+  ml?: number | string;
 }

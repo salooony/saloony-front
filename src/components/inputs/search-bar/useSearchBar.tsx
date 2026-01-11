@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { SERVICES, ADDRESSES, Item } from './constants';
+import { SearchField } from '@src/types/searchField';
 import { UseSearchBarProps } from '@src/types/useSearchBar';
-import { FocusedInputType } from '@src/config';
 
-export default function useSearchBar(props: UseSearchBarProps) {
-  const { isMdScreen, initialQuery = '', initialLocation = null } = props;
+export default function useSearchBar({ isMdScreen, initialQuery = '', initialLocation = null }: UseSearchBarProps) {
   const [query, setQuery] = useState<string>(initialQuery);
   const [location, setLocation] = useState<Item | null>(initialLocation);
-  const [focusedInput, setFocusedInput] = useState<FocusedInputType | null>(null);
+  const [focusedInput, setFocusedInput] = useState<SearchField | null>(null);
   const [suggestions, setSuggestions] = useState<Item[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
@@ -27,7 +26,7 @@ export default function useSearchBar(props: UseSearchBarProps) {
     (input: string) => {
       setIsLoading(true);
       setTimeout(() => {
-        const source = focusedInput === FocusedInputType.QUERY ? SERVICES : ADDRESSES;
+        const source = focusedInput === SearchField.QUERY ? SERVICES : ADDRESSES;
         const filtered = source.filter((item) => item.name.toLowerCase().includes(input.toLowerCase()));
         setSuggestions(filtered);
         setHighlightedIndex(-1);
@@ -38,9 +37,9 @@ export default function useSearchBar(props: UseSearchBarProps) {
   );
 
   useEffect(() => {
-    const value = focusedInput === FocusedInputType.QUERY ? query : location?.name || '';
+    const value = focusedInput === SearchField.QUERY ? query : location?.name || '';
 
-    if (focusedInput === FocusedInputType.QUERY) {
+    if (focusedInput === SearchField.QUERY) {
       if (!value) {
         setSuggestions(SERVICES);
         setHighlightedIndex(-1);
@@ -50,7 +49,7 @@ export default function useSearchBar(props: UseSearchBarProps) {
       return () => clearTimeout(timer);
     }
 
-    if (focusedInput === FocusedInputType.LOCATION) {
+    if (focusedInput === SearchField.LOCATION) {
       if (value.length < 2) {
         setSuggestions([]);
         setHighlightedIndex(-1);
@@ -83,7 +82,7 @@ export default function useSearchBar(props: UseSearchBarProps) {
       setHighlightedIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
     } else if (e.key === 'Enter' && highlightedIndex >= 0) {
       e.preventDefault();
-      if (focusedInput === FocusedInputType.QUERY) setQuery(suggestions[highlightedIndex].name);
+      if (focusedInput === SearchField.QUERY) setQuery(suggestions[highlightedIndex].name);
       else setLocation(suggestions[highlightedIndex]);
       setSuggestions([]);
       setHighlightedIndex(-1);
