@@ -67,3 +67,17 @@ export const AUTH_REGISTER_INITIAL_VALUES = {
   language: 'French',
   submit: null
 };
+
+export const AUTH_LOGIN_VALIDATION_SCHEMA = Yup.object().shape({
+  email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+  password: Yup.string()
+    .required('Password is required')
+    .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) => value === value.trim())
+    .max(10, 'Password must be less than 10 characters')
+});
+
+export const AUTH_LOGIN_INITIAL_VALUES = {
+  email: 'info@codedthemes.com',
+  password: '123456',
+  submit: null
+};
