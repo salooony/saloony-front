@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { baseApi } from "./api/baseApi";
 
 // Import features
 
@@ -6,14 +7,13 @@ import { configureStore } from "@reduxjs/toolkit";
 // ==============================|| REDUX STORE CONFIGURATION ||============================== //
 
 export const store = configureStore({
-  // If there are no feature slices yet, provide a noop reducer to
-  // avoid `combineReducers` errors when passed an empty object.
-  // Replace this with your actual slice reducers as you add them.
-  reducer: (state = {}) => state,
+  reducer: {
+    [baseApi.reducerPath]: baseApi.reducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-    })
+    }).concat(baseApi.middleware),
 });
 
 // Export types for TypeScript

@@ -43,17 +43,32 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const user = await axios.post('/api/account/login', {
-            password: credentials?.password,
-            email: credentials?.email
-          });
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                email: credentials?.email,
+                password: credentials?.password
+              })
+            }
+          );
 
-          if (user) {
-            user.data.user['accessToken'] = user.data.serviceToken;
-            return user.data.user;
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || 'Login failed!');
           }
+
+          if (data.user) {
+            data.user.accessToken = data.serviceToken;
+            return data.user;
+          }
+
+          throw new Error('Invalid credentials!');
         } catch (e: any) {
-          const errorMessage = e?.message || e?.response?.data?.message || 'Something went wrong!';
+          const errorMessage = e?.message || 'Something went wrong!';
           throw new Error(errorMessage);
         }
       }
@@ -77,12 +92,12 @@ export const authOptions: NextAuthOptions = {
           type: 'email',
           placeholder: 'Enter Email'
         },
-        phonenumber: {
+        mobileNumber: {
           label: 'Phone Number',
           type: 'text',
           placeholder: 'Enter Phone Number'
         },
-        dateofbirth: {
+        birthdate: {
           label: 'Date of Birth',
           type: 'text',
           placeholder: 'MM/DD/YYYY'
@@ -91,46 +106,70 @@ export const authOptions: NextAuthOptions = {
           label: 'Password',
           type: 'password',
           placeholder: 'Enter Password'
+        },
+        role: {
+          label: 'Role',
+          type: 'text',
+          placeholder: 'Role'
+        },
+        language: {
+          label: 'Language',
+          type: 'text',
+          placeholder: 'Language'
         }
       },
 
       async authorize(credentials) {
         try {
-          const registerResponse = await axios.post('/api/account/register', {
-            firstName: credentials?.firstname,
-            lastName: credentials?.lastname,
-            email: credentials?.email,
-            password: credentials?.password,
-            phoneNumber: credentials?.phonenumber,
-            dateOfBirth: credentials?.dateofbirth
-          });
+          const response = await fetch(
+            `${process.env.NEXT_PUBLIC_AUTH_URL}users`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                firstname: credentials?.firstname,
+                lastname: credentials?.lastname,
+                email: credentials?.email,
+                password: credentials?.password,
+                mobileNumber: credentials?.mobileNumber,
+                birthdate: credentials?.birthdate,
+                role: credentials?.role,
+                language: credentials?.language
+              })
+            }
+          );
 
-          const registerData = registerResponse?.data?.data ?? registerResponse?.data;
+          const data = await response.json();
+          
+          if (!response.ok) {
+            if (response.status === 409) {
+              throw new Error('User already exists. Please log in.');
+            }
+            const errorMessage = data.message || data.error || JSON.stringify(data) || 'Registration failed!';
+            throw new Error(errorMessage);
+          }
 
-          // mock API returns either { user, serviceToken } or an array that includes the newly created user
+          if (data.id) {
+            return {
+              id: data.id,
+              name: `${data.firstname} ${data.lastname}`,
+              email: data.email,
+              ...data
+            };
+          }
+
+          const registerData = data?.data ?? data;
           if (registerData?.user) {
             const registeredUser = { ...registerData.user };
             if (registerData?.serviceToken) {
-              registeredUser['accessToken'] = registerData.serviceToken;
+              registeredUser.accessToken = registerData.serviceToken;
             }
             return registeredUser;
           }
 
-          if (Array.isArray(registerData)) {
-            const matchedUser = registerData.find((user) => user.email === credentials?.email);
-            if (matchedUser) {
-              return { ...matchedUser };
-            }
-          }
-
-          if (registerResponse.status === 409) {
-            // or whatever status your API returns
-            throw new Error('User already exists. Please log in.');
-          }
-
-          throw new Error(registerData?.message || 'Registration failed!');
+          throw new Error(data?.message || 'Registration failed!');
         } catch (e: any) {
-          const errorMessage = e?.response?.data?.message || e?.message || 'Registration failed!';
+          const errorMessage = e?.message || 'Registration failed!';
           throw new Error(errorMessage);
         }
       }

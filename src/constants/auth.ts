@@ -55,3 +55,15 @@ export const AUTH_REGISTER_VALIDATION_SCHEMA = Yup.object().shape({
       return true;
     })
 });
+
+export const AUTH_REGISTER_INITIAL_VALUES = {
+  firstname: '',
+  lastname: '',
+  email: '',
+  phonenumber: '',
+  password: '',
+  dateofbirth: '',
+  role: 'Client',
+  language: 'French',
+  submit: null
+};
