@@ -4,17 +4,28 @@
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import FormHelperText from '@mui/material/FormHelperText';
-import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 // third-party
-import * as Yup from 'yup';
 import { Formik } from 'formik';
 import OtpInput from 'react-otp-input';
 
 // project imports
 import AnimateButton from 'components/@extended/AnimateButton';
+import {
+  otpContainerStyle,
+  otpContainerErrorStyle,
+  otpInputContainerStyle,
+  otpInputStyle,
+  gridCenterStyle,
+  resendTextStyle,
+  resendLinkStyle,
+  verifyButtonContainerStyle,
+  backLinkStyle
+} from './style';
+import { AUTH_OTP_VALIDATION_SCHEMA } from '@src/schemas/otp';
+import { AUTH_TEXT } from '@src/constants/auth';
 
 // ============================|| STATIC - CODE VERIFICATION ||============================ //
 
@@ -22,9 +33,7 @@ export default function AuthCodeVerification() {
   return (
     <Formik
       initialValues={{ otp: '' }}
-      validationSchema={Yup.object({
-        otp: Yup.string().length(4, 'OTP must be exactly 4 digits').required('OTP is required')
-      })}
+      validationSchema={AUTH_OTP_VALIDATION_SCHEMA}
       onSubmit={(values, { resetForm }) => {
         resetForm();
         console.log(values);
@@ -40,17 +49,8 @@ export default function AuthCodeVerification() {
             <Grid size={12}>
               <Box
                 sx={(theme) => ({
-                  '& input': {
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    ...(touched.otp && errors.otp && { borderColor: 'error.main' }),
-                    '&:focus-visible': {
-                      outline: 'none !important',
-                      borderColor: 'primary.main',
-                      boxShadow: theme.customShadows.primary,
-                      ...(touched.otp && errors.otp && { borderColor: 'error.main', boxShadow: theme.customShadows.error })
-                    }
-                  }
+                  ...otpContainerStyle(theme),
+                  ...(touched.otp && errors.otp && otpContainerErrorStyle(theme))
                 })}
               >
                 <OtpInput
@@ -82,8 +82,8 @@ export default function AuthCodeVerification() {
                     />
                   )}
                   numInputs={4}
-                  containerStyle={{ justifyContent: 'space-between', margin: -8 }}
-                  inputStyle={{ width: '100%', margin: '8px', padding: '10px', outline: 'none', borderRadius: 4 }}
+                  containerStyle={otpInputContainerStyle}
+                  inputStyle={otpInputStyle}
                 />
                 {touched.otp && errors.otp && (
                   <FormHelperText error id="standard-weight-helper-text-otp">
@@ -92,21 +92,25 @@ export default function AuthCodeVerification() {
                 )}
               </Box>
             </Grid>
-            <Grid size={12}>
-              <AnimateButton>
-                <Button disableElevation fullWidth size="large" type="submit" variant="contained">
-                  Continue
-                </Button>
-              </AnimateButton>
+            <Grid size={12} sx={gridCenterStyle}>
+              <Typography variant="h5" sx={resendTextStyle}>
+                {AUTH_TEXT.OTP_RESEND_PROMPT}{" "}
+                <Box component="span" sx={resendLinkStyle}>
+                  {AUTH_TEXT.RESEND_BUTTON}
+                </Box>
+              </Typography>
+
+              <Box sx={verifyButtonContainerStyle}>
+                <AnimateButton>
+                  <Button disableElevation fullWidth size="large" type="submit" variant="contained">
+                    {AUTH_TEXT.VERIFY_BUTTON}
+                  </Button>
+                </AnimateButton>
+              </Box>
+
+              <Typography sx={backLinkStyle}>{AUTH_TEXT.BACK_TO_LOGIN}</Typography>
             </Grid>
-            <Grid size={12}>
-              <Stack direction="row" sx={{ alignItems: 'baseline', justifyContent: 'space-between' }}>
-                <Typography>Did not receive the email? Check your spam filter, or</Typography>
-                <Typography variant="body1" sx={{ minWidth: 85, ml: 2, textDecoration: 'none', cursor: 'pointer' }} color="primary">
-                  Resend code
-                </Typography>
-              </Stack>
-            </Grid>
+          
           </Grid>
         </form>
       )}
