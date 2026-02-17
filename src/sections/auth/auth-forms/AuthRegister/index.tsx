@@ -68,8 +68,8 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                     First name
                   </InputLabel>
                   <OutlinedInput
-                    id="firstname-login"
-                    type="firstname"
+                    id="firstname-signup"
+                    type="text"
                     value={values.firstname}
                     name="firstname"
                     onBlur={handleBlur}
@@ -90,7 +90,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                   </InputLabel>
                   <OutlinedInput
                     id="lastname-signup"
-                    type="lastname"
+                    type="text"
                     value={values.lastname}
                     name="lastname"
                     onBlur={handleBlur}
@@ -112,7 +112,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                   <OutlinedInput
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
-                    id="email-login"
+                    id="email-signup"
                     type="email"
                     value={values.email}
                     name="email"
@@ -136,6 +136,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                     fullWidth
                     error={Boolean(touched.phonenumber && errors.phonenumber)}
                     id="phonenumber-signup"
+                    type="tel"
                     value={values.phonenumber}
                     name="phonenumber"
                     onBlur={handleBlur}
@@ -197,7 +198,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                     fullWidth
                     error={Boolean(touched.dateofbirth && errors.dateofbirth)}
                     id="dateofbirth-signup"
-                    type="lastname"
+                    type="text"
                     value={values.dateofbirth}
                     name="dateofbirth"
                     onBlur={handleBlur}
