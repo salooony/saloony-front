@@ -2,6 +2,7 @@
 
 // next
 import NextLink from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 // material-ui
@@ -19,9 +20,19 @@ import FirebaseSocial from 'sections/auth/auth-forms/FirebaseSocial';
 
 // ================================|| CHECK MAIL ||================================ //
 
+function maskEmail(email: string): string {
+  const [local, domain] = email.split('@');
+  if (!domain) return email;
+  const masked = local.slice(0, 2) + '***';
+  return `${masked}@${domain}`;
+}
+
 export default function CheckMail() {
   const { data: session } = useSession();
   const downSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const searchParams = useSearchParams();
+  const rawEmail = searchParams.get('email');
+  const displayEmail = rawEmail ? maskEmail(decodeURIComponent(rawEmail)) : null;
 
   return (
     <AuthWrapper>
@@ -30,7 +41,7 @@ export default function CheckMail() {
           <Box sx={{ mb: { xs: -0.5, sm: 0.5 } }}>
             <Typography variant="h3">Hi, Check Your Mail</Typography>
             <Typography color="secondary" sx={{ mb: 0.5, mt: 1.25 }}>
-              We have sent a password recover instructions to your email.
+              We have sent password recovery instructions{displayEmail ? ` to ${displayEmail}` : ' to your email'}.
             </Typography>
           </Box>
         </Grid>

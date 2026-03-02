@@ -19,6 +19,7 @@ import { Formik } from 'formik';
 // project imports
 import useScriptRef from 'hooks/useScriptRef';
 import AnimateButton from 'components/@extended/AnimateButton';
+import { useForgotPasswordMutation } from 'store/api/authApi';
 
 import { openSnackbar } from 'api/snackbar';
 
@@ -30,6 +31,7 @@ import { SnackbarProps } from 'types/snackbar';
 export default function AuthForgotPassword() {
   const scriptedRef = useScriptRef();
   const router = useRouter();
+  const [forgotPassword] = useForgotPasswordMutation();
 
   return (
     <Formik
@@ -42,25 +44,29 @@ export default function AuthForgotPassword() {
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          setStatus({ success: true });
-          setSubmitting(false);
+          await forgotPassword({ email: values.email }).unwrap();
 
-          openSnackbar({
-            open: true,
-            message: 'Check mail for reset password link',
-            variant: 'alert',
-            alert: {
-              color: 'success'
-            }
-          } as SnackbarProps);
+          if (scriptedRef.current) {
+            setStatus({ success: true });
+            setSubmitting(false);
 
-          setTimeout(() => {
-            router.push('/check-mail');
-          }, 1500);
+            openSnackbar({
+              open: true,
+              message: 'Check mail for reset password link',
+              variant: 'alert',
+              alert: {
+                color: 'success'
+              }
+            } as SnackbarProps);
+
+            setTimeout(() => {
+              router.push('/check-mail?email=' + encodeURIComponent(values.email));
+            }, 1500);
+          }
         } catch (err: any) {
           if (scriptedRef.current) {
             setStatus({ success: false });
-            setErrors({ submit: err.message });
+            setErrors({ submit: err.data?.message ?? 'Something went wrong. Please try again.' });
             setSubmitting(false);
           }
         }
