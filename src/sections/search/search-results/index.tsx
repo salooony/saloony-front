@@ -10,10 +10,18 @@ import { mobileCollapsedBox, mobileHeaderBox, mobileFieldBox } from './style';
 import { FocusedInputType } from '@src/config';
 import { SearchResultsProps } from '@src/types/searchResults';
 
-export default function SearchResults({ query: initialQuery, location: initialLocation, date: initialDate }: SearchResultsProps) {
+export default function SearchResults({ query: initialQuery, location: initialLocation, initialDate }: SearchResultsProps) {
   const isMdScreen = useIsMdScreen();
 
-  const { selectedDate, openFields, setOpenFields, locationItem, filteredSalons, isOpenAtTime, getOpeningHoursForDay } = useSearchResults(
+  const {
+    selectedDate: resultsSelectedDate,
+    openFields,
+    setOpenFields,
+    locationItem,
+    filteredSalons,
+    isOpenAtTime,
+    getOpeningHoursForDay
+  } = useSearchResults(
     initialQuery,
     initialLocation,
     initialDate
@@ -24,6 +32,8 @@ export default function SearchResults({ query: initialQuery, location: initialLo
     query,
     setLocation,
     location,
+    selectedDate: searchBarSelectedDate,
+    setSelectedDate: setSearchBarSelectedDate,
     focusedInput,
     setFocusedInput,
     suggestions,
@@ -36,7 +46,8 @@ export default function SearchResults({ query: initialQuery, location: initialLo
     closeOverlay,
     openOverlay,
     activeField,
-    setActiveField
+    setActiveField,
+    setDatePickerOpen
   } = useSearchBar({ isMdScreen });
 
   return (
@@ -129,7 +140,7 @@ export default function SearchResults({ query: initialQuery, location: initialLo
           </Typography>
 
           <Typography>
-            <strong>Day & Time:</strong> {selectedDate?.format('YYYY-MM-DD HH:mm') || 'Any time'}
+            <strong>Day & Time:</strong> {resultsSelectedDate?.format('YYYY-MM-DD HH:mm') || 'Any time'}
           </Typography>
 
           <Typography sx={{ mt: 1 }}>Found {filteredSalons.length} salons</Typography>
@@ -144,8 +155,8 @@ export default function SearchResults({ query: initialQuery, location: initialLo
                   <Box>
                     <Typography variant="body2">{salon.serviceName}</Typography>
                     <Typography variant="body2">{locationItem?.name}</Typography>
-                    <Typography variant="body2" color={isOpenAtTime(salon, selectedDate) ? 'green' : 'red'}>
-                      {selectedDate ? getOpeningHoursForDay(salon, selectedDate) : 'Opening hours available'}
+                    <Typography variant="body2" color={isOpenAtTime(salon, resultsSelectedDate) ? 'green' : 'red'}>
+                      {resultsSelectedDate ? getOpeningHoursForDay(salon, resultsSelectedDate) : 'Opening hours available'}
                     </Typography>
                   </Box>
                 }
@@ -175,6 +186,9 @@ export default function SearchResults({ query: initialQuery, location: initialLo
         isSearchDisabled={Boolean(isSearchDisabled)}
         activeField={activeField}
         setActiveField={setActiveField}
+        selectedDate={searchBarSelectedDate}
+        setSelectedDate={setSearchBarSelectedDate}
+        setDatePickerOpen={setDatePickerOpen}
       />
     </Box>
   );

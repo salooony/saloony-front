@@ -1,5 +1,5 @@
 import { Item } from '@src/components/inputs/search-bar/constants';
-import { SearchFieldOrNull } from './searchField';
+import { FocusedInputType, MainLayoutType } from '@src/config';
 
 interface QueryFieldPropsBase {
   query: string;
@@ -16,8 +16,8 @@ interface QueryFieldPropsBase {
 interface QueryFieldEditableProps extends QueryFieldPropsBase {
   readOnly: false;
   setQuery: (val: string) => void;
-  focusedInput: SearchFieldOrNull;
-  setFocusedInput: (val: SearchFieldOrNull) => void;
+  focusedInput: FocusedInputType | null;
+  setFocusedInput: (val: FocusedInputType | null) => void;
   suggestions: Item[];
   isLoading: boolean;
   highlightedIndex: number | null;

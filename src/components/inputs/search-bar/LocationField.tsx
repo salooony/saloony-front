@@ -6,7 +6,7 @@ import { searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionIte
 import CircularLoader from 'components/CircularLoader';
 import { LocationFieldProps } from '@src/types/locationField';
 import { useIsMdScreen } from '@src/constants/breakpoints';
-import { JSX, useRef } from 'react';
+import { JSX, useMemo, useRef } from 'react';
 import useClickOutside from './useClickOutside';
 import { FocusedInputType, MainLayoutType } from '@src/config';
 
@@ -36,7 +36,9 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
   const isHome = variant === MainLayoutType.HOME;
   const isSearch = variant === MainLayoutType.SEARCH;
 
-  useClickOutside([containerRef, searchBarRef!], () => {
+  const clickOutsideRefs = useMemo(() => [containerRef, searchBarRef!], [containerRef, searchBarRef]);
+
+  useClickOutside(clickOutsideRefs, () => {
     setFocusedInput(null);
   });
 
@@ -116,7 +118,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
           disableUnderline: true,
           sx: {
             '& .MuiInputBase-input': {
-              noWrapStyle,
+              ...noWrapStyle,
             },
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : 'common.black',

@@ -2,7 +2,7 @@
 
 import { Box, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { JSX, useRef } from 'react';
+import { JSX, useMemo, useRef } from 'react';
 import CircularLoader from 'components/CircularLoader';
 import { noWrapStyle, searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
 import { QueryFieldProps } from '@src/types/QueryField';
@@ -20,7 +20,9 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
   const isHome = variant === MainLayoutType.HOME;
   const isSearch = variant === MainLayoutType.SEARCH;
 
-  useClickOutside([containerRef, searchBarRef!], () => {
+  const clickOutsideRefs = useMemo(() => [containerRef, searchBarRef!], [containerRef, searchBarRef]);
+
+  useClickOutside(clickOutsideRefs, () => {
     if ('setFocusedInput' in props) props.setFocusedInput(null);
   });
 

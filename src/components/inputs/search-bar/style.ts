@@ -153,7 +153,7 @@ export const iconButtonStyle = (isDisabled: boolean, variant?: string) => ({
   color: variant === MainLayoutType.SEARCH ? 'common.white' : 'common.black',
   width: variant === MainLayoutType.SEARCH ? 35 : 48,
   height: variant === MainLayoutType.SEARCH ? 35 : 48,
-  '&:hover': !isDisabled ? { color: 'text.secondary ' } : {},
+  '&:hover': !isDisabled ? { color: 'text.secondary' } : {},
   opacity: isDisabled ? 0.5 : 1, 
   cursor: isDisabled ? 'not-allowed' : 'pointer',
 });

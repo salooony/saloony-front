@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import QueryField from 'components/inputs/search-bar/QueryField';
-import { SearchField } from '@src/types/searchField';
+import { FocusedInputType } from '@src/config';
 
 const suggestions = [
   { id: 1, name: 'Hair salon near me' },
@@ -31,7 +31,7 @@ type Story = StoryObj<typeof meta>;
 export const Interactive: Story = {
   render: () => {
     const [query, setQuery] = useState('');
-    const [focusedInput, setFocusedInput] = useState<SearchField | null>(null);
+    const [focusedInput, setFocusedInput] = useState<FocusedInputType | null>(null);
 
     return (
       <Box sx={{ maxWidth: 500 }}>

@@ -4,7 +4,6 @@ import { SERVICES, ADDRESSES, Item } from './constants';
 import dayjs, { Dayjs } from 'dayjs';
 import { UseSearchBarProps } from '@src/types/useSearchBar';
 import { FocusedInputType } from '@src/config';
-import { SearchField } from '@src/types/searchField';
 
 export default function useSearchBar({ isMdScreen, initialQuery = '', initialLocation = null }: UseSearchBarProps) {
   const [query, setQuery] = useState<string>(initialQuery);
@@ -27,14 +26,13 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
     const dateParam = searchParams.get(FocusedInputType.DATE);
 
     if (queryParam) {
-      setQuery(decodeURIComponent(queryParam));
+      setQuery(queryParam);
     } else if (initialQuery) {
       setQuery(initialQuery);
     }
 
     if (locationParam) {
-      const decodedLocation = decodeURIComponent(locationParam);
-      const foundLocation = ADDRESSES.find((addr) => addr.name === decodedLocation);
+      const foundLocation = ADDRESSES.find((addr) => addr.name === locationParam);
       if (foundLocation) {
         setLocation(foundLocation);
       }
@@ -59,7 +57,7 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
     (input: string) => {
       setIsLoading(true);
       setTimeout(() => {
-        const source = focusedInput === SearchField.QUERY ? SERVICES : ADDRESSES;
+        const source = focusedInput === FocusedInputType.QUERY ? SERVICES : ADDRESSES;
         const filtered = source.filter((item) => item.name.toLowerCase().includes(input.toLowerCase()));
         setSuggestions(filtered);
         setHighlightedIndex(-1);
@@ -70,9 +68,9 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
   );
 
   useEffect(() => {
-    const value = focusedInput === SearchField.QUERY ? query : location?.name || '';
+    const value = focusedInput === FocusedInputType.QUERY ? query : location?.name || '';
 
-    if (focusedInput === SearchField.QUERY) {
+    if (focusedInput === FocusedInputType.QUERY) {
       if (!value) {
         setSuggestions(SERVICES);
         setHighlightedIndex(-1);
@@ -82,7 +80,7 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
       return () => clearTimeout(timer);
     }
 
-    if (focusedInput === SearchField.LOCATION) {
+    if (focusedInput === FocusedInputType.LOCATION) {
       if (value.length < 2) {
         setSuggestions([]);
         setHighlightedIndex(-1);
@@ -101,8 +99,8 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
     if (loc && !ADDRESSES.some((item) => item.name === loc)) return alert('Please select a valid address');
 
     const params = new URLSearchParams();
-    params.set(FocusedInputType.QUERY, encodeURIComponent(q));
-    if (loc) params.set(FocusedInputType.LOCATION, encodeURIComponent(loc));
+    params.set(FocusedInputType.QUERY, q);
+    if (loc) params.set(FocusedInputType.LOCATION, loc);
     if (selectedDate) params.set(FocusedInputType.DATE, selectedDate.format('YYYY-MM-DD'));
 
     router.push(`/search?${params.toString()}`);
@@ -136,7 +134,7 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
       setHighlightedIndex((prev) => (prev - 1 + suggestions.length) % suggestions.length);
     } else if (e.key === 'Enter' && highlightedIndex >= 0) {
       e.preventDefault();
-      if (focusedInput === SearchField.QUERY) setQuery(suggestions[highlightedIndex].name);
+      if (focusedInput === FocusedInputType.QUERY) setQuery(suggestions[highlightedIndex].name);
       else setLocation(suggestions[highlightedIndex]);
       setSuggestions([]);
       setHighlightedIndex(-1);
@@ -167,4 +165,4 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
     activeField,
     setActiveField
   };
-} 
+}

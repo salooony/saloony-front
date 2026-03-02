@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useMemo } from 'react';
 import { Box, Typography, Button, Stack } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -30,7 +30,9 @@ export default function DateField({
 
   const isOpen = focusedInput === FocusedInputType.DATE;
 
-  useClickOutside([containerRef, searchBarRef!], (event) => {
+  const clickOutsideRefs = useMemo(() => [containerRef, searchBarRef!], [containerRef, searchBarRef]);
+
+  useClickOutside(clickOutsideRefs, (event) => {
     if (!event) return;
     let el = event.target as HTMLElement | null;
     while (el) {

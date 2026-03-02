@@ -9,7 +9,7 @@ export default function SearchButton({ onClick, disabled, size = 28, variant }: 
   return (
     <Box sx={iconContainerStyle(variant)}>
       <IconButton sx={iconButtonStyle(Boolean(disabled), variant)} onClick={onClick} disabled={disabled} aria-label="Search">
-        <FiSearch size={28} />
+        <FiSearch size={size} />
       </IconButton>
     </Box>
   );

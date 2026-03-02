@@ -7,10 +7,8 @@ import SearchButton from './SearchButton';
 import { SearchOverlayModalProps } from '@src/types/searchOverlayModal';
 import { centerModal, FiXStyle, modalBoxStyle, smallSearchBoxStyle } from './style';
 import { FocusedInputType, MainLayoutType } from '@src/config';
-import { SearchField } from '@src/types/searchField';
-import { useTheme } from '@mui/material/styles';
 import DateField from './DateField';
-import useSearchBar from './useSearchBar';
+import { useTheme } from '@mui/material/styles';
 
 export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.Element {
   const {
@@ -30,10 +28,12 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     isSearchDisabled,
     variant,
     activeField,
-    setActiveField
+    setActiveField,
+    selectedDate,
+    setSelectedDate,
+    setDatePickerOpen
   } = props;
 
-  const { selectedDate, setSelectedDate, setDatePickerOpen } = useSearchBar({ isMdScreen: true });
   const theme = useTheme();
 
   return (
@@ -60,7 +60,7 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
         <Divider />
 
         <Box sx={smallSearchBoxStyle}>
-          {activeField === SearchField.QUERY ? (
+          {activeField === FocusedInputType.QUERY ? (
             <QueryField
               query={query}
               setQuery={setQuery}

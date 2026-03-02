@@ -143,7 +143,7 @@ export default function SearchBar({
         sx={paperStyle(theme, variant, isExpanded) as any}
         initial={false}
         animate={isExpanded ? 'expanded' : 'collapsed'}
-        variants={{ searchBarMotionVariants }}
+        variants={searchBarMotionVariants}
         transition={{ type: 'spring', stiffness: 40, damping: 30, mass: 1 }}
       >
         {isMdScreen ? smallScreenFields() : largeScreenFields()}
@@ -169,6 +169,9 @@ export default function SearchBar({
             variant={variant}
             activeField={activeField}
             setActiveField={setActiveField}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            setDatePickerOpen={setDatePickerOpen}
           />
           {isHome && <ProfessionalButton />}
         </Box>
