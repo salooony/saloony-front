@@ -19,11 +19,7 @@ Saloony is a modern salon management platform built with [Next.js 15](https://ne
    cd saloony-front
    ```
 
-2. **Copy environment file**:
-
-   ```bash
-   cp .env .env.local
-   ```
+2. **Ensure the `.env` file exists** at the project root (already included in the repo for development).
 
 3. **Start the application using Docker Compose**:
 
@@ -77,6 +73,8 @@ NEXT_PUBLIC_NEXTAUTH_SECRET=your-secret
 
 > Only re-run `--build` when `package.json` or `Dockerfile.dev` changes.
 
+> `HOSTNAME=0.0.0.0` is set in the Dockerfile so Next.js binds to all interfaces inside the container, not just localhost.
+
 ---
 
 ## 🌐 App URL
@@ -97,3 +95,5 @@ Run scripts manually inside the container:
 docker exec -it saloony-front npm run lint
 docker exec -it saloony-front npm run build
 ```
+
+> Dependencies are installed with `npm ci` inside the image — faster and deterministic, based strictly on `package-lock.json`.

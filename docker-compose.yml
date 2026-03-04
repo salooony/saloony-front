@@ -11,6 +11,8 @@ services:
       - /app/node_modules
     env_file:
       - .env
+    environment:
+      - HOSTNAME=0.0.0.0
     stdin_open: true
     tty: true
     networks:

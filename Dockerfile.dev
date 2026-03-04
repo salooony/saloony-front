@@ -4,9 +4,12 @@ WORKDIR /app
 
 COPY package.json package-lock.json ./
 
-RUN npm install --include=dev
+RUN npm ci
 
 COPY . .
+
+ENV PORT=8081
+ENV HOSTNAME=0.0.0.0
 
 EXPOSE 8081
 
