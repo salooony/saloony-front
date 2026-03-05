@@ -27,7 +27,7 @@ Saloony is a modern salon management platform built with [Next.js 15](https://ne
    docker compose up --build
    ```
 
-> This will automatically build the image and start the frontend container on port **8081**.
+> This will automatically build the image and start the frontend container on port **3000** (or the `PORT` value set in `.env`, defaults to `3000`).
 
 ---
 
@@ -45,7 +45,7 @@ NEXT_PUBLIC_VERSION=v3.5.1
 NEXT_PUBLIC_API_URL=https://your-api-url/
 
 # Next Auth
-NEXTAUTH_URL=http://localhost:8081/
+NEXTAUTH_URL=http://localhost:3000/
 NEXT_PUBLIC_NEXTAUTH_SECRET=your-secret
 ```
 
@@ -82,8 +82,10 @@ NEXT_PUBLIC_NEXTAUTH_SECRET=your-secret
 After starting the container, the app is available at:
 
 ```
-http://localhost:8081
+http://localhost:3000
 ```
+
+> Port is controlled by `PORT` in `.env` — defaults to `3000` if not set.
 
 ---
 
