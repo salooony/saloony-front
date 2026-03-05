@@ -32,7 +32,15 @@ export default function CheckMail() {
   const downSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const searchParams = useSearchParams();
   const rawEmail = searchParams.get('email');
-  const displayEmail = rawEmail ? maskEmail(decodeURIComponent(rawEmail)) : null;
+  let decodedEmail: string | null = null;
+  if (rawEmail) {
+    try {
+      decodedEmail = decodeURIComponent(rawEmail);
+    } catch {
+      decodedEmail = rawEmail; // fallback if malformed URI
+    }
+  }
+  const displayEmail = decodedEmail ? maskEmail(decodedEmail) : null;
 
   return (
     <AuthWrapper>
