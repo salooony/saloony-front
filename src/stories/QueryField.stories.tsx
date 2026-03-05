@@ -26,29 +26,31 @@ const meta: Meta<typeof QueryField> = {
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof QueryField>;
+
+const InteractiveContent = () => {
+  const [query, setQuery] = useState('');
+  const [focusedInput, setFocusedInput] = useState<SearchField | null>(null);
+
+  return (
+    <Box sx={{ maxWidth: 500 }}>
+      <QueryField
+        query={query}
+        setQuery={setQuery}
+        focusedInput={focusedInput}
+        setFocusedInput={setFocusedInput}
+        suggestions={suggestions}
+        isLoading={false}
+        highlightedIndex={-1}
+        handleKeyDown={() => undefined}
+        readOnly={false}
+      />
+    </Box>
+  );
+};
 
 export const Interactive: Story = {
-  render: () => {
-    const [query, setQuery] = useState('');
-    const [focusedInput, setFocusedInput] = useState<SearchField | null>(null);
-
-    return (
-      <Box sx={{ maxWidth: 500 }}>
-        <QueryField
-          query={query}
-          setQuery={setQuery}
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-          suggestions={suggestions}
-          isLoading={false}
-          highlightedIndex={-1}
-          handleKeyDown={() => undefined}
-          readOnly={false}
-        />
-      </Box>
-    );
-  }
+  render: () => <InteractiveContent />
 };
 
 export const ReadOnlyTrigger: Story = {

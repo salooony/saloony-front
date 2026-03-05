@@ -1,5 +1,6 @@
 import { Item } from '@src/components/inputs/search-bar/constants';
 import { SearchFieldOrNull } from './searchField';
+import { MainLayoutType } from '@src/config';
 
 interface QueryFieldPropsBase {
   query: string;
@@ -7,6 +8,7 @@ interface QueryFieldPropsBase {
   onOuterMouseDown?: () => void;
   disableFocusStyle?: boolean;
   onSelectQuery?: () => void;
+  variant?: MainLayoutType;
 }
 
 interface QueryFieldEditableProps extends QueryFieldPropsBase {

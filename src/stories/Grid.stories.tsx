@@ -5,9 +5,26 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { useStoryColors } from './staticColors';
 
-const meta: Meta<typeof Grid> = {
+const MuiGrid = Grid as any;
+
+const DefaultGridContent = (args: any) => {
+  const colors = useStoryColors();
+  return (
+    <MuiGrid {...args}>
+      {[4, 4, 4, 6, 6, 12].map((size, index) => (
+        <MuiGrid item key={`${size}-${index}`} xs={12} sm={size}>
+          <Box sx={{ bgcolor: colors.primaryLight, color: colors.primaryDark, borderRadius: 1, p: 2 }}>
+            <Typography variant="body2">xs=12 sm={size}</Typography>
+          </Box>
+        </MuiGrid>
+      ))}
+    </MuiGrid>
+  );
+};
+
+const meta: Meta<typeof MuiGrid> = {
   title: 'MUI/Grid',
-  component: Grid,
+  component: MuiGrid,
   args: {
     container: true,
     spacing: 2
@@ -16,21 +33,7 @@ const meta: Meta<typeof Grid> = {
     columns: { control: { type: 'number', min: 1, max: 24, step: 1 } },
     spacing: { control: { type: 'number', min: 0, max: 10, step: 0.5 } }
   },
-  render: (args: any) => {
-    const colors = useStoryColors();
-
-    return (
-      <Grid {...args}>
-        {[4, 4, 4, 6, 6, 12].map((size, index) => (
-          <Grid item key={`${size}-${index}`} xs={12} sm={size}>
-            <Box sx={{ bgcolor: colors.primaryLight, color: colors.primaryDark, borderRadius: 1, p: 2 }}>
-              <Typography variant="body2">xs=12 sm={size}</Typography>
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
-    );
-  }
+  render: (args: any) => <DefaultGridContent {...args} />
 };
 
 export default meta;
@@ -45,33 +48,34 @@ export const AutoColumns: Story = {
   }
 };
 
-export const Nested: Story = {
-  render: () => {
-    const colors = useStoryColors();
+const NestedContent = () => {
+  const colors = useStoryColors();
+  return (
+    <MuiGrid container spacing={2}>
+      <MuiGrid item xs={12} md={6}>
+        <Box sx={{ p: 2, bgcolor: colors.secondaryLighter, borderRadius: 1 }}>
+          <Typography variant="subtitle1">Primary column</Typography>
+          <MuiGrid container spacing={1} sx={{ mt: 1 }}>
+            {[6, 6, 4, 8].map((size, idx) => (
+              <MuiGrid item xs={size} key={`nested-${idx}`}>
+                <Box sx={{ bgcolor: colors.secondaryLight, p: 1, borderRadius: 1 }} textAlign="center">
+                  xs={size}
+                </Box>
+              </MuiGrid>
+            ))}
+          </MuiGrid>
+        </Box>
+      </MuiGrid>
+      <MuiGrid item xs={12} md={6}>
+        <Box sx={{ p: 2, bgcolor: colors.infoLighter, borderRadius: 1 }}>
+          <Typography variant="subtitle1">Secondary column</Typography>
+          <Typography variant="body2">Demonstrates independent grid items.</Typography>
+        </Box>
+      </MuiGrid>
+    </MuiGrid>
+  );
+};
 
-    return (
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Box sx={{ p: 2, bgcolor: colors.secondaryLighter, borderRadius: 1 }}>
-            <Typography variant="subtitle1">Primary column</Typography>
-            <Grid container spacing={1} sx={{ mt: 1 }}>
-              {[6, 6, 4, 8].map((size, idx) => (
-                <Grid item xs={size} key={`nested-${idx}`}>
-                  <Box sx={{ bgcolor: colors.secondaryLight, p: 1, borderRadius: 1 }} textAlign="center">
-                    xs={size}
-                  </Box>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Box sx={{ p: 2, bgcolor: colors.infoLighter, borderRadius: 1 }}>
-            <Typography variant="subtitle1">Secondary column</Typography>
-            <Typography variant="body2">Demonstrates independent grid items.</Typography>
-          </Box>
-        </Grid>
-      </Grid>
-    );
-  }
+export const Nested: Story = {
+  render: () => <NestedContent />
 };

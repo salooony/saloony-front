@@ -3,18 +3,6 @@ import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
-// project imports
-import axios from 'utils/axios';
-
-const users = [
-  {
-    id: 1,
-    name: 'Jone Doe',
-    email: 'info@codedthemes.com',
-    password: '123456'
-  }
-];
-
 declare module 'next-auth' {
   interface User {
     accessToken?: string;
@@ -43,17 +31,14 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email: credentials?.email,
-                password: credentials?.password
-              })
-            }
-          );
+          const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: credentials?.email,
+              password: credentials?.password
+            })
+          });
 
           const data = await response.json();
 
@@ -121,26 +106,23 @@ export const authOptions: NextAuthOptions = {
 
       async authorize(credentials) {
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_AUTH_URL}users`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                firstname: credentials?.firstname,
-                lastname: credentials?.lastname,
-                email: credentials?.email,
-                password: credentials?.password,
-                mobileNumber: credentials?.mobileNumber,
-                birthdate: credentials?.birthdate,
-                role: credentials?.role,
-                language: credentials?.language
-              })
-            }
-          );
+          const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}users`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              firstname: credentials?.firstname,
+              lastname: credentials?.lastname,
+              email: credentials?.email,
+              password: credentials?.password,
+              mobileNumber: credentials?.mobileNumber,
+              birthdate: credentials?.birthdate,
+              role: credentials?.role,
+              language: credentials?.language
+            })
+          });
 
           const data = await response.json();
-          
+
           if (!response.ok) {
             if (response.status === 409) {
               throw new Error('User already exists. Please log in.');

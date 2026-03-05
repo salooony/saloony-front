@@ -45,32 +45,34 @@ export const Playground: Story = {
   )
 };
 
+const VariantsContent = () => {
+  const colors = useStoryColors();
+
+  return (
+    <Stack
+      direction={{ xs: 'column', sm: 'row' }}
+      spacing={2}
+      sx={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+      }}
+    >
+      <AnimatedLink href="#" color={colors.primaryDark}>
+        Primary
+      </AnimatedLink>
+
+      <AnimatedLink href="#" color={colors.accentPink}>
+        Accent
+      </AnimatedLink>
+
+      <AnimatedLink href="#" color={colors.accentBlue} target="_blank">
+        External
+      </AnimatedLink>
+    </Stack>
+  );
+};
+
 export const Variants: Story = {
-  render: () => {
-    const colors = useStoryColors();
-
-    return (
-      <Stack
-        direction={{ xs: 'column', sm: 'row' }}
-        spacing={2}
-        sx={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '100vh'
-        }}
-      >
-        <AnimatedLink href="#" color={colors.primaryDark}>
-          Primary
-        </AnimatedLink>
-
-        <AnimatedLink href="#" color={colors.accentPink}>
-          Accent
-        </AnimatedLink>
-
-        <AnimatedLink href="#" color={colors.accentBlue} target="_blank">
-          External
-        </AnimatedLink>
-      </Stack>
-    );
-  }
+  render: () => <VariantsContent />
 };

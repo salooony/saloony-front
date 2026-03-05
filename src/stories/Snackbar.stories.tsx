@@ -9,6 +9,7 @@ import { SWRConfig } from 'swr';
 
 import Snackbar from 'components/@extended/Snackbar';
 import { openSnackbar } from 'api/snackbar';
+import type { SnackbarProps } from 'types/snackbar';
 
 const meta = {
   title: 'Components/Snackbar',
@@ -35,11 +36,33 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const baseSnackbar: SnackbarProps = {
+  action: false,
+  open: true,
+  message: 'Default snackbar',
+  anchorOrigin: {
+    vertical: 'bottom',
+    horizontal: 'right'
+  },
+  variant: 'default',
+  alert: {
+    color: 'primary',
+    variant: 'filled'
+  },
+  transition: 'Fade',
+  close: false,
+  actionButton: false,
+  dense: false,
+  maxStack: 3,
+  iconVariant: 'usedefault',
+  hideIconVariant: false
+};
+
 const SnackbarControls = () => {
   // Trigger Default Snackbar
   const triggerDefault = useCallback(() => {
     openSnackbar({
-      open: true,
+      ...baseSnackbar,
       message: 'Default snackbar',
       variant: 'default'
     });
@@ -48,7 +71,7 @@ const SnackbarControls = () => {
   // Trigger Success Snackbar
   const triggerSuccess = useCallback(() => {
     openSnackbar({
-      open: true,
+      ...baseSnackbar,
       message: 'Action completed successfully',
       variant: 'alert',
       alert: { color: 'success', variant: 'filled' },

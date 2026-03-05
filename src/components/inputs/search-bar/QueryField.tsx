@@ -87,9 +87,9 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
             fontSize: isMdScreen ? theme.typography.h5.fontSize : theme.typography.h6.fontSize,
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
-              opacity: 1,
+              opacity: 1
             }
-          },
+          }
         }}
       />
 

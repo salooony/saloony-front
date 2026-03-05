@@ -1,5 +1,5 @@
 import { Item } from '@src/components/inputs/search-bar/constants';
-import { SearchField, SearchFieldOrNull } from './searchField';
+import { SearchFieldOrNull } from './searchField';
 
 export interface SearchOverlayModalProps {
   open: boolean;

@@ -39,45 +39,55 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
+const DefaultContent = (args: any) => {
+  const theme = useTheme();
+  const mergedArgs = { ...getThemeDefaults(theme), ...args };
+  return (
+    <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
+      <LanguageDropdown {...mergedArgs} />
+    </Box>
+  );
+};
+
+const DarkMenuContent = (args: any) => {
+  const theme = useTheme();
+  const mergedArgs = {
+    ...getThemeDefaults(theme),
+    color: theme.palette.common.white,
+    bgColor: theme.palette.primary.dark,
+    listItemColor: theme.palette.common.white,
+    ...args
+  };
+  return (
+    <Box sx={{ p: 4, bgcolor: theme.palette.common.black }}>
+      <LanguageDropdown {...mergedArgs} />
+    </Box>
+  );
+};
+
+const WithOffsetContent = (args: any) => {
+  const theme = useTheme();
+  const mergedArgs = { ...getThemeDefaults(theme), ...args };
+  return (
+    <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
+      <LanguageDropdown {...mergedArgs} />
+    </Box>
+  );
+};
+
 export const Default: Story = {
   args: {
     bgColor: '#877754',
     listItemColor: '#ffff'
   },
-
-  render: (args) => {
-    const theme = useTheme();
-    const mergedArgs = { ...getThemeDefaults(theme), ...args };
-
-    return (
-      <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
-        <LanguageDropdown {...mergedArgs} />
-      </Box>
-    );
-  }
+  render: (args) => <DefaultContent {...args} />
 };
 
 export const DarkMenu: Story = {
   args: {
     bgColor: '#877754'
   },
-
-  render: (args: any) => {
-    const theme = useTheme();
-    const mergedArgs = {
-      ...getThemeDefaults(theme),
-      color: theme.palette.common.white,
-      bgColor: theme.palette.primary.dark,
-      listItemColor: theme.palette.common.white,
-      ...args
-    };
-
-    return (
-      <Box sx={{ p: 4, bgcolor: theme.palette.common.black }}>
-        <LanguageDropdown {...mergedArgs} />
-      </Box>
-    );
-  }
+  render: (args: any) => <DarkMenuContent {...args} />
 };
 
 export const WithOffset: Story = {
@@ -87,14 +97,5 @@ export const WithOffset: Story = {
     bgColor: '#877754',
     listItemColor: '#ffff'
   },
-  render: (args) => {
-    const theme = useTheme();
-    const mergedArgs = { ...getThemeDefaults(theme), ...args };
-
-    return (
-      <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
-        <LanguageDropdown {...mergedArgs} />
-      </Box>
-    );
-  }
+  render: (args) => <WithOffsetContent {...args} />
 };

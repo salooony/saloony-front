@@ -1,19 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { baseApi } from "./api/baseApi";
+import { configureStore } from '@reduxjs/toolkit';
+import { baseApi } from './api/baseApi';
 
 // Import features
-
 
 // ==============================|| REDUX STORE CONFIGURATION ||============================== //
 
 export const store = configureStore({
   reducer: {
-    [baseApi.reducerPath]: baseApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false,
-    }).concat(baseApi.middleware),
+      serializableCheck: false
+    }).concat(baseApi.middleware)
 });
 
 // Export types for TypeScript

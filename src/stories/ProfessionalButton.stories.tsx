@@ -37,11 +37,12 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  render: (args: ProfessionalButtonProps) => {
-    const colors = useStoryColors();
-    const mergedArgs = { mainColor: colors.primaryDark, textColor: colors.white, ...args };
+const DefaultContent = (args: ProfessionalButtonProps) => {
+  const colors = useStoryColors();
+  const mergedArgs = { mainColor: colors.primaryDark, textColor: colors.white, ...args };
+  return <ProfessionalButton {...mergedArgs} />;
+};
 
-    return <ProfessionalButton {...mergedArgs} />;
-  }
+export const Default: Story = {
+  render: (args: ProfessionalButtonProps) => <DefaultContent {...args} />
 };

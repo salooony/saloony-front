@@ -16,7 +16,7 @@ const publicSans = Public_Sans({ subsets: ['latin'], weight: ['400', '500', '300
 export enum MainLayoutType {
   HOME = 'home',
   SEARCH = 'search',
-  SearchWithoutLocation = 'search-without-location',
+  SearchWithoutLocation = 'search-without-location'
 }
 
 export enum ThemeMode {
@@ -26,7 +26,7 @@ export enum ThemeMode {
 
 export enum FocusedInputType {
   QUERY = 'query',
-  LOCATION = 'location',
+  LOCATION = 'location'
 }
 
 export enum MenuOrientation {

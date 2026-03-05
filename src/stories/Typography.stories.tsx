@@ -18,6 +18,23 @@ const TYPOGRAPHY_VARIANTS = [
   'caption',
   'overline'
 ] as const;
+
+const ScaleContent = () => {
+  const colors = useStoryColors();
+
+  return (
+    <Stack spacing={1}>
+      {TYPOGRAPHY_VARIANTS.map((variant) => (
+        <Stack key={variant} spacing={0}>
+          <Typography variant="caption" sx={{ color: colors.textMuted }}>
+            {variant}
+          </Typography>
+          <Typography variant={variant as any}>The quick brown fox jumps over the lazy dog.</Typography>
+        </Stack>
+      ))}
+    </Stack>
+  );
+};
 const meta: Meta<typeof Typography> = {
   title: 'MUI/Typography',
   component: Typography,
@@ -41,22 +58,7 @@ type Story = StoryObj<typeof meta>;
 export const Playground: Story = {};
 
 export const Scale: Story = {
-  render: () => {
-    const colors = useStoryColors();
-
-    return (
-      <Stack spacing={1}>
-        {TYPOGRAPHY_VARIANTS.map((variant) => (
-          <Stack key={variant} spacing={0}>
-            <Typography variant="caption" sx={{ color: colors.textMuted }}>
-              {variant}
-            </Typography>
-            <Typography variant={variant as any}>The quick brown fox jumps over the lazy dog.</Typography>
-          </Stack>
-        ))}
-      </Stack>
-    );
-  }
+  render: () => <ScaleContent />
 };
 
 export const CustomStyles: Story = {

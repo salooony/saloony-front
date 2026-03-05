@@ -71,8 +71,8 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
           sx: {
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
-              opacity: 1,
-            },
+              opacity: 1
+            }
           }
         }}
       />
