@@ -22,7 +22,7 @@ export const useAuthRegister = () => {
     event.preventDefault();
   };
 
-  const handleOnSubmit = async (values: RegisterFormValues, { setErrors, setSubmitting }: FormikHelpers<any>) => {
+  const handleOnSubmit = async (values: RegisterFormValues, { setErrors, setSubmitting }: FormikHelpers<RegisterFormValues>) => {
     try {
       setIsLoading(true);
 

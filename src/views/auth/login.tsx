@@ -9,7 +9,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
-import AuthLogin from 'sections/auth/auth-forms/AuthLogin';
+import AuthLogin from '@src/sections/auth/auth-forms/AuthLogin';
 import Auth_Login from '@src/sections/auth/social-links';
 import {
   formWrapperBoxStyle,
