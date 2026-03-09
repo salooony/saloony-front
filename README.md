@@ -19,7 +19,19 @@ Saloony is a modern salon management platform built with [Next.js 15](https://ne
    cd saloony-front
    ```
 
-2. **Create a `.env` file** at the project root — use the `.env.example` file as a reference for required variables.
+2. **Create a `.env` file** from the example and fill in your values:
+
+   **Linux / Mac / VS Code Terminal:**
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   **Windows (PowerShell):**
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
 
 3. **Start the application using Docker Compose**:
 
