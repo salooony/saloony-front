@@ -93,7 +93,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
           variant="h5"
           component="label"
           htmlFor="location-input"
-          color={isHome ? 'common.black' : theme.palette.grey[400]}
+          color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
           sx={noWrapStyle}
         >
           Or
@@ -121,7 +121,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
               ...noWrapStyle,
             },
             '& .MuiInputBase-input::placeholder': {
-              color: isHome ? theme.palette.grey[400] : 'common.black',
+              color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
               opacity: 1
             }
           }

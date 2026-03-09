@@ -92,7 +92,7 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
           variant="h5"
           component="label"
           htmlFor="service-input"
-          color={isHome ? 'common.black' : theme.palette.grey[400]}
+          color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
           sx={noWrapStyle}
         >
           What are you looking for?
@@ -123,7 +123,7 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
               ...noWrapStyle,
             },
             '& .MuiInputBase-input::placeholder': {
-              color: isHome ? theme.palette.grey[400] : 'common.black',
+              color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
               opacity: 1
             }
           }

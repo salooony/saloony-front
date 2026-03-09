@@ -13,7 +13,7 @@ export const toolbarStyle = {
   maxHeight: 60
 };
 
-export const logoBoxStyle = (gab?: number | string) => ({ mr: 2, display: 'flex', alignItems: 'center', gap: gab });
+export const logoBoxStyle = (gap?: number | string) => ({ mr: 2, display: 'flex', alignItems: 'center', gap });
 
 export const listStyle = { display: { xs: 'none', md: 'flex' }, gap: 4 };
 
@@ -64,5 +64,4 @@ export const headerButtonStyle = (variant: MainLayoutType, scrolled: boolean, is
     whiteSpace: 'nowrap'
   };
 };
-
 

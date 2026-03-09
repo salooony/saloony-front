@@ -118,8 +118,9 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
         currentParams.delete(FocusedInputType.DATE);
       }
 
-      const newUrl = `${window.location.pathname}?${currentParams.toString()}`;
-      window.history.replaceState({}, '', newUrl);
+      const paramsString = currentParams.toString();
+      const newUrl = paramsString ? `${window.location.pathname}?${paramsString}` : window.location.pathname;
+      router.replace(newUrl);
     }
   };
 

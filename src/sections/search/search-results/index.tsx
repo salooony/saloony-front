@@ -57,9 +57,9 @@ export default function SearchResults({ query: initialQuery, location: initialLo
           {!openFields ? (
             <Box sx={mobileCollapsedBox}>
               <Box display="flex" alignItems={'center'} gap={2}>
-                <IconButton>
-                  <FiSearch size={22} />
-                </IconButton>
+                <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FiSearch size={22} aria-hidden="true" />
+                </Box>
 
                 <Box>
                   <Box sx={{ display: 'flex', gap: 1 }}>
@@ -73,14 +73,14 @@ export default function SearchResults({ query: initialQuery, location: initialLo
                 </Box>
               </Box>
 
-              <IconButton>
+              <IconButton aria-label="Edit search filters" onClick={() => setOpenFields(true)}>
                 <FiEdit3 size={20} />
               </IconButton>
             </Box>
           ) : (
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, px: 2 }}>
-              <IconButton onClick={() => setOpenFields(false)}>
+              <IconButton aria-label="Close search filters" onClick={() => setOpenFields(false)}>
                 <FiX size={20} />
               </IconButton>
 
@@ -91,9 +91,9 @@ export default function SearchResults({ query: initialQuery, location: initialLo
                   openOverlay();
                 }}
               >
-                <IconButton>
-                  <FiSearch size={22} />
-                </IconButton>
+                <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FiSearch size={22} aria-hidden="true" />
+                </Box>
                 <Typography variant="h6">{initialQuery}</Typography>
               </Box>
 
@@ -104,9 +104,9 @@ export default function SearchResults({ query: initialQuery, location: initialLo
                   openOverlay();
                 }}
               >
-                <IconButton>
-                  <FiMapPin size={22} />
-                </IconButton>
+                <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FiMapPin size={22} aria-hidden="true" />
+                </Box>
                 <Typography variant="h6">{initialLocation}</Typography>
               </Box>
 
@@ -117,9 +117,9 @@ export default function SearchResults({ query: initialQuery, location: initialLo
                   openOverlay();
                 }}
               >
-                <IconButton>
-                  <FiClock size={22} />
-                </IconButton>
+                <Box component="span" sx={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <FiClock size={22} aria-hidden="true" />
+                </Box>
                 <Typography variant="h6">{initialDate || 'At all time'}</Typography>
               </Box>
             </Box>

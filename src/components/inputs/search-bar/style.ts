@@ -100,11 +100,11 @@ export const searchBoxStyle = (
 
 export const searchBarMotionVariants = {
   collapsed: {
-    width: '460px',
+    width: '60%',
     transition: { type: 'spring', stiffness: 300, damping: 30 }
   },
   expanded: {
-    width: '900px',
+    width: '100%',
     transition: { type: 'spring', stiffness: 300, damping: 30 }
   }
 };
@@ -167,8 +167,8 @@ export const iconContainerStyle = (variant?: string) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: 35,
-  height: 35,
+  width: variant === MainLayoutType.SEARCH ? 35 : 48,
+  height: variant === MainLayoutType.SEARCH ? 35 : 48,
   borderRadius: '30%',
   backgroundColor: variant === MainLayoutType.SEARCH ? 'primary.main' : 'transparent',
 });
