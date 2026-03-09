@@ -3,11 +3,14 @@ import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
-declare module 'next-auth' {
-  interface User {
-    accessToken?: string;
-  }
-}
+import { parseJwt } from './jwt';
+
+type DecodedAuthToken = {
+  sub?: string;
+  email?: string;
+  name?: string;
+  role?: string;
+};
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
@@ -43,17 +46,36 @@ export const authOptions: NextAuthOptions = {
           const data = await response.json();
 
           if (!response.ok) {
-            throw new Error(data.message || 'Login failed!');
+            const errorMessage = data.message || data.error || 'Login failed!';
+            throw new Error(errorMessage);
           }
 
+          if (data.accessToken) {
+            // Decode JWT to extract user info
+            const decoded = parseJwt(data.accessToken) as DecodedAuthToken;
+
+            const user = {
+              id: decoded?.sub || credentials?.email,
+              email: decoded?.email || credentials?.email,
+              name: decoded?.name || decoded?.email?.split('@')[0] || credentials?.email?.split('@')[0],
+              role: decoded?.role || 'user',
+              accessToken: data.accessToken,
+              refreshToken: data.refreshToken
+            };
+            return user;
+          }
+
+          // Fallback: Handle old response structure with data.user
           if (data.user) {
-            data.user.accessToken = data.serviceToken;
+            data.user.accessToken = data.serviceToken || data.accessToken;
+            data.user.refreshToken = data.refreshToken;
             return data.user;
           }
 
-          throw new Error('Invalid credentials!');
+          throw new Error('Invalid response from server!');
         } catch (e: any) {
           const errorMessage = e?.message || 'Something went wrong!';
+          console.error('Login authorize error:', errorMessage);
           throw new Error(errorMessage);
         }
       }
@@ -131,22 +153,26 @@ export const authOptions: NextAuthOptions = {
             throw new Error(errorMessage);
           }
 
+          // Registration successful - return user data
+          // Note: Register doesn't return tokens, only user info
           if (data.id) {
             return {
               id: data.id,
               name: `${data.firstname} ${data.lastname}`,
               email: data.email,
+              role: data.role || 'user',
               ...data
             };
           }
 
+          // Fallback for different response structures
           const registerData = data?.data ?? data;
           if (registerData?.user) {
-            const registeredUser = { ...registerData.user };
-            if (registerData?.serviceToken) {
-              registeredUser.accessToken = registerData.serviceToken;
-            }
-            return registeredUser;
+            return {
+              ...registerData.user,
+              name: `${registerData.user.firstname} ${registerData.user.lastname}`,
+              role: registerData.user.role || 'user'
+            };
           }
 
           throw new Error(data?.message || 'Registration failed!');
@@ -161,16 +187,22 @@ export const authOptions: NextAuthOptions = {
     jwt: async ({ token, user, account }) => {
       if (user) {
         token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
         token.id = user.id;
+        token.role = user.role;
         token.provider = account?.provider;
       }
       return token;
     },
     session: ({ session, token }) => {
       if (token) {
-        session.id = token.id;
-        session.provider = token.provider;
+        session.id = token.id as string;
+        session.provider = token.provider as string;
         session.token = token;
+        // Add user info to session
+        if (session.user) {
+          session.user.role = token.role;
+        }
       }
       return session;
     }

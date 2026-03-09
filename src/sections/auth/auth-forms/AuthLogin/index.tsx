@@ -1,10 +1,9 @@
 'use client';
 
-import React, { useState, FocusEvent, SyntheticEvent } from 'react';
+import React, { FocusEvent } from 'react';
 
 // next
 import NextLink from 'next/link';
-import { signIn, useSession } from 'next-auth/react';
 
 // material-ui
 import Button from '@mui/material/Button';
@@ -18,84 +17,37 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
 // third-party
-import * as Yup from 'yup';
-import { preload } from 'swr';
 import { Formik } from 'formik';
 
 // project imports
 import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 
-import { APP_DEFAULT_PATH } from 'config';
-import { fetcher } from 'utils/axios';
-import { forgotPasswordStackStyle, inputFieldStyle, inputLabelStyle, submitButtonGridStyle, submitButtonStyle } from './style';
+import { forgotPasswordStackStyle, inputFieldStyle, inputLabelStyle, submitButtonGridStyle, submitButtonStyle } from '../style';
 
 // assets
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
+import { AUTH_LOGIN_INITIAL_VALUES, AUTH_LOGIN_VALIDATION_SCHEMA } from '@src/constants/auth';
+import { useAuthLogin } from './useAuthLogin';
 
 // ============================|| AWS CONNITO - LOGIN ||============================ //
 
 export default function AuthLogin({ providers, csrfToken }: any) {
-  const { data: session } = useSession();
-  const [capsWarning, setCapsWarning] = useState(false);
-
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event: SyntheticEvent) => {
-    event.preventDefault();
-  };
-
-  const onKeyDown = (keyEvent: any) => {
-    if (keyEvent.getModifierState('CapsLock')) {
-      setCapsWarning(true);
-    } else {
-      setCapsWarning(false);
-    }
-  };
+  const {
+    capsWarning,
+    showPassword,
+    handleClickShowPassword,
+    handleMouseDownPassword,
+    onKeyDown,
+    handleLoginSubmit,
+    session,
+    setCapsWarning
+  } = useAuthLogin();
 
   return (
     <>
-      <Formik
-        initialValues={{
-          email: 'info@codedthemes.com',
-          password: '123456',
-          submit: null
-        }}
-        validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string()
-            .required('Password is required')
-            .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) => value === value.trim())
-            .max(10, 'Password must be less than 10 characters')
-        })}
-        onSubmit={(values, { setErrors, setSubmitting }) => {
-          const trimmedEmail = values.email.trim();
-          signIn('login', {
-            redirect: false,
-            email: trimmedEmail,
-            password: values.password,
-            callbackUrl: APP_DEFAULT_PATH
-          }).then(
-            (res: any) => {
-              if (res?.error) {
-                setErrors({ submit: res.error });
-                setSubmitting(false);
-              } else {
-                preload('api/menu/dashboard', fetcher); // load menu on login success
-                setSubmitting(false);
-              }
-            },
-            (res) => {
-              setErrors({ submit: res.error });
-              setSubmitting(false);
-            }
-          );
-        }}
-      >
+      <Formik initialValues={AUTH_LOGIN_INITIAL_VALUES} validationSchema={AUTH_LOGIN_VALIDATION_SCHEMA} onSubmit={handleLoginSubmit}>
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />

@@ -27,7 +27,12 @@ export type SocialButtonsConfig = {
   providerIds?: AuthLoginProps['providerIds'];
 };
 
-export interface RegisterFormValues {
+export interface LoginFormValues {
+  email: string;
+  password: string;
+  submit: null | string;
+}
+ export interface RegisterFormValues {
   firstname: string;
   lastname: string;
   email: string;

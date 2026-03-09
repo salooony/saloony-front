@@ -12,8 +12,9 @@
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
+    "prettier:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
     "type-check": "tsc --noEmit",
-    "check": "pnpm run prettier && pnpm run lint && pnpm run type-check",
+    "check": "pnpm run prettier:check && pnpm run lint && pnpm run type-check",
     "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

@@ -8,7 +8,8 @@ import SearchBar from 'components/inputs/search-bar';
 import { AppRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 const logRouter = (method: string, ...args: unknown[]) => {
-  console.log(`[router.${method}]`, ...args);
+  // console.log(`[router.${method}]`, ...args);
+  return () => {};
 };
 
 const mockRouter: AppRouterInstance = {

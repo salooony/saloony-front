@@ -41,7 +41,13 @@ type Story = StoryObj<typeof meta>;
 
 const DefaultContent = (args: any) => {
   const theme = useTheme();
-  const mergedArgs = { ...getThemeDefaults(theme), ...args };
+  const mergedArgs = {
+    ...getThemeDefaults(theme),
+    color: theme.palette.primary.main,
+    bgColor: theme.palette.primary.main,
+    listItemColor: theme.palette.common.white,
+    ...args
+  };
   return (
     <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
       <LanguageDropdown {...mergedArgs} />
@@ -67,7 +73,13 @@ const DarkMenuContent = (args: any) => {
 
 const WithOffsetContent = (args: any) => {
   const theme = useTheme();
-  const mergedArgs = { ...getThemeDefaults(theme), ...args };
+  const mergedArgs = {
+    ...getThemeDefaults(theme),
+    color: theme.palette.primary.main,
+    bgColor: theme.palette.primary.main,
+    listItemColor: theme.palette.common.white,
+    ...args
+  };
   return (
     <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
       <LanguageDropdown {...mergedArgs} />
@@ -76,26 +88,16 @@ const WithOffsetContent = (args: any) => {
 };
 
 export const Default: Story = {
-  args: {
-    bgColor: '#877754',
-    listItemColor: '#ffff'
-  },
   render: (args) => <DefaultContent {...args} />
 };
 
 export const DarkMenu: Story = {
-  args: {
-    bgColor: '#877754'
-  },
   render: (args: any) => <DarkMenuContent {...args} />
 };
 
 export const WithOffset: Story = {
   args: {
-    ml: 2,
-    color: '#877754',
-    bgColor: '#877754',
-    listItemColor: '#ffff'
+    ml: 2
   },
   render: (args) => <WithOffsetContent {...args} />
 };
