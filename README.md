@@ -19,7 +19,7 @@ Saloony is a modern salon management platform built with [Next.js 15](https://ne
    cd saloony-front
    ```
 
-2. **Ensure the `.env` file exists** at the project root (already included in the repo for development).
+2. **Create a `.env` file** at the project root — use the `.env.example` file as a reference for required variables.
 
 3. **Start the application using Docker Compose**:
 
@@ -73,7 +73,7 @@ NEXT_PUBLIC_NEXTAUTH_SECRET=your-secret
 
 > Only re-run `--build` when `package.json` or `Dockerfile.dev` changes.
 
-> `HOSTNAME=0.0.0.0` is set in the Dockerfile so Next.js binds to all interfaces inside the container, not just localhost.
+> Next.js is started with `--hostname 0.0.0.0` so it binds to all interfaces inside the container, not just localhost. Port is set via `--port $PORT` reading from `.env`.
 
 ---
 
