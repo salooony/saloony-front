@@ -22,13 +22,16 @@ import {
   verificationTimerStyle
 } from './styles';
 import { AUTH_TEXT } from '@src/constants/auth';
+import { useCodeVerification } from './useCodeVerification';
 
 // ================================|| CODE VERIFICATION ||================================ //
 
 export default function CodeVerification() {
+  const { verificationTarget, countdownLabel } = useCodeVerification();
+
   return (
     <Box sx={verificationWrapperStyle}>
-      <Grid container spacing={3} sx={verificationGridStyle} alignItems="center" >
+      <Grid container spacing={3} sx={verificationGridStyle} alignItems="center">
         <Grid size={{ xs: 12, md: 5 }}>
           <Stack sx={verificationStackStyle}>
             <Typography variant="h1" sx={verificationTitleStyle}>
@@ -36,14 +39,16 @@ export default function CodeVerification() {
             </Typography>
 
             <Typography variant="h4" sx={verificationDescriptionStyle}>
-              {AUTH_TEXT.OTP_VERIFICATION_DESCRIPTION} {' '}
+              {AUTH_TEXT.OTP_VERIFICATION_DESCRIPTION}{' '}
               <Box component="span" sx={verificationPhoneStyle}>
-                +970597624323
+                {verificationTarget ?? 'the number we sent the code to'}
               </Box>
             </Typography>
-            <Typography variant="h4" sx={verificationTimerStyle}>
-              2:03
-            </Typography>
+            {countdownLabel !== null && (
+              <Typography variant="h4" sx={verificationTimerStyle}>
+                {countdownLabel}
+              </Typography>
+            )}
           </Stack>
           <AuthCodeVerification />
         </Grid>
