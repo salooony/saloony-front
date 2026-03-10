@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import LocationField from 'components/inputs/search-bar/LocationField';
-import { SearchField } from '@src/types/searchField';
+import { FocusedInputType } from '@src/config';
 
 const suggestions = [
   { id: 1, name: 'Amman, Jordan' },
@@ -30,7 +30,7 @@ type Story = StoryObj<typeof meta>;
 
 const InteractiveStory = () => {
   const [location, setLocation] = useState<{ id: number; name: string } | null>(null);
-  const [focusedInput, setFocusedInput] = useState<SearchField | null>(null);
+  const [focusedInput, setFocusedInput] = useState<FocusedInputType | null>(null);
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
 
   return (

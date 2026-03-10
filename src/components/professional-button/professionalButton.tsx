@@ -1,13 +1,9 @@
 import { Box, Button, Link } from '@mui/material';
 import React from 'react';
-import AnimateButton from './@extended/AnimateButton';
-import { headerButtonStyle } from '@src/layout/main-layout/header/style';
-import { useTheme } from '@mui/material/styles';
-import { ProfessionalButtonProps } from '@src/types/professionalButton';
+import AnimateButton from '../@extended/AnimateButton';
+import { ProfessionalButtonStyle } from './style';
 
-export default function ProfessionalButton({ mainColor, textColor }: ProfessionalButtonProps) {
-  const theme = useTheme();
-
+export default function ProfessionalButton({ scrolled = false, isMdScreen = false }: { scrolled?: boolean; isMdScreen?: boolean }) {
   return (
     <Box sx={{ width: '100%' }}>
       <AnimateButton>
@@ -17,7 +13,7 @@ export default function ProfessionalButton({ mainColor, textColor }: Professiona
           target="_blank"
           disableElevation
           variant="contained"
-          sx={headerButtonStyle(theme, mainColor, textColor)}
+          sx={ProfessionalButtonStyle(scrolled, isMdScreen)}
         >
           I am a beauty professional
         </Button>

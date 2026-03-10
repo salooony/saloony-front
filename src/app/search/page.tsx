@@ -13,13 +13,18 @@ const SearchResultsPage = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get(FocusedInputType.QUERY) || '';
   const location = searchParams.get(FocusedInputType.LOCATION) || '';
+  const date = searchParams.get(FocusedInputType.DATE) || '';
 
   const hasLocation = location.trim() !== '';
 
   return (
-    <MainLayout variant={hasLocation ? MainLayoutType.SEARCH : MainLayoutType.SearchWithoutLocation}>
+    <MainLayout variant={hasLocation ? MainLayoutType.SEARCH : MainLayoutType.SearchWithoutLocation} query={query} location={location}>
       <Suspense fallback={<Loader />}>
-        {hasLocation ? <SearchResults query={query} location={location} /> : <SearchResultsWithoutLocation query={query} />}
+        {hasLocation ? (
+          <SearchResults query={query} location={location} initialDate={date}  />
+        ) : (
+          <SearchResultsWithoutLocation query={query} />
+        )}
       </Suspense>
     </MainLayout>
   );

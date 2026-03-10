@@ -1,19 +1,28 @@
 import { SxProps, Theme } from '@mui/material/styles';
+import { MainLayoutType } from '@src/config';
 
-export const buttonStyle = (theme: Theme, color?: string): SxProps<Theme> => ({
-  color,
+
+export const buttonStyle = (scrolled: boolean, inDrawer?: boolean, variant?: MainLayoutType, isMdScreen?: boolean): SxProps<Theme> => ({
+  display: variant === MainLayoutType.SEARCH ? (isMdScreen ? 'none' : 'inline-flex') : 'inline-flex',
+  color: inDrawer ? 'common.white' : scrolled ? 'common.white' : 'primary.main',
   textTransform: 'none',
   fontWeight: 500,
-  '&:hover': { color: theme.palette.primary.main }
+  '&:hover': { color: 'primary.main' }
 });
 
-export const langListStyle = (theme: Theme, bgColor?: string, listItemColor?: string): SxProps<Theme> => ({
-  display: 'flex',
-  flexDirection: 'column',
-  '& .MuiPaper-root': {
-    backgroundColor: bgColor ?? theme.palette.common.white
-  },
-  '& .MuiMenuItem-root': {
-    color: listItemColor ?? theme.palette.primary.main
-  }
-});
+export const langListStyle = (variant: MainLayoutType, scrolled: boolean, inDrawer: boolean): SxProps<Theme> => {
+  const isHome = variant === MainLayoutType.HOME;
+  const backColor = inDrawer ? 'common.white' : isHome ? 'common.white' : scrolled ? 'common.white' : 'primary.main';
+  const textColor = inDrawer ? 'primary.main' : isHome ? 'primary.main' : scrolled ? 'primary.main' : 'common.white';
+
+  return {
+    display: 'flex',
+    flexDirection: 'column',
+    '& .MuiPaper-root': {
+      backgroundColor: backColor,
+    },
+    '& .MuiMenuItem-root': {
+      color: textColor,
+    }
+  };
+};

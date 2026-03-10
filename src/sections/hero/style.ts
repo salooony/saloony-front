@@ -9,6 +9,13 @@ export const heroContainerStyle = {
   justifyContent: 'center',
   position: 'relative'
 };
+export const searchBarWrapperStyle = (theme: Theme) => ({
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
+  minHeight: '80px',
+  mt: 2
+});
 
 export const heroContentStyle = {
   display: 'flex',
@@ -18,7 +25,8 @@ export const heroContentStyle = {
   gap: 2,
   position: 'relative',
   zIndex: 1,
-  color: 'common.white'
+  color: 'common.white',
+  width: '100%',
 };
 
 export const heroTitleStyle = (theme: Theme) => ({
@@ -38,15 +46,15 @@ export const heroSubtitleStyle = (theme: Theme) => ({
   lineHeight: 1.2
 });
 
-export const contentSectionStyle = (theme: Theme) => ({
-  bgcolor: theme.palette.primary.light,
+export const contentSectionStyle = {
+  backgroundColor: 'primary.light',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
   gap: 20,
   p: 10
-});
+};
 
 export const heroBgStyle: CSSProperties = {
   objectFit: 'cover',

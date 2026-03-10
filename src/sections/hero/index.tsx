@@ -8,7 +8,7 @@ import About from '@src/components/about';
 import Services from '@src/components/services';
 import Questions from '@src/components/questions';
 import { useTheme } from '@mui/material/styles';
-import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle } from './style';
+import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle, searchBarWrapperStyle } from './style';
 import { MainLayoutType } from '@src/config';
 
 export default function Hero({ variant }: { readonly variant?: MainLayoutType }) {
@@ -28,11 +28,13 @@ export default function Hero({ variant }: { readonly variant?: MainLayoutType })
             Search for Barber Shop
           </Typography>
 
-          <SearchBar variant={variant} />
+          <Box sx={searchBarWrapperStyle(theme)}>
+            <SearchBar variant={variant} enableExpand={false} />
+          </Box>
         </Container>
       </Box>
 
-      <Box sx={contentSectionStyle(theme)}>
+      <Box sx={contentSectionStyle}>
         <About />
         <Services />
         <Questions />
