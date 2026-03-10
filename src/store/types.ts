@@ -1,6 +1,6 @@
 /**
  * Redux Store Types
- * 
+ *
  * Define your custom types here for type safety across the application
  */
 

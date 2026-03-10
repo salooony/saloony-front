@@ -29,7 +29,11 @@ const buildStoryColors = (theme: Theme) => {
     primaryLighter: pick(palettePrimary, ['lighter', '100', '50'], pick(palettePrimary, ['light', 'main'], theme.palette.common.black)),
     primaryDark: pick(palettePrimary, ['dark', '700'], pick(palettePrimary, ['main'], theme.palette.common.black)),
     secondaryLight: pick(paletteSecondary, ['light', '200'], pick(paletteSecondary, ['main'], theme.palette.common.black)),
-    secondaryLighter: pick(paletteSecondary, ['lighter', '100', 'A100'], pick(paletteSecondary, ['light', 'main'], theme.palette.common.black)),
+    secondaryLighter: pick(
+      paletteSecondary,
+      ['lighter', '100', 'A100'],
+      pick(paletteSecondary, ['light', 'main'], theme.palette.common.black)
+    ),
     infoLight: pick(paletteInfo, ['light', '200'], pick(paletteInfo, ['main'], theme.palette.common.black)),
     infoLighter: pick(paletteInfo, ['lighter', '100', 'A100'], pick(paletteInfo, ['light', 'main'], theme.palette.common.black)),
     accentBlue: pick(paletteInfo, ['main'], theme.palette.common.black),

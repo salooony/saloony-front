@@ -30,7 +30,7 @@ export default function Register() {
           return;
         }
         setProviders(resolvedProviders);
-        setCsrfToken(resolvedCsrfToken ?? "");
+        setCsrfToken(resolvedCsrfToken ?? '');
       } catch (error) {
         console.error('Failed to load authentication metadata', error);
       }

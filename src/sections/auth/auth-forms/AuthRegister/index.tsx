@@ -1,7 +1,7 @@
 'use client';
 // next
 import Image from 'next/legacy/image';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 // material-ui
 import Button from '@mui/material/Button';
@@ -43,21 +43,11 @@ const Google = '/assets/images/icons/google.svg';
 // ============================|| AWS CONNITO - LOGIN ||============================ //
 
 export default function AuthRegister({ providers, csrfToken }: any) {
-  const {
-    session,
-    downSM,
-    isLoading,
-    showPassword,
-    handleClickShowPassword,
-    handleMouseDownPassword,
-    handleOnSubmit,
-  } = useAuthRegister();
+  const { session, downSM, isLoading, showPassword, handleClickShowPassword, handleMouseDownPassword, handleOnSubmit } = useAuthRegister();
 
   return (
     <>
-      <Formik initialValues={AUTH_REGISTER_INITIAL_VALUES} 
-      validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA} 
-      onSubmit={handleOnSubmit}>
+      <Formik initialValues={AUTH_REGISTER_INITIAL_VALUES} validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA} onSubmit={handleOnSubmit}>
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />

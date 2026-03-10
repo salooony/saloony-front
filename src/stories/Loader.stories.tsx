@@ -5,6 +5,15 @@ import Box from '@mui/material/Box';
 import Loader from 'components/Loader';
 import { useStoryColors } from './staticColors';
 
+const DefaultLoaderContent = () => {
+  const colors = useStoryColors();
+  return (
+    <Box sx={{ minHeight: 200, backgroundColor: colors.surface }}>
+      <Loader />
+    </Box>
+  );
+};
+
 const meta: Meta<typeof Loader> = {
   title: 'Components/Loader',
   component: Loader,
@@ -16,15 +25,7 @@ const meta: Meta<typeof Loader> = {
       }
     }
   },
-  render: () => {
-    const colors = useStoryColors();
-
-    return (
-      <Box sx={{ minHeight: 200, backgroundColor: colors.surface }}>
-        <Loader />
-      </Box>
-    );
-  }
+  render: () => <DefaultLoaderContent />
 };
 
 export default meta;

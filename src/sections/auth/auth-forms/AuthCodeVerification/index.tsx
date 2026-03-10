@@ -36,8 +36,6 @@ export default function AuthCodeVerification() {
       validationSchema={AUTH_OTP_VALIDATION_SCHEMA}
       onSubmit={(values, { resetForm }) => {
         resetForm();
-        console.log(values);
-
         // reset focus after submission
         const activeElement = document.activeElement as HTMLElement | null;
         if (activeElement) activeElement.blur();

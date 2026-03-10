@@ -5,6 +5,13 @@ import GoogleProvider from 'next-auth/providers/google';
 import FacebookProvider from 'next-auth/providers/facebook';
 import { parseJwt } from './jwt';
 
+type DecodedAuthToken = {
+  sub?: string;
+  email?: string;
+  name?: string;
+  role?: string;
+};
+
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
   providers: [
@@ -27,9 +34,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          const url = `${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`;
-          
-          const response = await fetch(url, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -47,8 +52,8 @@ export const authOptions: NextAuthOptions = {
 
           if (data.accessToken) {
             // Decode JWT to extract user info
-            const decoded = parseJwt(data.accessToken);
-            
+            const decoded = parseJwt(data.accessToken) as DecodedAuthToken;
+
             const user = {
               id: decoded?.sub || credentials?.email,
               email: decoded?.email || credentials?.email,
@@ -57,8 +62,6 @@ export const authOptions: NextAuthOptions = {
               accessToken: data.accessToken,
               refreshToken: data.refreshToken
             };
-            
-            console.log('User created from token:', user);
             return user;
           }
 
@@ -72,7 +75,7 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid response from server!');
         } catch (e: any) {
           const errorMessage = e?.message || 'Something went wrong!';
-          console.error("Login authorize error:", errorMessage);
+          console.error('Login authorize error:', errorMessage);
           throw new Error(errorMessage);
         }
       }
@@ -125,26 +128,23 @@ export const authOptions: NextAuthOptions = {
 
       async authorize(credentials) {
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_AUTH_URL}users`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                firstname: credentials?.firstname,
-                lastname: credentials?.lastname,
-                email: credentials?.email,
-                password: credentials?.password,
-                mobileNumber: credentials?.mobileNumber,
-                birthdate: credentials?.birthdate,
-                role: credentials?.role,
-                language: credentials?.language
-              })
-            }
-          );
+          const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}users`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              firstname: credentials?.firstname,
+              lastname: credentials?.lastname,
+              email: credentials?.email,
+              password: credentials?.password,
+              mobileNumber: credentials?.mobileNumber,
+              birthdate: credentials?.birthdate,
+              role: credentials?.role,
+              language: credentials?.language
+            })
+          });
 
           const data = await response.json();
-          
+
           if (!response.ok) {
             if (response.status === 409) {
               throw new Error('User already exists. Please log in.');

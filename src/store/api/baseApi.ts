@@ -7,14 +7,14 @@ export const baseApi = createApi({
     baseUrl: process.env.NEXT_PUBLIC_AUTH_URL || 'http://localhost:3010/',
     prepareHeaders: async (headers) => {
       const session = await getSession();
-      
+
       if (session?.token?.accessToken) {
         headers.set('Authorization', `Bearer ${session.token.accessToken}`);
       }
-      
+
       return headers;
-    },
+    }
   }),
   endpoints: () => ({}),
-  tagTypes: [],
+  tagTypes: []
 });

@@ -39,54 +39,43 @@ const renderDemoBoxes = (layoutProps: BoxProps, colors: ReturnType<typeof useSto
   </Box>
 );
 
+const FlexRowContent = () => {
+  const colors = useStoryColors();
+  return renderDemoBoxes({ display: 'flex', gap: 2, flexDirection: 'row' }, colors);
+};
+
+const FlexColumnContent = () => {
+  const colors = useStoryColors();
+  return renderDemoBoxes({ display: 'flex', gap: 2, flexDirection: 'column' }, colors);
+};
+
+const WithBackgroundImageContent = () => {
+  const colors = useStoryColors();
+  return (
+    <Box
+      sx={{
+        backgroundImage: `linear-gradient(120deg, ${colors.primaryLight} 0%, ${colors.primary} 100%)`,
+        color: colors.white,
+        p: 4,
+        borderRadius: 3
+      }}
+    >
+      <Typography variant="h6">Stylized Box</Typography>
+      <Typography variant="body2">Use the `sx` prop to compose backgrounds, shadows, and layout utilities.</Typography>
+    </Box>
+  );
+};
+
 export const FlexRow: Story = {
   name: 'Flex/Row',
-  render: () => {
-    const colors = useStoryColors();
-
-    return renderDemoBoxes(
-      {
-        display: 'flex',
-        gap: 2,
-        flexDirection: 'row'
-      },
-      colors
-    );
-  }
+  render: () => <FlexRowContent />
 };
 
 export const FlexColumn: Story = {
   name: 'Flex/Column',
-  render: () => {
-    const colors = useStoryColors();
-
-    return renderDemoBoxes(
-      {
-        display: 'flex',
-        gap: 2,
-        flexDirection: 'column'
-      },
-      colors
-    );
-  }
+  render: () => <FlexColumnContent />
 };
 
 export const WithBackgroundImage: Story = {
-  render: () => {
-    const colors = useStoryColors();
-
-    return (
-      <Box
-        sx={{
-          backgroundImage: `linear-gradient(120deg, ${colors.primaryLight} 0%, ${colors.primary} 100%)`,
-          color: colors.white,
-          p: 4,
-          borderRadius: 3
-        }}
-      >
-        <Typography variant="h6">Stylized Box</Typography>
-        <Typography variant="body2">Use the `sx` prop to compose backgrounds, shadows, and layout utilities.</Typography>
-      </Box>
-    );
-  }
+  render: () => <WithBackgroundImageContent />
 };
