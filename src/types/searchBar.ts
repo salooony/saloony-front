@@ -5,4 +5,6 @@ export interface searchBarProps {
   variant?: MainLayoutType;
   initialQuery?: string;
   initialLocation?: Item | null;
+  onFocusChange?: (isExpanded: boolean) => void;
+  enableExpand?: boolean;
 }

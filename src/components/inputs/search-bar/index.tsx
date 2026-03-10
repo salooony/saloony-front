@@ -1,24 +1,41 @@
-import { Box, Paper } from '@mui/material';
+import { Box, Divider, Paper } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import useSearchBar from './useSearchBar';
-import { searchContainerStyle, paperStyle, inputGroupStyle } from './style';
+import { searchContainerStyle, paperStyle, inputGroupStyle, dividerStyle, searchBarMotionVariants } from './style';
 import QueryField from './QueryField';
 import LocationField from './LocationField';
 import SearchButton from './SearchButton';
 import SearchOverlayModal from './SearchOverlayModal';
 import { useIsMdScreen } from '@src/constants/breakpoints';
-import ProfessionalButton from '@src/components/professionalButton';
+import ProfessionalButton from '@src/components/professional-button/professionalButton';
 import { searchBarProps } from '@src/types/searchBar';
+import DateField from './DateField';
+import { motion } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
 import { MainLayoutType } from '@src/config';
 
-export default function SearchBar({ variant, initialQuery = '', initialLocation = null }: searchBarProps) {
+export default function SearchBar({
+  variant,
+  initialQuery = '',
+  initialLocation = null,
+  onFocusChange,
+  enableExpand = true
+}: searchBarProps) {
   const isMdScreen = useIsMdScreen();
   const isHome = variant === MainLayoutType.HOME;
+  const isSearch = variant === MainLayoutType.SEARCH;
+  const [isExpanded, setIsExpanded] = useState(false);
+  const searchBarRef = useRef<HTMLDivElement>(null);
+  const theme = useTheme();
+  const MotionPaper = motion(Paper);
 
   const {
     query,
     setQuery,
     location,
     setLocation,
+    selectedDate,
+    setSelectedDate,
     focusedInput,
     setFocusedInput,
     suggestions,
@@ -29,8 +46,27 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
     handleKeyDown,
     isOverlayOpen,
     openOverlay,
-    closeOverlay
+    closeOverlay,
+    datePickerOpen,
+    setDatePickerOpen,
+    setActiveField,
+    activeField
   } = useSearchBar({ isMdScreen, initialQuery, initialLocation });
+
+  useEffect(() => {
+    if (!enableExpand) {
+      setIsExpanded(false);
+      onFocusChange?.(false);
+      return;
+    }
+    if (focusedInput) {
+      setIsExpanded(true);
+      onFocusChange?.(true);
+    } else {
+      setIsExpanded(false);
+      onFocusChange?.(false);
+    }
+  }, [focusedInput, enableExpand, onFocusChange]);
 
   const largeScreenFields = () => (
     <>
@@ -45,7 +81,13 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
           highlightedIndex={highlightedIndex}
           handleKeyDown={handleKeyDown}
           readOnly={false}
+          variant={variant}
+          isExpanded={isExpanded}
+          searchBarRef={searchBarRef}
+          datePickerOpen={datePickerOpen}
         />
+        {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(isExpanded)} />}
+
         <LocationField
           location={location}
           setLocation={setLocation}
@@ -55,9 +97,24 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
           isLoading={isLoading}
           highlightedIndex={highlightedIndex}
           handleKeyDown={handleKeyDown}
+          variant={variant}
+          isExpanded={isExpanded}
+          searchBarRef={searchBarRef}
+          datePickerOpen={datePickerOpen}
+        />
+        {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(isExpanded)} />}
+        <DateField
+          focusedInput={focusedInput}
+          setFocusedInput={setFocusedInput}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          variant={variant}
+          isExpanded={isExpanded}
+          searchBarRef={searchBarRef}
+          onOpenChange={setDatePickerOpen}
         />
       </Box>
-      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />
+      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
     </>
   );
 
@@ -65,14 +122,32 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
     <>
       <Box sx={inputGroupStyle}>
         <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
+        <DateField
+          focusedInput={focusedInput}
+          setFocusedInput={setFocusedInput}
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          variant={variant}
+          isExpanded={true}
+          searchBarRef={searchBarRef}
+          onOpenChange={setDatePickerOpen}
+        />
       </Box>
-      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} />
+      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
     </>
   );
 
   return (
-    <Box sx={searchContainerStyle}>
-      <Paper sx={paperStyle}>{isMdScreen ? smallScreenFields() : largeScreenFields()}</Paper>
+    <Box ref={searchBarRef} sx={searchContainerStyle}>
+      <MotionPaper
+        sx={paperStyle(theme, variant, isExpanded) as any}
+        initial={false}
+        animate={isExpanded ? 'expanded' : 'collapsed'}
+        variants={searchBarMotionVariants}
+        transition={{ type: 'spring', stiffness: 40, damping: 30, mass: 1 }}
+      >
+        {isMdScreen ? smallScreenFields() : largeScreenFields()}
+      </MotionPaper>
 
       {isMdScreen && (
         <Box>
@@ -91,6 +166,12 @@ export default function SearchBar({ variant, initialQuery = '', initialLocation 
             handleKeyDown={handleKeyDown}
             handleSearch={handleSearch}
             isSearchDisabled={Boolean(isSearchDisabled)}
+            variant={variant}
+            activeField={activeField}
+            setActiveField={setActiveField}
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            setDatePickerOpen={setDatePickerOpen}
           />
           {isHome && <ProfessionalButton />}
         </Box>

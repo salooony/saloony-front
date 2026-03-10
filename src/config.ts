@@ -26,7 +26,8 @@ export enum ThemeMode {
 
 export enum FocusedInputType {
   QUERY = 'query',
-  LOCATION = 'location'
+  LOCATION = 'location',
+  DATE = 'date'
 }
 
 export enum MenuOrientation {

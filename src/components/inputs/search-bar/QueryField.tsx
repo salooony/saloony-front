@@ -2,25 +2,27 @@
 
 import { Box, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { JSX, useRef } from 'react';
+import { JSX, useMemo, useRef } from 'react';
 import CircularLoader from 'components/CircularLoader';
-import { searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
+import { noWrapStyle, searchBoxStyle, MdSuggestionBoxStyle, suggestionBoxStyle, suggestionItemStyle } from './style';
 import { QueryFieldProps } from '@src/types/QueryField';
 import { useIsMdScreen } from '@src/constants/breakpoints';
 import useClickOutside from './useClickOutside';
 import { FocusedInputType, MainLayoutType } from '@src/config';
 
 export default function QueryField(props: QueryFieldProps): JSX.Element {
-  const { query, readOnly = false, onOuterMouseDown, onSelectQuery, variant } = props;
-
-  const theme = useTheme();
+  const { query, readOnly = false, onOuterMouseDown, onSelectQuery, variant, isExpanded, searchBarRef } = props;
   const isMdScreen = useIsMdScreen();
+  const theme = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
   const suggestionListId = 'query-suggestion-list';
-  const SuggestionStyle = isMdScreen ? MdSuggestionBoxStyle(theme) : suggestionBoxStyle(theme);
+  const SuggestionStyle = isMdScreen ? MdSuggestionBoxStyle : suggestionBoxStyle;
   const isHome = variant === MainLayoutType.HOME;
+  const isSearch = variant === MainLayoutType.SEARCH;
 
-  useClickOutside(containerRef, () => {
+  const clickOutsideRefs = useMemo(() => [containerRef, searchBarRef!], [containerRef, searchBarRef]);
+
+  useClickOutside(clickOutsideRefs, () => {
     if ('setFocusedInput' in props) props.setFocusedInput(null);
   });
 
@@ -28,6 +30,34 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
     if (!readOnly && 'setFocusedInput' in props) {
       props.setFocusedInput(FocusedInputType.QUERY);
     }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    setTimeout(() => {
+      const activeElement = document.activeElement;
+      let isMovingToOtherField =
+        activeElement?.id === 'location-input' ||
+        activeElement?.id === 'date-input' ||
+        searchBarRef?.current?.contains(activeElement) ||
+        Boolean(props.datePickerOpen);
+
+      let el = activeElement as HTMLElement | null;
+      while (el && !isMovingToOtherField) {
+        const cn = el.className;
+        if (typeof cn === 'string' && /Mui.*(Pickers|Calendar|Day|Popper)/.test(cn)) {
+          isMovingToOtherField = true;
+          break;
+        }
+        if (el.getAttribute && (el.getAttribute('role') === 'dialog' || el.hasAttribute('data-mui'))) {
+          isMovingToOtherField = true;
+          break;
+        }
+        el = el.parentElement;
+      }
+      if (!isMovingToOtherField && 'setFocusedInput' in props) {
+        props.setFocusedInput(null);
+      }
+    }, 10);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -52,15 +82,18 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
         !readOnly && 'focusedInput' in props && props.focusedInput === FocusedInputType.QUERY && !isMdScreen
           ? FocusedInputType.QUERY
           : null,
-        FocusedInputType.QUERY
+        FocusedInputType.QUERY,
+        variant,
+        isExpanded
       )}
     >
-      {!isMdScreen && (
+      {!isMdScreen && !isSearch && (
         <Typography
           variant="h5"
           component="label"
           htmlFor="service-input"
           color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
+          sx={noWrapStyle}
         >
           What are you looking for?
         </Typography>
@@ -72,6 +105,7 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
         variant="standard"
         value={query}
         onFocus={handleFocus}
+        onBlur={handleBlur}
         onMouseDown={onOuterMouseDown}
         onChange={handleChange}
         onKeyDown={onKeyDown}
@@ -84,7 +118,10 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
           disableUnderline: true,
           readOnly,
           sx: {
-            fontSize: isMdScreen ? theme.typography.h5.fontSize : theme.typography.h6.fontSize,
+            fontSize: isMdScreen ? 'h5.fontSize' : 'h6.fontSize',
+            '& .MuiInputBase-input': {
+              ...noWrapStyle,
+            },
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
               opacity: 1

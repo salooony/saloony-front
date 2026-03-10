@@ -1,9 +1,9 @@
-import { Theme } from '@mui/material/styles';
+import { MainLayoutType } from '@src/config';
 
-export const appBarStyle = (theme: Theme, scrolled: boolean) => ({
+export const appBarStyle = (scrolled: boolean) => ({
   boxShadow: scrolled ? 1 : 'none',
-  backgroundColor: scrolled ? theme.palette.primary.main : { xs: theme.palette.primary.main, md: 'transparent' },
-  transition: 'all 0.3s ease-in-out'
+  backgroundColor: scrolled ? 'primary.main' : { xs: 'primary.main', md: 'transparent' },
+  transition: 'all 0.3s ease-in-out',
 });
 
 export const toolbarStyle = {
@@ -13,13 +13,13 @@ export const toolbarStyle = {
   maxHeight: 60
 };
 
-export const logoBoxStyle = { mr: 2, display: 'flex', alignItems: 'center', gap: { xs: 0, md: 3 } };
+export const logoBoxStyle = (gap?: number | string) => ({ mr: 2, display: 'flex', alignItems: 'center', gap });
 
 export const listStyle = { display: { xs: 'none', md: 'flex' }, gap: 4 };
 
-export const rightBoxStyle = (scrolled: boolean) => ({
-  display: { xs: 'none', md: 'flex' },
-  gap: 1.5,
+export const rightBoxStyle = (isSearch: boolean) => ({
+  display: isSearch ? 'flex' :{ xs: 'none', md: 'flex' },
+  gap: isSearch ? '3px' : 1.5,
   '& .header-link': {
     px: 2,
     '&:hover': {
@@ -28,29 +28,40 @@ export const rightBoxStyle = (scrolled: boolean) => ({
   }
 });
 
-export const drawerStyle = (theme: Theme) => ({
+export const drawerStyle = {
   '& .MuiDrawer-paper': {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
+    backgroundColor: 'primary.main',
+    color: 'common.white',
     width: 240
   }
-});
+};
 
 export const drawerBoxStyle = { p: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center' };
 
 export const drawerListItemStyle = { display: 'flex', justifyContent: 'center' };
 
-export const menuIconStyle = (theme: Theme) => ({
-  color: theme.palette.common.white,
+export const menuIconStyle = {
+  color: 'common.white',
   display: { xs: 'block', md: 'none' },
-  '&:hover': { color: theme.palette.primary.lighter }
-});
-export const headerButtonStyle = (theme: Theme, mainColor?: string, textColor?: string, hoverColor?: string, hoverTextColor?: string) => ({
-  backgroundColor: mainColor ?? theme.palette.primary.main,
-  color: textColor ?? theme.palette.common.white,
-  '&:hover': {
-    backgroundColor: hoverColor ?? theme.palette.common.white,
-    color: hoverTextColor ?? theme.palette.primary.main
-  },
-  width: '100%'
-});
+  '&:hover': { color: 'primary.lighter'}
+};
+export const headerButtonStyle = (variant: MainLayoutType, scrolled: boolean, isMdScreen: boolean) => {
+  const isHome = variant === MainLayoutType.HOME;
+
+  const mainColor = isHome ? 'common.white' : 'transparent';
+  const textColor = isHome ? 'primary.main' : isMdScreen ? 'common.white' : scrolled ? 'common.white' : 'primary.main';
+  const hoverColor = isHome ? 'common.white' : 'transparent';
+  const hoverTextColor = isHome ? 'primary.main' : isMdScreen ? 'common.white' : scrolled ? 'common.white' : 'primary.main';
+
+  return {
+    backgroundColor: mainColor,
+    color: textColor,
+    '&:hover': { 
+      backgroundColor: hoverColor, 
+      color: hoverTextColor
+    },
+    width: '100%',
+    whiteSpace: 'nowrap'
+  };
+};
+

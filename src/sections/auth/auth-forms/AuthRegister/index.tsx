@@ -25,7 +25,7 @@ import IconButton from 'components/@extended/IconButton';
 import AnimateButton from 'components/@extended/AnimateButton';
 
 import { APP_DEFAULT_PATH } from 'config';
-import { AUTH_REGISTER_INITIAL_VALUES, AUTH_REGISTER_VALIDATION_SCHEMA } from 'constants/auth';
+import { AUTH_REGISTER_INITIAL_VALUES, AUTH_REGISTER_VALIDATION_SCHEMA } from '@src/schemas/register';
 import { LOGIN_LINK, SESSION_LOGIN_LINK } from 'constants/links';
 
 // assets
