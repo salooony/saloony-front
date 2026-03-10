@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
+
 // next
 import { useRouter } from 'next/navigation';
 
@@ -17,19 +19,36 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project imports
-import useScriptRef from 'hooks/useScriptRef';
 import AnimateButton from 'components/@extended/AnimateButton';
-
+import { useForgotPasswordMutation } from 'store/api/authApi';
 import { openSnackbar } from 'api/snackbar';
 
 // types
 import { SnackbarProps } from 'types/snackbar';
 
+type ApiErrorShape = {
+  data?: { message?: string };
+  error?: string;
+  message?: string;
+};
+
+function getErrorMessage(err: unknown): string {
+  const e = err as ApiErrorShape;
+  return e?.data?.message || e?.message || e?.error || 'Something went wrong. Please try again.';
+}
+
 // ============================|| FIREBASE - FORGOT PASSWORD ||============================ //
 
 export default function AuthForgotPassword() {
-  const scriptedRef = useScriptRef();
   const router = useRouter();
+  const redirectTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [forgotPassword] = useForgotPasswordMutation();
+
+  useEffect(() => {
+    return () => {
+      if (redirectTimerRef.current) clearTimeout(redirectTimerRef.current);
+    };
+  }, []);
 
   return (
     <Formik
@@ -42,27 +61,26 @@ export default function AuthForgotPassword() {
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
+          await forgotPassword({ email: values.email }).unwrap();
+
           setStatus({ success: true });
-          setSubmitting(false);
 
           openSnackbar({
             open: true,
-            message: 'Check mail for reset password link',
+            message: 'Check your email for the password reset link.',
             variant: 'alert',
-            alert: {
-              color: 'success'
-            }
+            alert: { color: 'success' }
           } as SnackbarProps);
 
-          setTimeout(() => {
-            router.push('/check-mail');
+          const encodedEmail = encodeURIComponent(values.email);
+          redirectTimerRef.current = setTimeout(() => {
+            router.push(`/check-mail?email=${encodedEmail}`);
           }, 1500);
-        } catch (err: any) {
-          if (scriptedRef.current) {
-            setStatus({ success: false });
-            setErrors({ submit: err.message });
-            setSubmitting(false);
-          }
+        } catch (err) {
+          setStatus({ success: false });
+          setErrors({ submit: getErrorMessage(err) });
+        } finally {
+          setSubmitting(false);
         }
       }}
     >
@@ -96,7 +114,7 @@ export default function AuthForgotPassword() {
               </Grid>
             )}
             <Grid sx={{ mb: -2 }} size={12}>
-              <Typography variant="caption">Do not forgot to check SPAM box.</Typography>
+              <Typography variant="caption">{"Don't forget to check your SPAM folder."}</Typography>
             </Grid>
             <Grid size={12}>
               <AnimateButton>
