@@ -55,3 +55,8 @@ export interface ApiError {
     errors?: Record<string, string[]>;
   };
 }
+
+// ==============================|| FILTER TYPES (re-export) ||============================== //
+
+export type { FilterState } from '@src/types/filter';
+export { AvailabilityOption, SortOption } from '@src/types/filter';
