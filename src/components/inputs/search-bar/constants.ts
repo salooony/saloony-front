@@ -17,6 +17,8 @@ export interface Salon {
   image: string;
   locationId: number;
   openingHours: OpeningHours;
+  rating?: number;       // 0–5 star average; used for "top rated" sort
+  startingPrice?: number; // price in local currency; used for price sort
 }
 
 export interface ServiceItem extends Item {
