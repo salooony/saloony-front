@@ -9,6 +9,10 @@ import useSearchResults from './useSearchResult';
 import { mobileCollapsedBox, mobileHeaderBox, mobileFieldBox } from './style';
 import { FocusedInputType } from '@src/config';
 import { SearchResultsProps } from '@src/types/searchResults';
+import FilterButton from '@src/components/filter-button/FilterButton';
+import FilterModal from '@src/components/filter-button/FilterModal';
+import useFilter from '@src/components/filter-button/useFilter';
+
 
 export default function SearchResults({ query: initialQuery, location: initialLocation, initialDate }: SearchResultsProps) {
   const isMdScreen = useIsMdScreen();
@@ -24,7 +28,7 @@ export default function SearchResults({ query: initialQuery, location: initialLo
   } = useSearchResults(
     initialQuery,
     initialLocation,
-    initialDate
+    initialDate ?? undefined
   );
 
   const {
@@ -49,6 +53,18 @@ export default function SearchResults({ query: initialQuery, location: initialLo
     setActiveField,
     setDatePickerOpen
   } = useSearchBar({ isMdScreen });
+
+  const {
+    isOpen: isFilterOpen,
+    draft: filterDraft,
+    openModal: openFilter,
+    closeModal: closeFilter,
+    handleAvailabilityChange,
+    handleSortChange,
+    handleDateChange,
+    handleReset: handleFilterReset,
+    handleSave: handleFilterSave
+  } = useFilter();
 
   return (
     <Box sx={{ pt: 7 }}>
@@ -128,6 +144,11 @@ export default function SearchResults({ query: initialQuery, location: initialLo
       )}
 
       <Box sx={{ p: 8 }}>
+        {/* Filter button row */}
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+          <FilterButton onClick={openFilter} />
+        </Box>
+
         <Paper sx={{ p: 2, mb: 2 }}>
           <Typography variant="h6">Search Results</Typography>
 
@@ -189,6 +210,17 @@ export default function SearchResults({ query: initialQuery, location: initialLo
         selectedDate={searchBarSelectedDate}
         setSelectedDate={setSearchBarSelectedDate}
         setDatePickerOpen={setDatePickerOpen}
+      />
+
+      <FilterModal
+        open={isFilterOpen}
+        draft={filterDraft}
+        onClose={closeFilter}
+        onAvailabilityChange={handleAvailabilityChange}
+        onSortChange={handleSortChange}
+        onDateChange={handleDateChange}
+        onReset={handleFilterReset}
+        onSave={handleFilterSave}
       />
     </Box>
   );
