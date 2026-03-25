@@ -29,9 +29,9 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     variant,
     activeField,
     setActiveField,
-    selectedDate,
-    setSelectedDate,
-    setDatePickerOpen
+    selectedDate = null,
+    setSelectedDate = () => {},
+    setDatePickerOpen = () => {}
   } = props;
 
   const theme = useTheme();

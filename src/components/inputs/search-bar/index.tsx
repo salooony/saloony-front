@@ -9,7 +9,6 @@ import SearchOverlayModal from './SearchOverlayModal';
 import { useIsMdScreen } from '@src/constants/breakpoints';
 import ProfessionalButton from '@src/components/professional-button/professionalButton';
 import { searchBarProps } from '@src/types/searchBar';
-import DateField from './DateField';
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 import { MainLayoutType } from '@src/config';
@@ -34,8 +33,6 @@ export default function SearchBar({
     setQuery,
     location,
     setLocation,
-    selectedDate,
-    setSelectedDate,
     focusedInput,
     setFocusedInput,
     suggestions,
@@ -47,8 +44,6 @@ export default function SearchBar({
     isOverlayOpen,
     openOverlay,
     closeOverlay,
-    datePickerOpen,
-    setDatePickerOpen,
     setActiveField,
     activeField
   } = useSearchBar({ isMdScreen, initialQuery, initialLocation });
@@ -84,7 +79,7 @@ export default function SearchBar({
           variant={variant}
           isExpanded={isExpanded}
           searchBarRef={searchBarRef}
-          datePickerOpen={datePickerOpen}
+          datePickerOpen={false}
         />
         {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(isExpanded)} />}
 
@@ -100,18 +95,7 @@ export default function SearchBar({
           variant={variant}
           isExpanded={isExpanded}
           searchBarRef={searchBarRef}
-          datePickerOpen={datePickerOpen}
-        />
-        {(isSearch || (isHome && isExpanded)) && <Divider orientation="vertical" flexItem sx={dividerStyle(isExpanded)} />}
-        <DateField
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          variant={variant}
-          isExpanded={isExpanded}
-          searchBarRef={searchBarRef}
-          onOpenChange={setDatePickerOpen}
+          datePickerOpen={false}
         />
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
@@ -122,16 +106,6 @@ export default function SearchBar({
     <>
       <Box sx={inputGroupStyle}>
         <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
-        <DateField
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          variant={variant}
-          isExpanded={true}
-          searchBarRef={searchBarRef}
-          onOpenChange={setDatePickerOpen}
-        />
       </Box>
       <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
     </>
@@ -143,7 +117,7 @@ export default function SearchBar({
         sx={paperStyle(theme, variant, isExpanded) as any}
         initial={false}
         animate={isExpanded ? 'expanded' : 'collapsed'}
-        variants={searchBarMotionVariants}
+        variants={searchBarMotionVariants as any}
         transition={{ type: 'spring', stiffness: 40, damping: 30, mass: 1 }}
       >
         {isMdScreen ? smallScreenFields() : largeScreenFields()}
@@ -169,9 +143,6 @@ export default function SearchBar({
             variant={variant}
             activeField={activeField}
             setActiveField={setActiveField}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            setDatePickerOpen={setDatePickerOpen}
           />
           {isHome && <ProfessionalButton />}
         </Box>
