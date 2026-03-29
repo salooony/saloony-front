@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { AvailabilityOption, FilterState, SortOption } from '@src/types/filter';
 
@@ -9,20 +9,23 @@ export default function useFilter() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const getSavedFilter = (): FilterState => ({
+  /**
+   * Memoize URL parameters to prevent referential equality breaks on Next.js navigation.
+   */
+  const savedFilter = useMemo<FilterState>(() => ({
     availability: (searchParams.get('availability') as AvailabilityOption) || AvailabilityOption.ANY,
     sortBy: (searchParams.get('sort') as SortOption) || SortOption.NONE,
     pickedDate: searchParams.get('date')
-  });
+  }), [searchParams]);
 
   const [isOpen, setIsOpen] = useState(false);
 
   // Draft state — only committed to the URL when the user clicks Save
-  const [draft, setDraft] = useState<FilterState>(getSavedFilter());
+  const [draft, setDraft] = useState<FilterState>(savedFilter);
 
   const openModal = () => {
     // Reset draft to the currently-saved values every time the modal opens
-    setDraft(getSavedFilter());
+    setDraft(savedFilter);
     setIsOpen(true);
   };
 

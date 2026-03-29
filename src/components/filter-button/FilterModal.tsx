@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Dialog, DialogContent, Box, Typography, RadioGroup, FormControlLabel, Radio, Button, IconButton, Divider } from '@mui/material';
 import { FiX } from 'react-icons/fi';
@@ -13,6 +13,30 @@ import useConfig from 'hooks/useConfig';
 import { ThemeDirection } from '@src/config';
 import { AvailabilityOption, FilterState, SortOption } from '@src/types/filter';
 import { modalPaperSx, modalHeaderSx, sectionLabelSx, modalFooterSx, saveBtnSx, resetBtnSx } from './style';
+
+// ==============================|| CONSTANTS & TYPES ||============================== //
+
+/**
+ * Strict literal typing. Uses `null` over `''` to explicitly represent an empty state.
+ */
+export type ErrorType = 'PICK_DATE_REQUIRED' | null;
+
+/**
+ * Extracted outside component to prevent memory reallocation on re-renders.
+ */
+const AVAILABILITY_OPTIONS = [
+  { value: AvailabilityOption.ANY, id: 'filter.availability.any' },
+  { value: AvailabilityOption.TODAY, id: 'filter.availability.today' },
+  { value: AvailabilityOption.TOMORROW, id: 'filter.availability.tomorrow' },
+  { value: AvailabilityOption.PICK, id: 'filter.availability.pick' }
+];
+
+const SORT_OPTIONS = [
+  { value: SortOption.NONE, id: 'filter.sort.none' },
+  { value: SortOption.TOP_RATED, id: 'filter.sort.topRated' },
+  { value: SortOption.PRICE_DESC, id: 'filter.sort.priceDesc' },
+  { value: SortOption.PRICE_ASC, id: 'filter.sort.priceAsc' }
+];
 
 // ==============================|| FILTER MODAL ||============================== //
 
@@ -41,19 +65,26 @@ export default function FilterModal({
   const { themeDirection } = useConfig();
   const isRtl = themeDirection === ThemeDirection.RTL;
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState<ErrorType>(null);
+
+  /**
+   * Clears validation error immediately when the user interacts with the draft state.
+   */
+  useEffect(() => {
+    setError(null);
+  }, [draft]);
 
   const onSaveClick = () => {
     if (draft.availability === AvailabilityOption.PICK && !draft.pickedDate) {
-      setError(intl.formatMessage({ id: 'filter.error.pickDate', defaultMessage: 'Veuillez sélectionner une date' }));
+      setError('PICK_DATE_REQUIRED');
       return;
     }
-    setError('');
+    setError(null);
     onSave();
   };
 
   const handleClose = () => {
-    setError('');
+    setError(null);
     onClose();
   };
 
@@ -87,12 +118,7 @@ export default function FilterModal({
           value={draft.availability}
           onChange={(e) => onAvailabilityChange(e.target.value as AvailabilityOption)}
         >
-          {[
-            { value: AvailabilityOption.ANY, id: 'filter.availability.any' },
-            { value: AvailabilityOption.TODAY, id: 'filter.availability.today' },
-            { value: AvailabilityOption.TOMORROW, id: 'filter.availability.tomorrow' },
-            { value: AvailabilityOption.PICK, id: 'filter.availability.pick' }
-          ].map(({ value, id }) => (
+          {AVAILABILITY_OPTIONS.map(({ value, id }) => (
             <FormControlLabel
               key={value}
               value={value}
@@ -110,7 +136,7 @@ export default function FilterModal({
                 label={intl.formatMessage({ id: 'filter.availability.pick' })}
                 value={draft.pickedDate ? dayjs(draft.pickedDate) : null}
                 onChange={(date) => {
-                  setError('');
+                  setError(null);
                   onDateChange(date ? date.toISOString() : null);
                 }}
                 disablePast
@@ -123,9 +149,9 @@ export default function FilterModal({
                 }}
               />
             </LocalizationProvider>
-            {error && (
+            {error === 'PICK_DATE_REQUIRED' && (
               <Typography color="error" variant="caption" sx={{ mt: 1, display: 'block' }}>
-                {error}
+                {intl.formatMessage({ id: 'filter.error.pickDate', defaultMessage: 'Veuillez sélectionner une date' })}
               </Typography>
             )}
           </Box>
@@ -143,12 +169,7 @@ export default function FilterModal({
           value={draft.sortBy}
           onChange={(e) => onSortChange(e.target.value as SortOption)}
         >
-          {[
-            { value: SortOption.NONE, id: 'filter.sort.none' },
-            { value: SortOption.TOP_RATED, id: 'filter.sort.topRated' },
-            { value: SortOption.PRICE_DESC, id: 'filter.sort.priceDesc' },
-            { value: SortOption.PRICE_ASC, id: 'filter.sort.priceAsc' }
-          ].map(({ value, id }) => (
+          {SORT_OPTIONS.map(({ value, id }) => (
             <FormControlLabel
               key={value}
               value={value}
@@ -167,7 +188,7 @@ export default function FilterModal({
           color="inherit"
           sx={resetBtnSx}
           onClick={() => {
-            setError('');
+            setError(null);
             onReset();
           }}
         >
