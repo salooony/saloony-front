@@ -10,5 +10,19 @@
   "others": "Others",
   "pages": "Pages",
   "sample-page": "Sample Page",
-  "under-construction": "Under Construction"
+  "under-construction": "Under Construction",
+  "filter.button": "Filter",
+  "filter.title": "Filter",
+  "filter.availability": "Availability",
+  "filter.availability.any": "At any time",
+  "filter.availability.today": "Today",
+  "filter.availability.tomorrow": "Tomorrow",
+  "filter.availability.pick": "Pick a date",
+  "filter.sort": "Sort by",
+  "filter.sort.none": "No preference",
+  "filter.sort.topRated": "Top rated",
+  "filter.sort.priceDesc": "Most expensive first",
+  "filter.sort.priceAsc": "Least expensive first",
+  "filter.reset": "Reset",
+  "filter.save": "Save"
 }

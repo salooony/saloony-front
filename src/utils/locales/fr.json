@@ -10,5 +10,19 @@
   "others": "Autres",
   "pages": "Pages",
   "sample-page": "Page d'exemple",
-  "under-construction": "En construction"
+  "under-construction": "En construction",
+  "filter.button": "Filtrer",
+  "filter.title": "Filtres",
+  "filter.availability": "Disponibilité",
+  "filter.availability.any": "À tout moment",
+  "filter.availability.today": "Aujourd'hui",
+  "filter.availability.tomorrow": "Demain",
+  "filter.availability.pick": "Choisir une date",
+  "filter.sort": "Trier par",
+  "filter.sort.none": "Sans préférence",
+  "filter.sort.topRated": "Les mieux notés",
+  "filter.sort.priceDesc": "Plus cher au moins cher",
+  "filter.sort.priceAsc": "Moins cher au plus cher",
+  "filter.reset": "Réinitialiser",
+  "filter.save": "Enregistrer"
 }
