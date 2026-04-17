@@ -1,15 +1,18 @@
 FROM node:22-alpine
 
+# Activate pnpm via Corepack — no npm install -g needed on Node 22
+RUN corepack enable && corepack prepare pnpm@8.6.3 --activate
+
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copy manifest + lockfile first for optimal layer caching
+COPY package.json pnpm-lock.yaml ./
 
-RUN npm ci
-
-COPY . .
+RUN pnpm install --frozen-lockfile
 
 ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+CMD ["pnpm", "run", "dev"]
