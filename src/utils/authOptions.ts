@@ -13,17 +13,17 @@ type DecodedAuthToken = {
 };
 
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     GoogleProvider({
       id: 'google',
       clientId: process.env.NEXT_PUBLIC_AUTH_GOOGLE_ID!,
-      clientSecret: process.env.NEXT_PUBLIC_AUTH_GOOGLE_CLIENT_SECRET!
+      clientSecret: process.env.AUTH_GOOGLE_CLIENT_SECRET!
     }),
     FacebookProvider({
       id: 'facebook',
       clientId: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_ID!,
-      clientSecret: process.env.NEXT_PUBLIC_AUTH_FACEBOOK_CLIENT_SECRET!
+      clientSecret: process.env.AUTH_FACEBOOK_CLIENT_SECRET!
     }),
     CredentialsProvider({
       id: 'login',
@@ -212,7 +212,7 @@ export const authOptions: NextAuthOptions = {
     maxAge: Number(process.env.NEXT_PUBLIC_JWT_TIMEOUT!)
   },
   jwt: {
-    secret: process.env.NEXT_PUBLIC_JWT_SECRET
+    secret: process.env.JWT_SECRET
   },
   pages: {
     signIn: '/login',

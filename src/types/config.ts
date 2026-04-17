@@ -1,7 +1,7 @@
 import { MenuOrientation, ThemeMode, ThemeDirection } from 'config';
 
 export type PresetColor = 'default' | 'theme1';
-export type I18n = 'en' | 'fr' | 'ro' | 'zh'; // 'en' - English, 'fr' - French, 'ro' - Romanian, 'zh' - Chinese
+export type I18n = 'en' | 'fr' | 'ro' | 'zh' | 'ar'; // 'en' - English, 'fr' - French, 'ro' - Romanian, 'zh' - Chinese, 'ar' - Arabic
 
 // ==============================|| CONFIG TYPES ||============================== //
 
@@ -21,6 +21,7 @@ export type DefaultConfigProps = {
    * 'fr'
    * 'ro'
    * 'zh'
+   * 'ar'
    */
   i18n: I18n;
 
