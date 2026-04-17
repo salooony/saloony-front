@@ -58,7 +58,7 @@ NEXT_PUBLIC_API_URL=https://your-api-url/
 
 # Next Auth
 NEXTAUTH_URL=http://localhost:3000/
-NEXT_PUBLIC_NEXTAUTH_SECRET=your-secret
+NEXTAUTH_SECRET=your-secret
 ```
 
 ---
