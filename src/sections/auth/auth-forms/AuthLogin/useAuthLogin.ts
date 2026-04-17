@@ -42,8 +42,7 @@ export const useAuthLogin = () => {
       }
     } catch (error) {
       setErrors({ submit: 'An error occurred while logging in' });
-    }
-    finally {
+    } finally {
       setSubmitting(false);
     }
   };
