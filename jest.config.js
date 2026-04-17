@@ -1,7 +1,7 @@
 const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({
-  dir: './',
+  dir: './'
 });
 
 const customJestConfig = {
@@ -22,7 +22,7 @@ const customJestConfig = {
     '^@views/(.*)$': '<rootDir>/src/views/$1',
     '^@types/(.*)$': '<rootDir>/src/types/$1',
     '^@layout/(.*)$': '<rootDir>/src/layout/$1',
-    '^@public/(.*)$': '<rootDir>/public/$1',
+    '^@public/(.*)$': '<rootDir>/public/$1'
   },
   testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
   collectCoverageFrom: ['src/sections/auth/auth-forms/AuthRegister/**/*.{ts,tsx}'],
@@ -31,9 +31,9 @@ const customJestConfig = {
       statements: 80,
       branches: 60,
       functions: 60,
-      lines: 80,
-    },
-  },
+      lines: 80
+    }
+  }
 };
 
 module.exports = createJestConfig(customJestConfig);

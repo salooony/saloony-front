@@ -1,7 +1,6 @@
 import { SxProps, Theme } from '@mui/material/styles';
 import { MainLayoutType } from '@src/config';
 
-
 export const buttonStyle = (scrolled: boolean, inDrawer?: boolean, variant?: MainLayoutType, isMdScreen?: boolean): SxProps<Theme> => ({
   display: variant === MainLayoutType.SEARCH ? (isMdScreen ? 'none' : 'inline-flex') : 'inline-flex',
   color: inDrawer ? 'common.white' : scrolled ? 'common.white' : 'primary.main',
@@ -19,10 +18,10 @@ export const langListStyle = (variant: MainLayoutType, scrolled: boolean, inDraw
     display: 'flex',
     flexDirection: 'column',
     '& .MuiPaper-root': {
-      backgroundColor: backColor,
+      backgroundColor: backColor
     },
     '& .MuiMenuItem-root': {
-      color: textColor,
+      color: textColor
     }
   };
 };

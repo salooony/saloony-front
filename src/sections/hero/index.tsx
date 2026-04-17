@@ -8,7 +8,15 @@ import About from '@src/components/about';
 import Services from '@src/components/services';
 import Questions from '@src/components/questions';
 import { useTheme } from '@mui/material/styles';
-import { heroBgStyle, heroContainerStyle, heroContentStyle, heroTitleStyle, heroSubtitleStyle, contentSectionStyle, searchBarWrapperStyle } from './style';
+import {
+  heroBgStyle,
+  heroContainerStyle,
+  heroContentStyle,
+  heroTitleStyle,
+  heroSubtitleStyle,
+  contentSectionStyle,
+  searchBarWrapperStyle
+} from './style';
 import { MainLayoutType } from '@src/config';
 
 export default function Hero({ variant }: { readonly variant?: MainLayoutType }) {

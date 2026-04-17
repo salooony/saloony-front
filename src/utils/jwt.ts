@@ -11,10 +11,7 @@ export function parseJwt<T = unknown>(token: string): T | null {
 
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
 
-    const decoded =
-      typeof window === 'undefined'
-        ? Buffer.from(base64, 'base64').toString('utf-8')
-        : atob(base64);
+    const decoded = typeof window === 'undefined' ? Buffer.from(base64, 'base64').toString('utf-8') : atob(base64);
 
     return JSON.parse(decoded) as T;
   } catch {

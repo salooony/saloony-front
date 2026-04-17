@@ -49,7 +49,6 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
     <AppBar sx={appBarStyle(scrolled)}>
       <Container disableGutters={downMD} maxWidth={container ? 'xl' : false}>
         <Toolbar sx={toolbarStyle}>
-
           <Box sx={logoBoxStyle(isSearch ? (isLgScreen ? '1px' : 15) : 0.5)}>
             <IconButton color="secondary" onClick={drawerToggler(true)} sx={menuIconStyle}>
               <MenuOutlined />
@@ -68,25 +67,24 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
               }
             />
             {variant === MainLayoutType.SEARCH ? (
-              !isMdScreen && (
-                !headerExpanded ? (
-                  <SearchBar
-                    variant={MainLayoutType.SEARCH}
-                    initialQuery={initialQuery}
-                    initialLocation={locationItem}
-                    onFocusChange={(focused) => setHeaderExpanded(focused)}
-                    enableExpand={true}
-                  />
-                ) : (
-                  <SearchBar
-                    variant={MainLayoutType.HOME}
-                    initialQuery={initialQuery}
-                    initialLocation={locationItem}
-                    onFocusChange={(focused) => setHeaderExpanded(focused)}
-                    enableExpand={true}
-                  />
-                )
-              )
+              !isMdScreen &&
+              (!headerExpanded ? (
+                <SearchBar
+                  variant={MainLayoutType.SEARCH}
+                  initialQuery={initialQuery}
+                  initialLocation={locationItem}
+                  onFocusChange={(focused) => setHeaderExpanded(focused)}
+                  enableExpand={true}
+                />
+              ) : (
+                <SearchBar
+                  variant={MainLayoutType.HOME}
+                  initialQuery={initialQuery}
+                  initialLocation={locationItem}
+                  onFocusChange={(focused) => setHeaderExpanded(focused)}
+                  enableExpand={true}
+                />
+              ))
             ) : (
               <List sx={listStyle}>
                 <AnimatedLink href="/components-overview/buttons" target="_blank" darkLink={variant !== MainLayoutType.HOME}>
@@ -122,7 +120,6 @@ export default function Header({ variant = MainLayoutType.HOME, initialQuery = '
             <ProfessionalButton scrolled={scrolled} isMdScreen={isMdScreen} />
 
             <LanguageDropdown variant={variant} scrolled={scrolled} isMdScreen={isMdScreen} />
-
           </Box>
 
           <Box sx={{ display: isSearch ? 'none' : { xs: 'block', md: 'none' } }}>

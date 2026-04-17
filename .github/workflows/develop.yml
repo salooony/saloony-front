@@ -12,4 +12,4 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6-beta
       - name: List repository files
-        run : ls -la
+        run: ls -la

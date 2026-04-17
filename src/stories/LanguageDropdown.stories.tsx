@@ -1,15 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Box from '@mui/material/Box';
-import { useTheme, Theme } from '@mui/material/styles';
-
 import LanguageDropdown from 'components/languageDropdown';
+import { MainLayoutType } from '@src/config';
 
-const getThemeDefaults = (theme: Theme) => ({
-  color: theme.palette.primary.main,
-  bgColor: theme.palette.background.paper,
-  listItemColor: theme.palette.primary.dark
-});
+type Story = StoryObj<typeof LanguageDropdown>;
 
 const meta: Meta<typeof LanguageDropdown> = {
   title: 'Components/LanguageDropdown',
@@ -22,82 +16,34 @@ const meta: Meta<typeof LanguageDropdown> = {
     }
   },
   argTypes: {
-    color: {
-      control: 'color'
+    variant: {
+      control: 'select',
+      options: Object.values(MainLayoutType)
     },
-    bgColor: {
-      control: 'color'
-    },
-    listItemColor: {
-      control: 'color'
-    },
-    ml: { control: { type: 'number', min: 0, step: 0.5 } }
+    scrolled: { control: 'boolean' },
+    inDrawer: { control: 'boolean' },
+    isMdScreen: { control: 'boolean' }
   }
 };
 
 export default meta;
 
-type Story = StoryObj<typeof meta>;
-
-const DefaultContent = (args: any) => {
-  const theme = useTheme();
-  const mergedArgs = {
-    ...getThemeDefaults(theme),
-    color: theme.palette.primary.main,
-    bgColor: theme.palette.primary.main,
-    listItemColor: theme.palette.common.white,
-    ...args
-  };
-  return (
-    <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
-      <LanguageDropdown {...mergedArgs} />
-    </Box>
-  );
-};
-
-const DarkMenuContent = (args: any) => {
-  const theme = useTheme();
-  const mergedArgs = {
-    ...getThemeDefaults(theme),
-    color: theme.palette.common.white,
-    bgColor: theme.palette.primary.dark,
-    listItemColor: theme.palette.common.white,
-    ...args
-  };
-  return (
-    <Box sx={{ p: 4, bgcolor: theme.palette.common.black }}>
-      <LanguageDropdown {...mergedArgs} />
-    </Box>
-  );
-};
-
-const WithOffsetContent = (args: any) => {
-  const theme = useTheme();
-  const mergedArgs = {
-    ...getThemeDefaults(theme),
-    color: theme.palette.primary.main,
-    bgColor: theme.palette.primary.main,
-    listItemColor: theme.palette.common.white,
-    ...args
-  };
-  return (
-    <Box sx={{ p: 4, bgcolor: theme.palette.background.default }}>
-      <LanguageDropdown {...mergedArgs} />
-    </Box>
-  );
-};
-
 export const Default: Story = {
-  render: (args) => <DefaultContent {...args} />
-};
-
-export const DarkMenu: Story = {
-  render: (args: any) => <DarkMenuContent {...args} />
-};
-
-export const WithOffset: Story = {
   args: {
-    ml: 2
-  },
-  render: (args) => <WithOffsetContent {...args} />
+    variant: MainLayoutType.HOME,
+    scrolled: false
+  }
+};
+
+export const Scrolled: Story = {
+  args: {
+    variant: MainLayoutType.HOME,
+    scrolled: true
+  }
+};
+
+export const InDrawer: Story = {
+  args: {
+    inDrawer: true
+  }
 };

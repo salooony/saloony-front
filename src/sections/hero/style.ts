@@ -26,7 +26,7 @@ export const heroContentStyle = {
   position: 'relative',
   zIndex: 1,
   color: 'common.white',
-  width: '100%',
+  width: '100%'
 };
 
 export const heroTitleStyle = (theme: Theme) => ({

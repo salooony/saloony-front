@@ -120,7 +120,7 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
           sx: {
             fontSize: isMdScreen ? 'h5.fontSize' : 'h6.fontSize',
             '& .MuiInputBase-input': {
-              ...noWrapStyle,
+              ...noWrapStyle
             },
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : theme.palette.common.black,

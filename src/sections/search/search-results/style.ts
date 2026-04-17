@@ -1,7 +1,7 @@
 export const mobileHeaderBox = {
   backgroundColor: 'primary.light',
   p: 2.5,
-  width: '100%',
+  width: '100%'
 };
 
 export const mobileCollapsedBox = {
@@ -11,7 +11,7 @@ export const mobileCollapsedBox = {
   alignItems: 'center',
   justifyContent: 'space-between',
   gap: 1.5,
-  borderRadius: 4,
+  borderRadius: 4
 };
 
 export const mobileFieldBox = {
@@ -20,5 +20,5 @@ export const mobileFieldBox = {
   p: 2,
   display: 'flex',
   alignItems: 'center',
-  gap: 1,
+  gap: 1
 };

@@ -43,10 +43,10 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
           onClick={() => {
             onClose();
             setActiveField(FocusedInputType.QUERY);
-            if (variant === MainLayoutType.HOME ) {
+            if (variant === MainLayoutType.HOME) {
               setQuery('');
               setLocation(null);
-            } 
+            }
           }}
           sx={FiXStyle}
         >

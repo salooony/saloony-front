@@ -35,40 +35,24 @@ export default {
           }
 
           return [true];
-        },
-      },
-    },
+        }
+      }
+    }
   ],
   rules: {
     'jira-ticket': [2, 'always'],
     'subject-case': [0], // Disable the default subject-case rule
-    'type-enum': [
-      2,
-      'always',
-      [
-        'build',
-        'chore',
-        'ci',
-        'docs',
-        'feat',
-        'fix',
-        'perf',
-        'refactor',
-        'revert',
-        'style',
-        'test',
-      ],
-    ],
+    'type-enum': [2, 'always', ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test']],
     'header-min-length': [2, 'always', 10],
     'subject-min-length': [2, 'always', 5],
     'type-case': [2, 'always', 'lower-case'],
     'header-max-length': [2, 'always', 72],
-    'subject-full-stop': [2, 'never', '.'],
+    'subject-full-stop': [2, 'never', '.']
   },
   parserPreset: {
     parserOpts: {
       headerPattern: /^(\w+)(?:\(([^)]+)\))?: (.+)$/,
-      headerCorrespondence: ['type', 'scope', 'subject'],
-    },
-  },
+      headerCorrespondence: ['type', 'scope', 'subject']
+    }
+  }
 };

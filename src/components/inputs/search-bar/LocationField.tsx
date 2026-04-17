@@ -118,7 +118,7 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
           disableUnderline: true,
           sx: {
             '& .MuiInputBase-input': {
-              ...noWrapStyle,
+              ...noWrapStyle
             },
             '& .MuiInputBase-input::placeholder': {
               color: isHome ? theme.palette.grey[400] : theme.palette.common.black,

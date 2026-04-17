@@ -27,7 +27,7 @@ const createSignInResult = (overrides: Partial<SignInResponse> = {}): SignInResp
   error: null,
   status: 200,
   url: null,
-  ...overrides,
+  ...overrides
 });
 
 const createDeferred = <T,>() => {
@@ -62,7 +62,7 @@ const createTestTheme = () => {
     success: 'none',
     successButton: 'none',
     grey: 'none',
-    greyButton: 'none',
+    greyButton: 'none'
   };
 
   return theme;
@@ -94,7 +94,7 @@ beforeEach(() => {
   mockedUseSession.mockReturnValue({
     data: null,
     status: 'unauthenticated',
-    update: jest.fn(),
+    update: jest.fn()
   });
 
   mockedSignIn.mockResolvedValue(createSignInResult());
@@ -138,7 +138,7 @@ describe('AuthLogin - Unit Tests', () => {
       mockedUseSession.mockReturnValueOnce({
         data: { user: { name: 'Jane' } },
         status: 'authenticated',
-        update: jest.fn(),
+        update: jest.fn()
       });
 
       renderLoginForm();
@@ -216,7 +216,7 @@ describe('AuthLogin - Unit Tests', () => {
           redirect: false,
           email: 'john@example.com',
           password: 'Pass12345',
-          callbackUrl: APP_DEFAULT_PATH,
+          callbackUrl: APP_DEFAULT_PATH
         });
       });
 
@@ -253,7 +253,7 @@ describe('AuthLogin - Unit Tests', () => {
         createSignInResult({
           ok: false,
           status: 401,
-          error: 'Invalid credentials',
+          error: 'Invalid credentials'
         })
       );
 
