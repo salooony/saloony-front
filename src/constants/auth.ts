@@ -1,3 +1,5 @@
+import * as Yup from 'yup';
+
 // Auth Text Constants
 export const AUTH_TEXT = {
   // OTP Verification
@@ -24,3 +26,17 @@ export const AUTH_TEXT = {
   VERIFY_BUTTON: 'Verify',
   RESEND_BUTTON: 'RESEND',
 } as const;
+
+export const AUTH_LOGIN_VALIDATION_SCHEMA = Yup.object().shape({
+  email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+  password: Yup.string()
+    .required('Password is required')
+    .test('no-leading-trailing-whitespace', 'Password cannot start or end with spaces', (value) => value ? value === value.trim() : true)
+    .max(10, 'Password must be less than 10 characters')
+});
+
+export const AUTH_LOGIN_INITIAL_VALUES = {
+  email: '',
+  password: '',
+  submit: null
+};
