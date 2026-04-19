@@ -34,6 +34,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
+          console.log('Fetching auth from:', `${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`);
           const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -42,6 +43,8 @@ export const authOptions: NextAuthOptions = {
               password: credentials?.password
             })
           });
+
+          console.log('Auth response status:', response.status);
 
           const data = await response.json();
 

@@ -28,7 +28,7 @@ import { forgotPasswordStackStyle, inputFieldStyle, inputLabelStyle, submitButto
 // assets
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
-import { AUTH_LOGIN_INITIAL_VALUES, AUTH_LOGIN_VALIDATION_SCHEMA } from '@src/constants/auth';
+import { AUTH_LOGIN_INITIAL_VALUES, AUTH_LOGIN_VALIDATION_SCHEMA } from '@src/schemas/login';
 import { useAuthLogin } from './useAuthLogin';
 
 // ============================|| AWS CONNITO - LOGIN ||============================ //
