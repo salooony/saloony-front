@@ -32,7 +32,6 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
     searchBarRef
   } = props;
   const suggestionListId = 'location-suggestion-list';
-
   const isHome = variant === MainLayoutType.HOME;
   const isSearch = variant === MainLayoutType.SEARCH;
 
@@ -87,14 +86,15 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         variant,
         isExpanded
       )}
+      onClick={() => setFocusedInput(FocusedInputType.LOCATION)}
     >
       {!isMdScreen && !isSearch && (
         <Typography
-          variant="h5"
+          variant="caption"
           component="label"
           htmlFor="location-input"
-          color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
-          sx={noWrapStyle}
+          color={isHome ? theme.palette.grey[500] : theme.palette.grey[400]}
+          sx={{ ...noWrapStyle, fontWeight: 400, mb: 0.2 }}
         >
           Or
         </Typography>
@@ -108,6 +108,13 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         onFocus={() => setFocusedInput(FocusedInputType.LOCATION)}
         onBlur={handleBlur}
         onChange={handleChange}
+        autoComplete="off"
+        inputRef={(input) => {
+          if (input && focusedInput === FocusedInputType.LOCATION) {
+            input.focus();
+          }
+        }}
+        onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
         placeholder="Address, city..."
         aria-autocomplete="list"
@@ -117,11 +124,15 @@ export default function LocationField(props: LocationFieldProps): JSX.Element {
         InputProps={{
           disableUnderline: true,
           sx: {
+            fontSize: isHome ? '1rem' : '0.875rem',
+            fontWeight: isHome ? 600 : 400,
             '& .MuiInputBase-input': {
-              ...noWrapStyle
+              ...noWrapStyle,
+              color: isHome ? 'common.black' : 'text.primary',
+              p: 0
             },
             '& .MuiInputBase-input::placeholder': {
-              color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
+              color: isHome ? 'common.black' : 'text.secondary',
               opacity: 1
             }
           }

@@ -98,7 +98,7 @@ export default function SearchBar({
           datePickerOpen={false}
         />
       </Box>
-      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
+      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} variant={variant} />
     </>
   );
 
@@ -107,7 +107,7 @@ export default function SearchBar({
       <Box sx={inputGroupStyle}>
         <QueryField query={query} readOnly={true} onOuterMouseDown={openOverlay} />
       </Box>
-      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={28} variant={variant} />
+      <SearchButton onClick={handleSearch} disabled={Boolean(isSearchDisabled)} size={24} variant={variant} />
     </>
   );
 
