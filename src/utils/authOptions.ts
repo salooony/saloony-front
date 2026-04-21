@@ -34,7 +34,6 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         try {
-          console.log('Fetching auth from:', `${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`);
           const response = await fetch(`${process.env.NEXT_PUBLIC_AUTH_URL}auth/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -44,7 +43,6 @@ export const authOptions: NextAuthOptions = {
             })
           });
 
-          console.log('Auth response status:', response.status);
 
           const data = await response.json();
 
@@ -78,7 +76,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid response from server!');
         } catch (e: any) {
           const errorMessage = e?.message || 'Something went wrong!';
-          console.error('Login authorize error:', errorMessage);
           throw new Error(errorMessage);
         }
       }
