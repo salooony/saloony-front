@@ -86,16 +86,17 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
         variant,
         isExpanded
       )}
+      onClick={() => !readOnly && 'setFocusedInput' in props && props.setFocusedInput(FocusedInputType.QUERY)}
     >
       {!isMdScreen && !isSearch && (
         <Typography
-          variant="h5"
+          variant="caption"
           component="label"
           htmlFor="service-input"
-          color={isHome ? theme.palette.common.black : theme.palette.grey[400]}
-          sx={noWrapStyle}
+          color={isHome ? theme.palette.grey[500] : theme.palette.grey[400]}
+          sx={{ ...noWrapStyle, fontWeight: 400, mb: 0.2 }}
         >
-          What are you looking for?
+          What are you looking for ?
         </Typography>
       )}
 
@@ -108,6 +109,13 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
         onBlur={handleBlur}
         onMouseDown={onOuterMouseDown}
         onChange={handleChange}
+        autoComplete="off"
+        inputRef={(input) => {
+          if (input && 'focusedInput' in props && props.focusedInput === FocusedInputType.QUERY) {
+            input.focus();
+          }
+        }}
+        onClick={(e) => e.stopPropagation()}
         onKeyDown={onKeyDown}
         placeholder="Name of the salon, services..."
         aria-autocomplete="list"
@@ -118,12 +126,15 @@ export default function QueryField(props: QueryFieldProps): JSX.Element {
           disableUnderline: true,
           readOnly,
           sx: {
-            fontSize: isMdScreen ? 'h5.fontSize' : 'h6.fontSize',
+            fontSize: isHome ? '1rem' : '0.875rem',
+            fontWeight: isHome ? 600 : 400,
             '& .MuiInputBase-input': {
               ...noWrapStyle,
+              color: isHome ? 'common.black' : 'text.primary',
+              p: 0
             },
             '& .MuiInputBase-input::placeholder': {
-              color: isHome ? theme.palette.grey[400] : theme.palette.common.black,
+              color: isHome ? 'common.black' : 'text.secondary',
               opacity: 1
             }
           }

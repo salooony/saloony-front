@@ -10,10 +10,9 @@ const renderSearchHook = (query: string, locationName?: string, pageSize: number
 describe('useSearchResultsWithoutLocation', () => {
   it('clears results when query becomes empty', async () => {
     const pageSize = 5;
-    const { result, rerender } = renderHook(
-      ({ query }) => useSearchResultsWithoutLocation(query, undefined, pageSize),
-      { initialProps: { query: 'Hairdressers' } }
-    );
+    const { result, rerender } = renderHook(({ query }) => useSearchResultsWithoutLocation(query, undefined, pageSize), {
+      initialProps: { query: 'Hairdressers' }
+    });
 
     await waitFor(() => {
       expect(result.current.displayedResults).toHaveLength(pageSize);
@@ -29,10 +28,9 @@ describe('useSearchResultsWithoutLocation', () => {
 
   it('clears results when query does not match a service', async () => {
     const pageSize = 4;
-    const { result, rerender } = renderHook(
-      ({ query }) => useSearchResultsWithoutLocation(query, undefined, pageSize),
-      { initialProps: { query: 'Hairdressers' } }
-    );
+    const { result, rerender } = renderHook(({ query }) => useSearchResultsWithoutLocation(query, undefined, pageSize), {
+      initialProps: { query: 'Hairdressers' }
+    });
 
     await waitFor(() => {
       expect(result.current.displayedResults).toHaveLength(pageSize);
@@ -89,10 +87,9 @@ describe('useSearchResultsWithoutLocation', () => {
     const parisId = paris!.id;
     const expectedParisResults = HAIRDRESSERS.filter((salon) => salon.locationId === parisId);
 
-    const { result, rerender } = renderHook(
-      ({ locationName }) => useSearchResultsWithoutLocation('Hairdressers', locationName, pageSize),
-      { initialProps: { locationName: 'PARIS' } }
-    );
+    const { result, rerender } = renderHook(({ locationName }) => useSearchResultsWithoutLocation('Hairdressers', locationName, pageSize), {
+      initialProps: { locationName: 'PARIS' }
+    });
 
     await waitFor(() => {
       expect(result.current.displayedResults).toHaveLength(expectedParisResults.length);

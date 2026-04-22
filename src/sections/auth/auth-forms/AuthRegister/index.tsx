@@ -32,22 +32,29 @@ import { LOGIN_LINK, SESSION_LOGIN_LINK } from 'constants/links';
 import EyeOutlined from '@ant-design/icons/EyeOutlined';
 import EyeInvisibleOutlined from '@ant-design/icons/EyeInvisibleOutlined';
 
-// types
 import { btn, Gridbtn, InputLabelStyles, LinklStyles, OutlinedInputStyles } from './styles';
 import { useAuthRegister } from './useAuthRegister';
+import { RegisterFormValues } from '@src/types/auth';
 
 const Auth0 = '/assets/images/icons/auth0.svg';
 const Cognito = '/assets/images/icons/aws-cognito.svg';
 const Google = '/assets/images/icons/google.svg';
 
-// ============================|| AWS CONNITO - LOGIN ||============================ //
+interface AuthRegisterProps {
+  providers?: any;
+  csrfToken?: string;
+}
 
-export default function AuthRegister({ providers, csrfToken }: any) {
+export default function AuthRegister({ providers, csrfToken }: AuthRegisterProps) {
   const { session, downSM, isLoading, showPassword, handleClickShowPassword, handleMouseDownPassword, handleOnSubmit } = useAuthRegister();
 
   return (
     <>
-      <Formik initialValues={AUTH_REGISTER_INITIAL_VALUES} validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA} onSubmit={handleOnSubmit}>
+      <Formik<RegisterFormValues>
+        initialValues={AUTH_REGISTER_INITIAL_VALUES}
+        validationSchema={AUTH_REGISTER_VALIDATION_SCHEMA}
+        onSubmit={handleOnSubmit}
+      >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
@@ -258,7 +265,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                     variant="outlined"
                     color="secondary"
                     fullWidth={!downSM}
-                    startIcon={<Image src={Google} alt="Twitter" width={16} height={16} />}
+                    startIcon={<Image src={Google} alt="Google" width={16} height={16} />}
                     onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
                   >
                     {!downSM && 'Google'}
@@ -269,7 +276,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                     variant="outlined"
                     color="secondary"
                     fullWidth={!downSM}
-                    startIcon={<Image src={Auth0} alt="Twitter" width={16} height={16} />}
+                    startIcon={<Image src={Auth0} alt="Auth0" width={16} height={16} />}
                     onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
                   >
                     {!downSM && 'Auth0'}
@@ -280,7 +287,7 @@ export default function AuthRegister({ providers, csrfToken }: any) {
                     variant="outlined"
                     color="secondary"
                     fullWidth={!downSM}
-                    startIcon={<Image src={Cognito} alt="Twitter" width={16} height={16} />}
+                    startIcon={<Image src={Cognito} alt="Cognito" width={16} height={16} />}
                     onClick={() => signIn(provider.id, { callbackUrl: APP_DEFAULT_PATH })}
                   >
                     {!downSM && 'Cognito'}

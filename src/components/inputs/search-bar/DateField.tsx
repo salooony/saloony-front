@@ -10,7 +10,7 @@ import { JSX } from 'react';
 import { calendarButton, calendarLayout, calendarPopper, CalenderToolbar, noWrapStyle, searchBoxStyle } from './style';
 import { DateFieldProps } from '@src/types/DateField';
 import dayjs, { Dayjs } from 'dayjs';
-import { FocusedInputType } from '@src/config';
+import { FocusedInputType, MainLayoutType } from '@src/config';
 import useClickOutside from './useClickOutside';
 
 export default function DateField({
@@ -29,6 +29,7 @@ export default function DateField({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const isOpen = focusedInput === FocusedInputType.DATE;
+  const isHome = variant === MainLayoutType.HOME;
 
   const clickOutsideRefs = useMemo(() => [containerRef, searchBarRef!], [containerRef, searchBarRef]);
 
@@ -80,7 +81,13 @@ export default function DateField({
         }}
         onClick={handleFieldClick}
       >
-        <Typography variant="h5" component="label" htmlFor="date-input">
+        <Typography
+          variant="caption"
+          component="label"
+          htmlFor="date-input"
+          color={isHome ? theme.palette.grey[500] : theme.palette.grey[400]}
+          sx={{ ...noWrapStyle, fontWeight: 400, mb: 0.2 }}
+        >
           When?
         </Typography>
 
@@ -111,11 +118,15 @@ export default function DateField({
               },
               onFocus: () => setFocusedInput(FocusedInputType.DATE),
               sx: {
+                fontSize: isHome ? '1rem' : '0.875rem',
+                fontWeight: isHome ? 600 : 400,
                 '& .MuiInputBase-input': {
-                  ...noWrapStyle
+                  ...noWrapStyle,
+                  color: isHome ? 'common.black' : 'text.primary',
+                  p: 0
                 },
                 '& .MuiInputBase-input::placeholder': {
-                  color: theme.palette.common.black,
+                  color: isHome ? 'common.black' : 'text.secondary',
                   opacity: 1
                 }
               }

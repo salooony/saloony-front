@@ -1,13 +1,17 @@
 import * as Yup from 'yup';
 import { isValidPhoneNumber } from 'libphonenumber-js';
 import { VALIDATION_MESSAGES } from '@src/constants/validationMessages';
+import { RegisterFormValues } from '@src/types/auth';
 
 export const DOB_FORMAT_REGEX = /^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/\d{4}$/;
 
 export const AUTH_REGISTER_VALIDATION_SCHEMA = Yup.object().shape({
   firstname: Yup.string().max(255, VALIDATION_MESSAGES.FIRSTNAME_MAX).required(VALIDATION_MESSAGES.FIRSTNAME_REQUIRED),
   lastname: Yup.string().max(255, VALIDATION_MESSAGES.LASTNAME_MAX).required(VALIDATION_MESSAGES.LASTNAME_REQUIRED),
-  email: Yup.string().email(VALIDATION_MESSAGES.EMAIL_INVALID).max(255, VALIDATION_MESSAGES.EMAIL_MAX).required(VALIDATION_MESSAGES.EMAIL_REQUIRED),
+  email: Yup.string()
+    .email(VALIDATION_MESSAGES.EMAIL_INVALID)
+    .max(255, VALIDATION_MESSAGES.EMAIL_MAX)
+    .required(VALIDATION_MESSAGES.EMAIL_REQUIRED),
 
   phonenumber: Yup.string()
     .required(VALIDATION_MESSAGES.PHONE_REQUIRED)
@@ -57,7 +61,7 @@ export const AUTH_REGISTER_VALIDATION_SCHEMA = Yup.object().shape({
     })
 });
 
-export const AUTH_REGISTER_INITIAL_VALUES = {
+export const AUTH_REGISTER_INITIAL_VALUES: RegisterFormValues = {
   firstname: '',
   lastname: '',
   email: '',

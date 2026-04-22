@@ -28,9 +28,9 @@ export default meta;
 
 type Story = StoryObj<typeof QueryField>;
 
-const InteractiveContent = () => {
+const InteractiveWrapper = () => {
   const [query, setQuery] = useState('');
-  const [focusedInput, setFocusedInput] = useState<SearchField | null>(null);
+  const [focusedInput, setFocusedInput] = useState<FocusedInputType | null>(null);
 
   return (
     <Box sx={{ maxWidth: 500 }}>
@@ -50,26 +50,7 @@ const InteractiveContent = () => {
 };
 
 export const Interactive: Story = {
-  render: () => {
-    const [query, setQuery] = useState('');
-    const [focusedInput, setFocusedInput] = useState<FocusedInputType | null>(null);
-
-    return (
-      <Box sx={{ maxWidth: 500 }}>
-        <QueryField
-          query={query}
-          setQuery={setQuery}
-          focusedInput={focusedInput}
-          setFocusedInput={setFocusedInput}
-          suggestions={suggestions}
-          isLoading={false}
-          highlightedIndex={-1}
-          handleKeyDown={() => undefined}
-          readOnly={false}
-        />
-      </Box>
-    );
-  }
+  render: () => <InteractiveWrapper />
 };
 
 export const ReadOnlyTrigger: Story = {

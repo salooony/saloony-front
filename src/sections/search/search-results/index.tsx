@@ -13,7 +13,6 @@ import FilterButton from '@src/components/filter-button/FilterButton';
 import FilterModal from '@src/components/filter-button/FilterModal';
 import useFilter from '@src/components/filter-button/useFilter';
 
-
 export default function SearchResults({ query: initialQuery, location: initialLocation, initialDate }: SearchResultsProps) {
   const isMdScreen = useIsMdScreen();
 
@@ -25,11 +24,7 @@ export default function SearchResults({ query: initialQuery, location: initialLo
     filteredSalons,
     isOpenAtTime,
     getOpeningHoursForDay
-  } = useSearchResults(
-    initialQuery,
-    initialLocation,
-    initialDate ?? undefined
-  );
+  } = useSearchResults(initialQuery, initialLocation, initialDate ?? undefined);
 
   const {
     setQuery,
@@ -80,7 +75,9 @@ export default function SearchResults({ query: initialQuery, location: initialLo
                 <Box>
                   <Box sx={{ display: 'flex', gap: 1 }}>
                     <Typography variant="h5">{initialQuery}</Typography>
-                    <Typography variant="h3" color="text.secondary">•</Typography>
+                    <Typography variant="h3" color="text.secondary">
+                      •
+                    </Typography>
                     <Typography variant="h5">{initialLocation}</Typography>
                   </Box>
                   <Typography variant="body2" color="text.secondary">
@@ -94,7 +91,6 @@ export default function SearchResults({ query: initialQuery, location: initialLo
               </IconButton>
             </Box>
           ) : (
-
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, px: 2 }}>
               <IconButton aria-label="Close search filters" onClick={() => setOpenFields(false)}>
                 <FiX size={20} />
@@ -182,7 +178,7 @@ export default function SearchResults({ query: initialQuery, location: initialLo
                   </Box>
                 }
                 secondaryTypographyProps={{
-                  component: 'span',
+                  component: 'span'
                 }}
               />
             </ListItem>

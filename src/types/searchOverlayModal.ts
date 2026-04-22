@@ -20,7 +20,7 @@ export interface SearchOverlayModalProps {
   variant?: MainLayoutType;
   activeField: FocusedInputType;
   setActiveField: (field: FocusedInputType) => void;
-  selectedDate: Dayjs | null;
-  setSelectedDate: (val: Dayjs | null) => void;
-  setDatePickerOpen: (open: boolean) => void;
+  selectedDate?: Dayjs | null;
+  setSelectedDate?: (val: Dayjs | null) => void;
+  setDatePickerOpen?: (open: boolean) => void;
 }

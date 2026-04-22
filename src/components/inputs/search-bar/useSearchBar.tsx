@@ -50,7 +50,7 @@ export default function useSearchBar({ isMdScreen, initialQuery = '', initialLoc
   const openOverlay = () => {
     if (isMdScreen) setIsOverlayOpen(true);
   };
-  
+
   const closeOverlay = () => setIsOverlayOpen(false);
 
   const fetchSuggestions = useCallback(

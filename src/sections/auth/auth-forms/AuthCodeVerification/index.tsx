@@ -92,7 +92,7 @@ export default function AuthCodeVerification() {
             </Grid>
             <Grid size={12} sx={gridCenterStyle}>
               <Typography variant="h5" sx={resendTextStyle}>
-                {AUTH_TEXT.OTP_RESEND_PROMPT}{" "}
+                {AUTH_TEXT.OTP_RESEND_PROMPT}{' '}
                 <Box component="span" sx={resendLinkStyle}>
                   {AUTH_TEXT.RESEND_BUTTON}
                 </Box>
@@ -108,7 +108,6 @@ export default function AuthCodeVerification() {
 
               <Typography sx={backLinkStyle}>{AUTH_TEXT.BACK_TO_LOGIN}</Typography>
             </Grid>
-          
           </Grid>
         </form>
       )}
