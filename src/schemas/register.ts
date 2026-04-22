@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
 import { isValidPhoneNumber } from 'libphonenumber-js';
-
-// project-imports
 import { VALIDATION_MESSAGES } from '@src/constants/validationMessages';
 import { RegisterFormValues } from '@src/types/auth';
 

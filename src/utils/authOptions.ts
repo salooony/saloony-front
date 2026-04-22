@@ -43,7 +43,6 @@ export const authOptions: NextAuthOptions = {
             })
           });
 
-
           const data = await response.json();
 
           if (!response.ok) {
