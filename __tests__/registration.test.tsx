@@ -29,7 +29,7 @@ const createSignInResult = (overrides: Partial<SignInResponse> = {}): SignInResp
   error: null,
   status: 200,
   url: null,
-  ...overrides,
+  ...overrides
 });
 
 const createDeferred = <T,>() => {
@@ -50,7 +50,7 @@ const createRouter = () => ({
   refresh: jest.fn(),
   prefetch: jest.fn(),
   back: jest.fn(),
-  forward: jest.fn(),
+  forward: jest.fn()
 });
 
 type Provider = {
@@ -78,7 +78,7 @@ const createTestTheme = () => {
     success: 'none',
     successButton: 'none',
     grey: 'none',
-    greyButton: 'none',
+    greyButton: 'none'
   };
 
   return theme;
@@ -112,7 +112,7 @@ beforeEach(() => {
   mockedUseSession.mockReturnValue({
     data: null,
     status: 'unauthenticated',
-    update: jest.fn(),
+    update: jest.fn()
   });
   mockedSignIn.mockResolvedValue(createSignInResult());
 });
@@ -153,7 +153,7 @@ describe('AuthRegister (Registration) - Unit Tests', () => {
     it('starts oauth flow when clicking on a social provider button', async () => {
       const user = userEvent.setup();
       renderRegistrationForm({
-        google: { id: 'google', name: 'Google' },
+        google: { id: 'google', name: 'Google' }
       });
 
       await user.click(screen.getByRole('button', { name: /google/i }));
@@ -245,7 +245,7 @@ describe('AuthRegister (Registration) - Unit Tests', () => {
           birthdate: '01/01/2000',
           password: 'StrongPassword1',
           role: 'Client',
-          language: 'French',
+          language: 'French'
         });
       });
       expect(pushMock).toHaveBeenCalledWith(APP_DEFAULT_PATH);
@@ -280,7 +280,7 @@ describe('AuthRegister (Registration) - Unit Tests', () => {
         createSignInResult({
           ok: false,
           status: 409,
-          error: 'Email already exists',
+          error: 'Email already exists'
         })
       );
       renderRegistrationForm();

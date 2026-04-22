@@ -7,14 +7,14 @@ export const verificationWrapperStyle: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  width: '100%',
+  width: '100%'
 };
 
 export const verificationGridStyle: SxProps<Theme> = {
   px: {
     xs: 2,
     sm: 4,
-    md: 8,
+    md: 8
   }
 };
 
@@ -38,7 +38,7 @@ export const verificationTitleStyle: SxProps<Theme> = {
 
 export const verificationDescriptionStyle: SxProps<Theme> = {
   fontWeight: '500',
-  width: 400,
+  width: 400
 };
 
 export const verificationPhoneStyle: SxProps<Theme> = {

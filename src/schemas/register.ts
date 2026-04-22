@@ -22,6 +22,7 @@ const schema = Yup.object().shape({
     .email(VALIDATION_MESSAGES.EMAIL_INVALID)
     .max(255, VALIDATION_MESSAGES.EMAIL_MAX)
     .required(VALIDATION_MESSAGES.EMAIL_REQUIRED),
+
   phonenumber: Yup.string()
     .required(VALIDATION_MESSAGES.PHONE_REQUIRED)
     .test('valid-phone', VALIDATION_MESSAGES.PHONE_INVALID, function (value) {

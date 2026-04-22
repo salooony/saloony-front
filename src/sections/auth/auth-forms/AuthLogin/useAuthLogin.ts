@@ -40,10 +40,9 @@ export const useAuthLogin = () => {
       } else {
         preload(API_ROUTES.DASHBOARD_MENU, fetcher);
       }
-    } catch (error) {
+    } catch {
       setErrors({ submit: 'An error occurred while logging in' });
-    }
-    finally {
+    } finally {
       setSubmitting(false);
     }
   };

@@ -12,11 +12,14 @@ export default function useFilter() {
   /**
    * Memoize URL parameters to prevent referential equality breaks on Next.js navigation.
    */
-  const savedFilter = useMemo<FilterState>(() => ({
-    availability: (searchParams.get('availability') as AvailabilityOption) || AvailabilityOption.ANY,
-    sortBy: (searchParams.get('sort') as SortOption) || SortOption.NONE,
-    pickedDate: searchParams.get('date')
-  }), [searchParams]);
+  const savedFilter = useMemo<FilterState>(
+    () => ({
+      availability: (searchParams.get('availability') as AvailabilityOption) || AvailabilityOption.ANY,
+      sortBy: (searchParams.get('sort') as SortOption) || SortOption.NONE,
+      pickedDate: searchParams.get('date')
+    }),
+    [searchParams]
+  );
 
   const [isOpen, setIsOpen] = useState(false);
 

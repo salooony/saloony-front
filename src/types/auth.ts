@@ -32,7 +32,7 @@ export interface LoginFormValues {
   password: string;
   submit: null | string;
 }
- export interface RegisterFormValues {
+export interface RegisterFormValues {
   firstname: string;
   lastname: string;
   email: string;

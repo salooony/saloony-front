@@ -29,9 +29,9 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
     variant,
     activeField,
     setActiveField,
-    selectedDate,
-    setSelectedDate,
-    setDatePickerOpen
+    selectedDate = null,
+    setSelectedDate = () => {},
+    setDatePickerOpen = () => {}
   } = props;
 
   const theme = useTheme();
@@ -43,10 +43,10 @@ export default function SearchOverlayModal(props: SearchOverlayModalProps): JSX.
           onClick={() => {
             onClose();
             setActiveField(FocusedInputType.QUERY);
-            if (variant === MainLayoutType.HOME ) {
+            if (variant === MainLayoutType.HOME) {
               setQuery('');
               setLocation(null);
-            } 
+            }
           }}
           sx={FiXStyle}
         >

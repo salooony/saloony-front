@@ -2,7 +2,7 @@ import { Theme } from '@mui/material/styles';
 import { FocusedInputType, MainLayoutType } from '@src/config';
 export const searchContainerStyle = {
   width: '100%',
-  maxWidth: 800,
+  maxWidth: 900,
   mx: 'auto',
   display: 'flex',
   flexDirection: 'column',
@@ -13,19 +13,20 @@ export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean)
   display: 'flex',
   alignItems: 'center',
   borderRadius: '18px',
-  px: 3,
-  py: 2,
-  gap: 2,
-  width: isExpanded ? '80%' : '100%',
-  maxHeight: variant === MainLayoutType.SEARCH ? '50px' : 'auto',
-  maxWidth: variant === MainLayoutType.SEARCH ? '600px' : '100%',
+  p: '14px 24px',
+  gap: 0,
+  width: '100%',
+  /** HOME is the compact variant at 58px; SEARCH and SearchWithoutLocation share the tall 86px spec. */
+  minHeight: 86,
+  maxHeight: 'none',
+  maxWidth: '100%',
   boxShadow: variant === MainLayoutType.SEARCH ? 'none' : undefined,
   border:
     variant === MainLayoutType.SEARCH
-      ? ` 1px solid ${theme.palette.grey[400]}`
+      ? `1px solid ${theme.palette.grey[400]}`
       : variant === MainLayoutType.HOME
         ? isExpanded
-          ? ` 1px solid ${theme.palette.grey[400]}`
+          ? `1px solid ${theme.palette.grey[400]}`
           : undefined
         : undefined,
   position: isExpanded ? 'absolute' : 'static',
@@ -37,12 +38,11 @@ export const paperStyle = (theme: Theme, variant?: string, isExpanded?: boolean)
   transition: 'all 0.3s ease'
 });
 
-
 export const dividerStyle = (isExpanded: boolean) => ({
-  height: '32px',
+  height: '40px',
   width: '1px',
-  backgroundColor: '#e0e0e0',
-  opacity: isExpanded ? 1 : 0,
+  backgroundColor: '#F0F0F0',
+  opacity: isExpanded ? 1 : 0.6,
   transition: 'opacity 0.3s ease',
   margin: isExpanded ? '0 4px' : '0 -1px',
   alignSelf: 'center'
@@ -52,7 +52,7 @@ export const inputGroupStyle = {
   display: 'flex',
   alignItems: 'center',
   width: '100%',
-  gap: 0,
+  gap: '36px',
   '& > .field-container': {
     display: 'flex',
     alignItems: 'center',
@@ -84,23 +84,33 @@ export const searchBoxStyle = (
   isExpanded?: boolean
 ) => ({
   width:
-    variant === MainLayoutType.SEARCH
-      ? { xs: '100%', md: '33%' }
+    variant === MainLayoutType.SEARCH || variant === MainLayoutType.SearchWithoutLocation
+      ? inputName === FocusedInputType.QUERY
+        ? { xs: '100%', md: '65%' }
+        : { xs: '100%', md: '30%' }
       : variant === MainLayoutType.HOME
         ? isExpanded
           ? { xs: '100%', md: '33%' }
-          : { xs: '100%', md: '50%' }
+          : inputName === FocusedInputType.QUERY
+            ? { xs: '100%', md: '65%' }
+            : { xs: '100%', md: '35%' }
         : { xs: '100%', md: '50%' },
+  flex: inputName === FocusedInputType.QUERY ? '0 0 474px' : '1',
+  height: inputName === FocusedInputType.QUERY ? '58px' : 'auto',
   borderRadius: '12px',
-  p: 1.5,
-  transition: ['background-color 220ms ease', 'border 220ms ease', 'width 320ms cubic-bezier(.22,.8,.18,1)'].join(', '),
-  backgroundColor: focusedInput === inputName ? theme.palette.grey[100] : 'transparent',
+  p: '8px',
+  border: focusedInput === inputName ? '1px solid #202020' : '1px solid transparent',
+  backgroundColor: inputName === FocusedInputType.QUERY ? '#F7F7F7' : 'transparent',
   position: 'relative',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
 });
 
+/** Stays at 100% so the bar remains centered on the hero at all times. */
 export const searchBarMotionVariants = {
   collapsed: {
-    width: '60%',
+    width: '100%',
     transition: { type: 'spring', stiffness: 300, damping: 30 }
   },
   expanded: {
@@ -113,30 +123,35 @@ export const noWrapStyle = {
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-  display: 'block', 
-  maxWidth: '100%', 
+  display: 'block',
+  maxWidth: '100%'
 };
 
 export const suggestionBoxStyle = {
-  mt: 4,
-  backgroundColor: 'common.white',
-  borderRadius: '8px',
-  boxShadow: 2,
   position: 'absolute',
-  left: '2px',
+  top: 'calc(100% + 8px)',
+  left: 0,
   width: '100%',
-  zIndex: 10,
-  maxHeight: 200,
+  backgroundColor: 'common.white',
+  borderRadius: '24px',
+  boxShadow: '0px 10px 30px rgba(0,0,0,0.1)',
+  zIndex: 1000,
+  maxHeight: 400,
   overflowY: 'auto'
 };
 
 export const MdSuggestionBoxStyle = {
-  mt: 2.5,
   position: 'absolute',
+  top: 'calc(100% + 4px)',
+  left: 0,
   width: '100%',
-  zIndex: 10,
+  zIndex: 1000,
+  backgroundColor: 'common.white',
+  borderRadius: '12px',
+  boxShadow: '0px 10px 30px rgba(0,0,0,0.1)',
+  maxHeight: 300,
   overflowY: 'auto'
-}
+};
 
 export const suggestionItemStyle = (theme: Theme, highlighted: boolean = false) => ({
   px: 2,
@@ -148,29 +163,28 @@ export const suggestionItemStyle = (theme: Theme, highlighted: boolean = false) 
   }
 });
 
-
 export const iconButtonStyle = (isDisabled: boolean, variant?: string) => ({
-  color: variant === MainLayoutType.SEARCH ? 'common.white' : 'common.black',
-  width: variant === MainLayoutType.SEARCH ? 35 : 48,
-  height: variant === MainLayoutType.SEARCH ? 35 : 48,
-  '&:hover': !isDisabled ? { color: 'text.secondary' } : {},
-  opacity: isDisabled ? 0.5 : 1, 
-  cursor: isDisabled ? 'not-allowed' : 'pointer',
+  color: 'common.black',
+  width: 48,
+  height: 48,
+  '&:hover': !isDisabled ? { opacity: 0.7 } : {},
+  opacity: isDisabled ? 0.5 : 1,
+  cursor: isDisabled ? 'not-allowed' : 'pointer'
 });
 
 export const circularProgressStyle = {
   display: 'flex',
   justifyContent: 'center',
   p: 2
-}
+};
 export const iconContainerStyle = (variant?: string) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  width: variant === MainLayoutType.SEARCH ? 35 : 48,
-  height: variant === MainLayoutType.SEARCH ? 35 : 48,
-  borderRadius: '30%',
-  backgroundColor: variant === MainLayoutType.SEARCH ? 'primary.main' : 'transparent',
+  width: 58,
+  height: 58,
+  borderRadius: '50%',
+  backgroundColor: 'transparent'
 });
 
 export const centerModal = {
@@ -207,7 +221,7 @@ export const calendarLayout = {
   '.MuiPickersLayout-contentWrapper': {
     width: '100%'
   }
-}
+};
 
 export const calendarPopper = (theme: Theme) => ({
   '& .MuiPaper-root': {
@@ -217,10 +231,10 @@ export const calendarPopper = (theme: Theme) => ({
     marginTop: '30px',
     width: 'fit-content',
     minWidth: 'auto',
-    transform: 'translateX(-5px) !important',
+    transform: 'translateX(-5px) !important'
   },
   '& .MuiDateCalendar-root': {
-    width: 'auto',
+    width: 'auto'
   }
 });
 
@@ -239,5 +253,5 @@ export const calendarButton = (theme: Theme) => ({
   fontWeight: 600,
   borderColor: theme.palette.divider,
   color: theme.palette.text.primary,
-  whiteSpace: 'nowrap',
+  whiteSpace: 'nowrap'
 });

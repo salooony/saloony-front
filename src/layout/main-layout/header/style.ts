@@ -3,7 +3,7 @@ import { MainLayoutType } from '@src/config';
 export const appBarStyle = (scrolled: boolean) => ({
   boxShadow: scrolled ? 1 : 'none',
   backgroundColor: scrolled ? 'primary.main' : { xs: 'primary.main', md: 'transparent' },
-  transition: 'all 0.3s ease-in-out',
+  transition: 'all 0.3s ease-in-out'
 });
 
 export const toolbarStyle = {
@@ -18,7 +18,7 @@ export const logoBoxStyle = (gap?: number | string) => ({ mr: 2, display: 'flex'
 export const listStyle = { display: { xs: 'none', md: 'flex' }, gap: 4 };
 
 export const rightBoxStyle = (isSearch: boolean) => ({
-  display: isSearch ? 'flex' :{ xs: 'none', md: 'flex' },
+  display: isSearch ? 'flex' : { xs: 'none', md: 'flex' },
   gap: isSearch ? '3px' : 1.5,
   '& .header-link': {
     px: 2,
@@ -43,7 +43,7 @@ export const drawerListItemStyle = { display: 'flex', justifyContent: 'center' }
 export const menuIconStyle = {
   color: 'common.white',
   display: { xs: 'block', md: 'none' },
-  '&:hover': { color: 'primary.lighter'}
+  '&:hover': { color: 'primary.lighter' }
 };
 export const headerButtonStyle = (variant: MainLayoutType, scrolled: boolean, isMdScreen: boolean) => {
   const isHome = variant === MainLayoutType.HOME;
@@ -56,12 +56,11 @@ export const headerButtonStyle = (variant: MainLayoutType, scrolled: boolean, is
   return {
     backgroundColor: mainColor,
     color: textColor,
-    '&:hover': { 
-      backgroundColor: hoverColor, 
+    '&:hover': {
+      backgroundColor: hoverColor,
       color: hoverTextColor
     },
     width: '100%',
     whiteSpace: 'nowrap'
   };
 };
-

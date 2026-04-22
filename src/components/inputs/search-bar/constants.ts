@@ -17,7 +17,7 @@ export interface Salon {
   image: string;
   locationId: number;
   openingHours: OpeningHours;
-  rating?: number;       // 0–5 star average; used for "top rated" sort
+  rating?: number; // 0–5 star average; used for "top rated" sort
   startingPrice?: number; // price in local currency; used for price sort
 }
 
@@ -404,11 +404,11 @@ export const HAIRDRESSERS: Salon[] = [
 ];
 
 export const BARBERS: Salon[] = [
-  { 
-    id: 1, 
-    name: 'Classic Barber', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 1, 
+  {
+    id: 1,
+    name: 'Classic Barber',
+    image: '/assets/images/search/tunis.png',
+    locationId: 1,
     openingHours: {
       monday: { open: '09:00', close: '18:00' },
       tuesday: { open: '09:00', close: '18:00' },
@@ -419,11 +419,11 @@ export const BARBERS: Salon[] = [
       sunday: { isClosed: true }
     }
   },
-  { 
-    id: 2, 
-    name: 'Urban Fade', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 2, 
+  {
+    id: 2,
+    name: 'Urban Fade',
+    image: '/assets/images/search/tunis.png',
+    locationId: 2,
     openingHours: {
       monday: { open: '10:00', close: '19:00' },
       tuesday: { open: '10:00', close: '19:00' },
@@ -434,11 +434,11 @@ export const BARBERS: Salon[] = [
       sunday: { open: '10:00', close: '16:00' }
     }
   },
-  { 
-    id: 3, 
+  {
+    id: 3,
     name: "Gentlemen's Cut",
-    image: '/assets/images/search/tunis.png', 
-    locationId: 1, 
+    image: '/assets/images/search/tunis.png',
+    locationId: 1,
     openingHours: {
       monday: { open: '09:00', close: '17:30' },
       tuesday: { open: '09:00', close: '17:30' },
@@ -452,11 +452,11 @@ export const BARBERS: Salon[] = [
 ];
 
 export const MAKEUP_ARTISTS: Salon[] = [
-  { 
-    id: 1, 
-    name: 'Glam Touch', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 1, 
+  {
+    id: 1,
+    name: 'Glam Touch',
+    image: '/assets/images/search/tunis.png',
+    locationId: 1,
     openingHours: {
       monday: { open: '09:00', close: '18:00' },
       tuesday: { open: '09:00', close: '18:00' },
@@ -467,11 +467,11 @@ export const MAKEUP_ARTISTS: Salon[] = [
       sunday: { open: '11:00', close: '15:00' }
     }
   },
-  { 
-    id: 2, 
-    name: 'Beauty by Lina', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 2, 
+  {
+    id: 2,
+    name: 'Beauty by Lina',
+    image: '/assets/images/search/tunis.png',
+    locationId: 2,
     openingHours: {
       monday: { open: '10:00', close: '19:00' },
       tuesday: { open: '10:00', close: '19:00' },
@@ -485,11 +485,11 @@ export const MAKEUP_ARTISTS: Salon[] = [
 ];
 
 export const MANICURE_SALONS: Salon[] = [
-  { 
-    id: 1, 
-    name: 'Nail Bliss', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 1, 
+  {
+    id: 1,
+    name: 'Nail Bliss',
+    image: '/assets/images/search/tunis.png',
+    locationId: 1,
     openingHours: {
       monday: { open: '09:00', close: '18:00' },
       tuesday: { open: '09:00', close: '18:00' },
@@ -500,11 +500,11 @@ export const MANICURE_SALONS: Salon[] = [
       sunday: { isClosed: true }
     }
   },
-  { 
-    id: 2, 
-    name: 'Polish & Shine', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 2, 
+  {
+    id: 2,
+    name: 'Polish & Shine',
+    image: '/assets/images/search/tunis.png',
+    locationId: 2,
     openingHours: {
       monday: { open: '10:00', close: '19:00' },
       tuesday: { open: '10:00', close: '19:00' },
@@ -518,11 +518,11 @@ export const MANICURE_SALONS: Salon[] = [
 ];
 
 export const BEAUTY_SALONS: Salon[] = [
-  { 
-    id: 1, 
-    name: 'Royal Beauty', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 1, 
+  {
+    id: 1,
+    name: 'Royal Beauty',
+    image: '/assets/images/search/tunis.png',
+    locationId: 1,
     openingHours: {
       monday: { open: '09:00', close: '18:00' },
       tuesday: { open: '09:00', close: '18:00' },
@@ -533,11 +533,11 @@ export const BEAUTY_SALONS: Salon[] = [
       sunday: { isClosed: true }
     }
   },
-  { 
-    id: 2, 
-    name: 'Elegance Spa', 
-    image: '/assets/images/search/tunis.png', 
-    locationId: 2, 
+  {
+    id: 2,
+    name: 'Elegance Spa',
+    image: '/assets/images/search/tunis.png',
+    locationId: 2,
     openingHours: {
       monday: { open: '10:00', close: '19:00' },
       tuesday: { open: '10:00', close: '19:00' },
@@ -563,5 +563,5 @@ export const ADDRESSES: Item[] = [
   { id: 2, name: 'Lyon' },
   { id: 3, name: 'Marseille' },
   { id: 4, name: 'Toulouse' },
-  { id: 5, name: 'Nice' },
+  { id: 5, name: 'Nice' }
 ];

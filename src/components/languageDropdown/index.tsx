@@ -26,11 +26,10 @@ export default function LanguageDropdown({
       </Button>
 
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={() => handleClose()} sx={langListStyle(variant, scrolled, inDrawer)}>
-        <MenuItem onClick={() => handleClose('EN')}>EN</MenuItem> 
+        <MenuItem onClick={() => handleClose('EN')}>EN</MenuItem>
         <MenuItem onClick={() => handleClose('AR')}>AR</MenuItem>
         <MenuItem onClick={() => handleClose('FR')}>FR</MenuItem>
       </Menu>
     </Box>
   );
 }
-

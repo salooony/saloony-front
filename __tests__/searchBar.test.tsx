@@ -17,7 +17,7 @@ const createRouter = () => ({
   refresh: jest.fn(),
   prefetch: jest.fn(),
   back: jest.fn(),
-  forward: jest.fn(),
+  forward: jest.fn()
 });
 
 const testTheme = createTheme();
