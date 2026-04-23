@@ -7,6 +7,7 @@ import NextLink from 'next/link';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import AuthLogin from '@src/sections/auth/auth-forms/AuthLogin';
 import Auth_Login from '@src/sections/auth/social-links';
 import {
@@ -15,7 +16,9 @@ import {
   loginIllustrationBoxStyle,
   loginTitleStyle,
   loginWrapperStyle,
-  noAccountTextStyle
+  noAccountTextStyle,
+  createAccountLinkStyle,
+  centerFlexStyle
 } from './style';
 export default function Login() {
   return (
@@ -33,7 +36,7 @@ export default function Login() {
       </Box>
 
       <Grid container sx={loginGridStyle}>
-        <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Grid size={{ xs: 12, md: 6 }} sx={centerFlexStyle}>
           <Box sx={formWrapperBoxStyle}>
             <Typography variant="h1" sx={loginTitleStyle}>
               Log in
@@ -43,16 +46,16 @@ export default function Login() {
 
             <Typography sx={noAccountTextStyle}>
               Don&apos;t have an account?{' '}
-              <NextLink href="/register" style={{ color: '#000000', textDecoration: 'none', fontWeight: 600 }}>
+              <Link component={NextLink} href="/register" sx={createAccountLinkStyle}>
                 Create one
-              </NextLink>
+              </Link>
             </Typography>
 
             <Auth_Login />
           </Box>
         </Grid>
 
-        <Grid size={{ xs: 0, md: 6 }} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Grid size={{ xs: 0, md: 6 }} sx={centerFlexStyle}>
           <Box sx={loginIllustrationBoxStyle}>
             <Image
               src="/assets/images/auth/login-illustration.png"

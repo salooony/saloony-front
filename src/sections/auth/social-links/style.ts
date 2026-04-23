@@ -47,7 +47,7 @@ export const iconBoxStyle: SxProps<Theme> = {
 
 export const iconStyle = (theme: Theme): SxProps<Theme> => ({
   fontSize: 24,
-  color: '#A88D67' // Gold color for social icons
+  color: theme.palette.primary.main
 });
 
 export const textStyle: SxProps<Theme> = {

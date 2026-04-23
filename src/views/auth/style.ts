@@ -31,15 +31,27 @@ export const loginIllustrationBoxStyle: SxProps<Theme> = {
 export const noAccountTextStyle: SxProps<Theme> = {
   mt: 2,
   textAlign: 'center',
-  color: '#7E7E7E',
+  color: 'text.secondary',
   fontSize: '14px',
   fontWeight: 400,
   fontFamily: 'Inter, sans-serif',
   '& a': {
-    color: '#7E7E7E',
+    color: 'text.secondary',
     textDecoration: 'none',
     fontWeight: 700
   }
+};
+
+export const createAccountLinkStyle: SxProps<Theme> = {
+  color: 'text.primary',
+  textDecoration: 'none',
+  fontWeight: 600
+};
+
+export const centerFlexStyle: SxProps<Theme> = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
 };
 
 export const formWrapperBoxStyle: SxProps<Theme> = {
@@ -62,5 +74,5 @@ export const loginTitleStyle: SxProps<Theme> = {
   fontSize: '45px',
   fontFamily: 'Inter, sans-serif',
   textAlign: 'left',
-  color: '#000000'
+  color: 'text.primary'
 };
