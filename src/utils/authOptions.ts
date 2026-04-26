@@ -75,7 +75,6 @@ export const authOptions: NextAuthOptions = {
           throw new Error('Invalid response from server!');
         } catch (e: any) {
           const errorMessage = e?.message || 'Something went wrong!';
-          console.error('Login authorize error:', errorMessage);
           throw new Error(errorMessage);
         }
       }

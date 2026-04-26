@@ -104,7 +104,7 @@ export const searchBoxStyle = (
   position: 'relative',
   display: 'flex',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'center'
 });
 
 /** Stays at 100% so the bar remains centered on the hero at all times. */

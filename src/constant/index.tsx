@@ -2,7 +2,6 @@ import { SocialBtn, SocialButtonsConfig } from '@src/types/auth';
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import { signIn } from 'next-auth/react';
-
 import { APP_DEFAULT_PATH } from '@src/config';
 
 export const buildSocialButtons = (config: SocialButtonsConfig = {}): SocialBtn[] => {

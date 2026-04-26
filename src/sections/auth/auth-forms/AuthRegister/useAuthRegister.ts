@@ -34,8 +34,8 @@ export const useAuthRegister = () => {
         mobileNumber: values?.phonenumber?.trim(),
         birthdate: values?.dateofbirth,
         password: values?.password,
-        role: 'Client',
-        language: 'French'
+        role: 'client',
+        language: 'french'
       });
 
       if (registerResult?.error) {

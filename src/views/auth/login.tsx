@@ -5,10 +5,9 @@ import NextLink from 'next/link';
 
 // material-ui
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
+import Link from '@mui/material/Link';
 import AuthLogin from '@src/sections/auth/auth-forms/AuthLogin';
 import Auth_Login from '@src/sections/auth/social-links';
 import {
@@ -17,14 +16,27 @@ import {
   loginIllustrationBoxStyle,
   loginTitleStyle,
   loginWrapperStyle,
-  noAccountTextStyle
+  noAccountTextStyle,
+  createAccountLinkStyle,
+  centerFlexStyle
 } from './style';
-
 export default function Login() {
   return (
     <Box sx={loginWrapperStyle}>
-      <Grid container spacing={3} sx={loginGridStyle}>
-        <Grid size={{ xs: 12, md: 6 }}>
+      {/* Saloony Logo */}
+      <Box sx={{ position: 'absolute', top: 5, left: 27 }}>
+        <Image
+          src="/assets/images/auth/saloony-logo-noir-png 1.png"
+          alt="Saloony Logo"
+          width={157}
+          height={111}
+          style={{ objectFit: 'contain' }}
+          priority
+        />
+      </Box>
+
+      <Grid container sx={loginGridStyle}>
+        <Grid size={{ xs: 12, md: 6 }} sx={centerFlexStyle}>
           <Box sx={formWrapperBoxStyle}>
             <Typography variant="h1" sx={loginTitleStyle}>
               Log in
@@ -34,7 +46,7 @@ export default function Login() {
 
             <Typography sx={noAccountTextStyle}>
               Don&apos;t have an account?{' '}
-              <Link component={NextLink} href="/register" sx={{ fontWeight: 'bold', ...noAccountTextStyle }}>
+              <Link component={NextLink} href="/register" sx={createAccountLinkStyle}>
                 Create one
               </Link>
             </Typography>
@@ -43,10 +55,10 @@ export default function Login() {
           </Box>
         </Grid>
 
-        <Grid size={{ xs: 0, md: 6 }}>
+        <Grid size={{ xs: 0, md: 6 }} sx={centerFlexStyle}>
           <Box sx={loginIllustrationBoxStyle}>
             <Image
-              src="/assets/images/auth/283236feb227c4e600d857182cf653d4cabce2c3 (2).png"
+              src="/assets/images/auth/login-illustration.png"
               alt="Login illustration"
               fill
               style={{ objectFit: 'contain' }}
