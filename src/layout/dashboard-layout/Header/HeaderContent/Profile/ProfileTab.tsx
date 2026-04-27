@@ -1,4 +1,6 @@
 import { useState } from 'react';
+// next
+import { useRouter } from 'next/navigation';
 
 // material-ui
 import List from '@mui/material/List';
@@ -17,41 +19,33 @@ interface Props {
   handleLogout: () => void;
 }
 
-// ==============================|| HEADER PROFILE - PROFILE TAB ||============================== //
+// Tab configuration for the profile menu.
+const tabs = [
+  { id: 0, label: 'Edit Profile', icon: <EditOutlined />, route: '/profile' },
+  { id: 1, label: 'View Profile', icon: <UserOutlined />, route: '/profile' },
+  { id: 3, label: 'Social Profile', icon: <ProfileOutlined /> },
+  { id: 4, label: 'Billing', icon: <WalletOutlined /> }
+];
 
 export default function ProfileTab({ handleLogout }: Props) {
+  const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState<number>();
-  const handleListItemClick = (event: React.MouseEvent<HTMLDivElement>, index: number) => {
+
+  const handleListItemClick = (index: number, route?: string) => {
     setSelectedIndex(index);
+    if (route) {
+      router.push(route);
+    }
   };
 
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
-      <ListItemButton selected={selectedIndex === 0} onClick={(event: React.MouseEvent<HTMLDivElement>) => handleListItemClick(event, 0)}>
-        <ListItemIcon>
-          <EditOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Edit Profile" />
-      </ListItemButton>
-      <ListItemButton selected={selectedIndex === 1} onClick={(event: React.MouseEvent<HTMLDivElement>) => handleListItemClick(event, 1)}>
-        <ListItemIcon>
-          <UserOutlined />
-        </ListItemIcon>
-        <ListItemText primary="View Profile" />
-      </ListItemButton>
-
-      <ListItemButton selected={selectedIndex === 3} onClick={(event: React.MouseEvent<HTMLDivElement>) => handleListItemClick(event, 3)}>
-        <ListItemIcon>
-          <ProfileOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Social Profile" />
-      </ListItemButton>
-      <ListItemButton selected={selectedIndex === 4} onClick={(event: React.MouseEvent<HTMLDivElement>) => handleListItemClick(event, 4)}>
-        <ListItemIcon>
-          <WalletOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Billing" />
-      </ListItemButton>
+      {tabs.map((tab) => (
+        <ListItemButton key={tab.id} selected={selectedIndex === tab.id} onClick={() => handleListItemClick(tab.id, tab.route)}>
+          <ListItemIcon>{tab.icon}</ListItemIcon>
+          <ListItemText primary={tab.label} />
+        </ListItemButton>
+      ))}
       <ListItemButton selected={selectedIndex === 2} onClick={handleLogout}>
         <ListItemIcon>
           <LogoutOutlined />

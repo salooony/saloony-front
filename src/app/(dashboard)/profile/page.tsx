@@ -1,4 +1,4 @@
-import { ProfileLayout } from '../../../sections/profile/ProfileLayout';
+import { ProfileLayout } from '@sections/profile/ProfileLayout';
 
 export const metadata = {
   title: 'Profile Management | Salooony'

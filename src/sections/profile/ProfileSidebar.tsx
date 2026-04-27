@@ -1,4 +1,5 @@
-import { Box, List, ListItemButton, ListItemText, Typography } from '@mui/material';
+import { Box, List, ListItemButton, ListItemText } from '@mui/material';
+import { signOut } from 'next-auth/react';
 import { PROFILE_MENU_ITEMS } from './profile-menu-items';
 
 interface ProfileSidebarProps {
@@ -11,66 +12,46 @@ interface ProfileSidebarProps {
  * Enforces strict domain UI logic for active states and layout constraints.
  */
 export const ProfileSidebar = ({ activeTab, onTabChange }: ProfileSidebarProps) => {
+  const sidebarItemStyle = (isActive: boolean = false) => ({
+    borderRadius: 2,
+    py: 1.5,
+    px: 2,
+    backgroundColor: isActive ? 'primary.lighter' : 'transparent',
+    '&:hover': {
+      backgroundColor: isActive ? 'primary.lighter' : 'action.hover'
+    }
+  });
+
+  const sidebarTextProps = (isActive: boolean = false, isError: boolean = false) => ({
+    primary: {
+      variant: 'subtitle1' as const,
+      fontWeight: isActive || isError ? 600 : 500,
+      color: isError ? 'error.main' : isActive ? 'text.primary' : 'text.secondary'
+    }
+  });
+
   return (
     <Box sx={{ width: '100%', maxWidth: 280, bgcolor: 'transparent' }}>
-      <Typography variant="h4" sx={{ mb: 3, fontWeight: 600 }}>
-        Profile Managment
-      </Typography>
-
       <List component="nav" sx={{ p: 0, display: 'flex', flexDirection: 'column', gap: 1 }}>
         {PROFILE_MENU_ITEMS.map((item) => {
           const isActive = activeTab === item.id;
-
           return (
-            <ListItemButton
-              key={item.id}
-              onClick={() => onTabChange(item.id)}
-              sx={{
-                borderRadius: 2,
-                py: 1.5,
-                px: 2,
-                backgroundColor: isActive ? 'primary.lighter' : 'transparent',
-                '&:hover': {
-                  backgroundColor: isActive ? 'primary.lighter' : 'action.hover'
-                }
-              }}
-            >
-              <ListItemText
-                primary={item.label}
-                primaryTypographyProps={{
-                  variant: 'subtitle1',
-                  fontWeight: isActive ? 600 : 500,
-                  color: isActive ? 'text.primary' : 'text.secondary'
-                }}
-              />
+            <ListItemButton key={item.id} onClick={() => onTabChange(item.id)} sx={sidebarItemStyle(isActive)}>
+              <ListItemText primary={item.label} slotProps={sidebarTextProps(isActive)} />
             </ListItemButton>
           );
         })}
 
         {/* Dedicated Log Out Button */}
         <ListItemButton
-          onClick={() => {
-            // Placeholder: Wire up NextAuth or logout logic here eventually.
-            console.log('Logging out...');
-          }}
+          onClick={() => signOut()}
           sx={{
-            borderRadius: 2,
-            py: 1.5,
-            px: 2,
+            ...sidebarItemStyle(false),
             mt: 2,
-            '&:hover': {
-              backgroundColor: 'error.lighter'
-            }
+            '&:hover': { backgroundColor: 'error.lighter' }
           }}
         >
-          <ListItemText
-            primary="Log out"
-            primaryTypographyProps={{
-              variant: 'subtitle1',
-              fontWeight: 600,
-              color: 'error.main'
-            }}
-          />
+          <ListItemText primary="Log out" slotProps={sidebarTextProps(false, true)} />
         </ListItemButton>
       </List>
     </Box>

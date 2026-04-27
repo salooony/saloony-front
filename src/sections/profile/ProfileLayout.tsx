@@ -1,10 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Grid } from '@mui/material';
-import { ProfileSidebar } from './ProfileSidebar';
-import { ProfilePlaceholder } from './ProfilePlaceholder';
-import { PROFILE_MENU_ITEMS } from './profile-menu-items';
+// material-ui
+import { Box, Grid, Typography } from '@mui/material';
+// project imports
+import { ProfileSidebar } from '@sections/profile/ProfileSidebar';
+import { ProfilePlaceholder } from '@sections/profile/ProfilePlaceholder';
+import { PROFILE_MENU_ITEMS } from '@sections/profile/profile-menu-items';
+import { PersonalInformation } from '@sections/profile/PersonalInformation';
+import { profileWrapperStyle, profileTitleStyle } from '@sections/profile/style';
 
 /**
  * Main layout container for the Profile Management section.
@@ -15,8 +19,21 @@ export const ProfileLayout = () => {
 
   const activeItem = PROFILE_MENU_ITEMS.find((item) => item.id === activeTab) || PROFILE_MENU_ITEMS[0];
 
+  const renderContent = () => {
+    switch (activeTab) {
+      case 'personal-information':
+        return <PersonalInformation />;
+      default:
+        return <ProfilePlaceholder title={activeItem.label} />;
+    }
+  };
+
   return (
-    <Box sx={{ width: '100%', maxWidth: 1200, mx: 'auto', py: 4, px: { xs: 2, md: 3 } }}>
+    <Box sx={profileWrapperStyle}>
+      <Typography variant="h3" sx={profileTitleStyle}>
+        Profile Management
+      </Typography>
+
       <Grid container spacing={4}>
         {/* Left Sidebar Pane */}
         <Grid size={{ xs: 12, md: 3 }}>
@@ -25,10 +42,7 @@ export const ProfileLayout = () => {
 
         {/* Right Content Pane */}
         <Grid size={{ xs: 12, md: 9 }}>
-          <Box sx={{ pt: { xs: 2, md: 8 } }}>
-            {/* The placeholder simulates rendering the active component for the selected tab */}
-            <ProfilePlaceholder title={activeItem.label} />
-          </Box>
+          <Box>{renderContent()}</Box>
         </Grid>
       </Grid>
     </Box>
