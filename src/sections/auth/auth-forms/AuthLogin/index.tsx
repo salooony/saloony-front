@@ -56,7 +56,7 @@ export default function AuthLogin({ providers, csrfToken }: any) {
             <Grid container direction="column" alignItems="center">
               <Grid size={{ xs: 12 }}>
                 <Box sx={{ position: 'relative' }}>
-                  <InputLabel htmlFor="email-login" sx={inputLabelStyle}>
+                  <InputLabel htmlFor="email-login" sx={{ ...inputLabelStyle, opacity: values.email ? 0 : 1 }}>
                     Email
                   </InputLabel>
                   <OutlinedInput
@@ -97,7 +97,7 @@ export default function AuthLogin({ providers, csrfToken }: any) {
               </Grid>
               <Grid size={{ xs: 12 }} sx={{ mt: 2 }}>
                 <Box sx={{ position: 'relative' }}>
-                  <InputLabel htmlFor="password-login" sx={inputLabelStyle}>
+                  <InputLabel htmlFor="password-login" sx={{ ...inputLabelStyle, opacity: values.password ? 0 : 1 }}>
                     Password
                   </InputLabel>
                   <OutlinedInput

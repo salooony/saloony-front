@@ -10,6 +10,9 @@ type DecodedAuthToken = {
   email?: string;
   name?: string;
   role?: string;
+  firstname?: string;
+  lastname?: string;
+  mobileNumber?: string;
 };
 
 export const authOptions: NextAuthOptions = {
@@ -46,36 +49,35 @@ export const authOptions: NextAuthOptions = {
           const data = await response.json();
 
           if (!response.ok) {
-            const errorMessage = data.message || data.error || 'Login failed!';
-            throw new Error(errorMessage);
+            throw new Error(data.message || data.error || 'Login failed!');
           }
 
           if (data.accessToken) {
             // Decode JWT to extract user info
             const decoded = parseJwt(data.accessToken) as DecodedAuthToken;
 
+            const nameFromToken = decoded?.name;
+            const nameFromFields =
+              decoded?.firstname || decoded?.lastname ? `${decoded?.firstname ?? ''} ${decoded?.lastname ?? ''}`.trim() : undefined;
+            const nameFromEmail = decoded?.email?.split('@')[0] || credentials?.email?.split('@')[0] || 'User';
+
             const user = {
-              id: decoded?.sub || credentials?.email,
-              email: decoded?.email || credentials?.email,
-              name: decoded?.name || decoded?.email?.split('@')[0] || credentials?.email?.split('@')[0],
-              role: decoded?.role || 'user',
+              id: decoded?.sub ?? credentials?.email ?? '',
+              email: decoded?.email ?? credentials?.email ?? '',
+              name: nameFromToken ?? nameFromFields ?? nameFromEmail,
+              role: decoded?.role ?? 'user',
+              firstname: decoded?.firstname,
+              lastname: decoded?.lastname,
+              mobileNumber: decoded?.mobileNumber,
               accessToken: data.accessToken,
               refreshToken: data.refreshToken
             };
             return user;
           }
 
-          // Fallback: Handle old response structure with data.user
-          if (data.user) {
-            data.user.accessToken = data.serviceToken || data.accessToken;
-            data.user.refreshToken = data.refreshToken;
-            return data.user;
-          }
-
           throw new Error('Invalid response from server!');
         } catch (e: any) {
-          const errorMessage = e?.message || 'Something went wrong!';
-          throw new Error(errorMessage);
+          throw new Error(e?.message || 'Something went wrong!');
         }
       }
     }),
@@ -189,6 +191,9 @@ export const authOptions: NextAuthOptions = {
         token.refreshToken = user.refreshToken;
         token.id = user.id;
         token.role = user.role;
+        token.firstname = user.firstname;
+        token.lastname = user.lastname;
+        token.mobileNumber = user.mobileNumber;
         token.provider = account?.provider;
       }
       return token;
@@ -201,6 +206,9 @@ export const authOptions: NextAuthOptions = {
         // Add user info to session
         if (session.user) {
           session.user.role = token.role;
+          session.user.firstname = token.firstname;
+          session.user.lastname = token.lastname;
+          session.user.mobileNumber = token.mobileNumber;
         }
       }
       return session;
