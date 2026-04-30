@@ -33,6 +33,7 @@ import {
   personalInfoWrapperStyle,
   creditCardContentBoxStyle
 } from '@sections/profile/personal-info-style';
+import { PROFILE_TEXTS, PERSONAL_INFO_FIELDS } from './profile-constants';
 
 /**
  * Reusable form field component to maintain DRY principles.
@@ -45,8 +46,8 @@ interface ProfileFormFieldProps {
   touched?: boolean;
   disabled?: boolean;
   sx?: SxProps<Theme>;
-  onBlur?: (e: React.FocusEvent<any>) => void;
-  onChange?: (e: React.ChangeEvent<any>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   placeholder?: string;
   type?: string;
 }
@@ -100,32 +101,21 @@ export const PersonalInformation = () => {
       {/* My Contact Details */}
       <Card sx={cardStyle}>
         <Typography variant="h5" sx={sectionTitleStyle}>
-          My contact details
+          {PROFILE_TEXTS.CONTACT_DETAILS_TITLE}
         </Typography>
 
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-          {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }: FormikProps<PersonalInfoValues>) => (
+          {({ errors, handleBlur, handleChange, handleSubmit, handleReset, isSubmitting, touched, values }: FormikProps<PersonalInfoValues>) => (
             <form noValidate onSubmit={handleSubmit}>
               <Grid container spacing={2}>
-                {[
-                  { label: 'First Name*', name: 'firstname', value: values.firstname, touched: touched.firstname, error: errors.firstname },
-                  { label: 'Last Name*', name: 'lastname', value: values.lastname, touched: touched.lastname, error: errors.lastname },
-                  { label: 'Email address*', name: 'email', value: values.email, disabled: true, sx: readOnlyInputFieldStyle },
-                  {
-                    label: 'Phone Number*',
-                    name: 'phonenumber',
-                    value: values.phonenumber,
-                    touched: touched.phonenumber,
-                    error: errors.phonenumber
-                  }
-                ].map((field) => (
+                {PERSONAL_INFO_FIELDS.map((field) => (
                   <ProfileFormField
                     key={field.name}
                     label={field.label}
-                    name={field.name as any}
-                    value={field.value}
-                    error={field.error as string}
-                    touched={field.touched}
+                    name={field.name}
+                    value={values[field.name]}
+                    error={errors[field.name]}
+                    touched={touched[field.name]}
                     onBlur={handleBlur}
                     onChange={handleChange}
                     disabled={field.disabled}
@@ -133,11 +123,11 @@ export const PersonalInformation = () => {
                   />
                 ))}
                 <Grid size={{ xs: 12 }} sx={contactActionBoxStyle}>
-                  <Button variant="outlined" color="inherit" sx={cancelButtonStyle}>
-                    Cancel
+                  <Button variant="outlined" color="inherit" sx={cancelButtonStyle} onClick={() => handleReset()}>
+                    {PROFILE_TEXTS.CANCEL_BUTTON}
                   </Button>
                   <Button type="submit" variant="contained" disabled={isSubmitting} sx={saveButtonStyle}>
-                    Save
+                    {PROFILE_TEXTS.SAVE_BUTTON}
                   </Button>
                 </Grid>
               </Grid>
@@ -149,11 +139,11 @@ export const PersonalInformation = () => {
       {/* Credit Cards */}
       <Card sx={creditCardCardStyle}>
         <Typography variant="h5" sx={sectionTitleStyle}>
-          Credit cards
+          {PROFILE_TEXTS.CREDIT_CARDS_TITLE}
         </Typography>
         <Box sx={creditCardContentBoxStyle}>
           <Typography variant="body2" color="text.disabled" sx={creditCardFooterStyle}>
-            want to add another card? Book an appointment or place an order and select &quot;Add a card&quot; before confirming
+            {PROFILE_TEXTS.ADD_CARD_HINT}
           </Typography>
         </Box>
       </Card>
@@ -161,28 +151,28 @@ export const PersonalInformation = () => {
       {/* Password */}
       <Card sx={cardStyle}>
         <Typography variant="h5" sx={sectionTitleStyle}>
-          Password
+          {PROFILE_TEXTS.PASSWORD_TITLE}
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={passwordInstructionStyle}>
-          To change your password, please enter your current password to confirm your identity.
+          {PROFILE_TEXTS.PASSWORD_INSTRUCTION}
         </Typography>
         <Grid container spacing={2}>
           <ProfileFormField
-            label="Password*"
-            name="submit"
+            label={`${PROFILE_TEXTS.PASSWORD_TITLE}*`}
+            name="currentPassword"
             value=""
-            placeholder="Enter your current password"
+            placeholder={PROFILE_TEXTS.PASSWORD_PLACEHOLDER}
             type="password"
             sx={passwordInputStyle}
           />
         </Grid>
         <Button variant="contained" disabled sx={{ ...confirmButtonStyle, mt: 3 }}>
-          Confirm
+          {PROFILE_TEXTS.CONFIRM_BUTTON}
         </Button>
       </Card>
 
       <Button variant="outlined" sx={logoutButtonStyle} onClick={() => signOut()}>
-        Log out
+        {PROFILE_TEXTS.LOGOUT_BUTTON}
       </Button>
     </Box>
   );

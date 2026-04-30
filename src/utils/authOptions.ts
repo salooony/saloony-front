@@ -191,9 +191,9 @@ export const authOptions: NextAuthOptions = {
         token.refreshToken = user.refreshToken;
         token.id = user.id;
         token.role = user.role;
-        token.firstname = (user as any).firstname;
-        token.lastname = (user as any).lastname;
-        token.mobileNumber = (user as any).mobileNumber;
+        token.firstname = user.firstname;
+        token.lastname = user.lastname;
+        token.mobileNumber = user.mobileNumber;
         token.provider = account?.provider;
       }
       return token;
@@ -206,9 +206,9 @@ export const authOptions: NextAuthOptions = {
         // Add user info to session
         if (session.user) {
           session.user.role = token.role;
-          (session.user as any).firstname = token.firstname;
-          (session.user as any).lastname = token.lastname;
-          (session.user as any).mobileNumber = token.mobileNumber;
+          session.user.firstname = token.firstname;
+          session.user.lastname = token.lastname;
+          session.user.mobileNumber = token.mobileNumber;
         }
       }
       return session;

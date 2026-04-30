@@ -18,6 +18,9 @@ declare module 'next-auth' {
       email?: string | null;
       image?: string | null;
       role?: string;
+      firstname?: string;
+      lastname?: string;
+      mobileNumber?: string;
     };
   }
 
@@ -28,6 +31,9 @@ declare module 'next-auth' {
     role?: string;
     accessToken?: string;
     refreshToken?: string;
+    firstname?: string;
+    lastname?: string;
+    mobileNumber?: string;
   }
 }
 
@@ -38,5 +44,8 @@ declare module 'next-auth/jwt' {
     provider?: string;
     accessToken?: string;
     refreshToken?: string;
+    firstname?: string;
+    lastname?: string;
+    mobileNumber?: string;
   }
 }

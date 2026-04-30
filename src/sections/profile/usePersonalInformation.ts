@@ -12,7 +12,7 @@ export interface PersonalInfoValues {
   lastname: string;
   email: string;
   phonenumber: string;
-  submit: null;
+  currentPassword: string;
 }
 
 /**
@@ -22,11 +22,11 @@ export const usePersonalInformation = () => {
   const { data: session } = useSession();
 
   const initialValues: PersonalInfoValues = {
-    firstname: (session?.user as any)?.firstname ?? '',
-    lastname: (session?.user as any)?.lastname ?? '',
+    firstname: session?.user?.firstname ?? '',
+    lastname: session?.user?.lastname ?? '',
     email: session?.user?.email ?? '',
-    phonenumber: (session?.user as any)?.mobileNumber ?? '',
-    submit: null
+    phonenumber: session?.user?.mobileNumber ?? '',
+    currentPassword: ''
   };
 
   const validationSchema = Yup.object().shape({
