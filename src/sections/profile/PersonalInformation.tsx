@@ -21,7 +21,6 @@ import {
   labelStyle,
   logoutButtonStyle,
   inputFieldStyle,
-  readOnlyInputFieldStyle,
   contactActionBoxStyle,
   saveButtonStyle,
   cancelButtonStyle,
@@ -105,7 +104,16 @@ export const PersonalInformation = () => {
         </Typography>
 
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
-          {({ errors, handleBlur, handleChange, handleSubmit, handleReset, isSubmitting, touched, values }: FormikProps<PersonalInfoValues>) => (
+          {({
+            errors,
+            handleBlur,
+            handleChange,
+            handleSubmit,
+            handleReset,
+            isSubmitting,
+            touched,
+            values
+          }: FormikProps<PersonalInfoValues>) => (
             <form noValidate onSubmit={handleSubmit}>
               <Grid container spacing={2}>
                 {PERSONAL_INFO_FIELDS.map((field) => (
