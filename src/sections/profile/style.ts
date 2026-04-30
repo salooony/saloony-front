@@ -48,3 +48,6 @@ export const sidebarTextProps = (isActive: boolean = false, isError: boolean = f
     color: isError ? 'error.main' : isActive ? 'text.primary' : 'text.secondary'
   }
 });
+
+export const sidebarGridSize = { xs: 12, md: 3 };
+export const contentGridSize = { xs: 12, md: 9 };

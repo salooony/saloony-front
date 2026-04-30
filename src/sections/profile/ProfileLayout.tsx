@@ -8,7 +8,7 @@ import { ProfileSidebar } from '@sections/profile/ProfileSidebar';
 import { ProfilePlaceholder } from '@sections/profile/ProfilePlaceholder';
 import { PROFILE_MENU_ITEMS } from '@sections/profile/profile-menu-items';
 import { PersonalInformation } from '@sections/profile/PersonalInformation';
-import { profileWrapperStyle, profileTitleStyle } from '@sections/profile/style';
+import { profileWrapperStyle, profileTitleStyle, sidebarGridSize, contentGridSize } from '@sections/profile/style';
 
 /**
  * Main layout container for the Profile Management section.
@@ -36,12 +36,12 @@ export const ProfileLayout = () => {
 
       <Grid container spacing={4}>
         {/* Left Sidebar Pane */}
-        <Grid size={{ xs: 12, md: 3 }}>
+        <Grid size={sidebarGridSize}>
           <ProfileSidebar activeTab={activeTab} onTabChange={setActiveTab} />
         </Grid>
 
         {/* Right Content Pane */}
-        <Grid size={{ xs: 12, md: 9 }}>
+        <Grid size={contentGridSize}>
           <Box>{renderContent()}</Box>
         </Grid>
       </Grid>
